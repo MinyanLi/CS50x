@@ -1,0 +1,56 @@
+sort1 uses: bubble sort
+
+How do you know?:
+When sorting reversed files, running time should reflect O.
+When sorting sorted files, running time should reflect omega.
+When n is a very large number, O of selection sort and bubble sort should be significantly larger than merge sort. This means the program which uses shortest time to sort the reversed files is using merge sort.
+When n is a very large number, omega of selection sort should be significantly larger than bubble sort and merge sort. This means the program which uses longest time to sort the sorted files is using selection sort.
+
+running time of reversed50000.txt
+sort1 > sort3 >> sort2
+
+running time of sorted50000.txt
+sort3 >> sort1 > sort2
+
+run reversed50000.txt with sort1 for 3 times.
+time1: 5.901s
+time2: 6.074s
+time3: 6.115s
+average time: 6.363s
+
+run sorted50000.txt with sort1 for 3 times.
+time1: 0.817s
+time2: 1.543s
+time3: 1.028s
+average time: 1.129s
+
+
+sort2 uses: merge sort
+
+How do you know?:
+run reversed50000.txt with sort2 for 3 times.
+time1: 0.842s
+time2: 0.828s
+time3: 0.882s
+average time: 0.851s
+
+run sorted50000.txt with sort2 for 3 times.
+time1: 0.881
+time2: 0.794s
+time3: 0.875s
+average time: 0.850s
+
+sort3 uses: selection sort
+
+How do you know?:
+run reversed50000.txt with sort3 for 3 times.
+time1: 4.555s
+time2: 3.422s
+time3: 3.497s
+average time: 3.825s
+
+run sorted50000.txt with sort3 for 3 times.
+time1: 3.503s
+time2: 4.401s
+time3: 3.898s
+average time: 3.934s

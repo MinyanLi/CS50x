@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://video.cs50.io/-Bhxxw6JKKY -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="Sort - Walkthrough - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/-Bhxxw6JKKY">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            Sort - Walkthrough - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1080.0" data-gr-ext-installed="">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍧" src="./1f367.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🥥" src="./1f965.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/-Bhxxw6JKKY?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN YU: In this lab, your task is going</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="2" href="https://video.cs50.io/-Bhxxw6JKKY?start=2"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:02</span></span><span data-text="">to be to determine which sorting algorithm various different programs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="6" href="https://video.cs50.io/-Bhxxw6JKKY?start=6"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:06</span></span><span data-text="">use.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="7" href="https://video.cs50.io/-Bhxxw6JKKY?start=7"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:07</span></span><span data-text="">We've been introduced, now, to three different sorting algorithms--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="10" href="https://video.cs50.io/-Bhxxw6JKKY?start=10"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:10</span></span><span data-text="">selection sort, bubble sort, and merge sort.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="14" href="https://video.cs50.io/-Bhxxw6JKKY?start=14"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:14</span></span><span data-text="">Recall that in selection sort, the way the algorithm works</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="17" href="https://video.cs50.io/-Bhxxw6JKKY?start=17"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:17</span></span><span data-text="">is by taking an array of numbers and repeating some process--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="21" href="https://video.cs50.io/-Bhxxw6JKKY?start=21"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:21</span></span><span data-text="">the process of looking through that entire array of numbers</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="23" href="https://video.cs50.io/-Bhxxw6JKKY?start=23"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:23</span></span><span data-text="">to try and find the smallest item in that entire array,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="27" href="https://video.cs50.io/-Bhxxw6JKKY?start=27"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:27</span></span><span data-text="">and then bringing that smallest item to the beginning of the array.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="31" href="https://video.cs50.io/-Bhxxw6JKKY?start=31"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:31</span></span><span data-text="">Then we search through the remainder of the array,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="33" href="https://video.cs50.io/-Bhxxw6JKKY?start=33"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:33</span></span><span data-text="">looking for the next smallest item, and when we find it,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="35" href="https://video.cs50.io/-Bhxxw6JKKY?start=35"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:35</span></span><span data-text="">we bring that next smallest item back to the beginning of the array,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="39" href="https://video.cs50.io/-Bhxxw6JKKY?start=39"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:39</span></span><span data-text="">and we repeat that process, continually looking through the remaining</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="42" href="https://video.cs50.io/-Bhxxw6JKKY?start=42"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:42</span></span><span data-text="">unsorted portion of the array, finding the smallest element,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="46" href="https://video.cs50.io/-Bhxxw6JKKY?start=46"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:46</span></span><span data-text="">and swapping it with the element in the next position.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="49" href="https://video.cs50.io/-Bhxxw6JKKY?start=49"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:49</span></span><span data-text="">Once we repeat that process through the entire array,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="52" href="https://video.cs50.io/-Bhxxw6JKKY?start=52"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:52</span></span><span data-text="">we'll end up with a sorted array.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="55" href="https://video.cs50.io/-Bhxxw6JKKY?start=55"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:55</span></span><span data-text="">Meanwhile, bubble sort works a little bit differently.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="58" href="https://video.cs50.io/-Bhxxw6JKKY?start=58"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:58</span></span><span data-text="">It also makes passes through the array, but it compares two values at a time.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="63" href="https://video.cs50.io/-Bhxxw6JKKY?start=63"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:03</span></span><span data-text="">It looks at every pair of values and tries</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="65" href="https://video.cs50.io/-Bhxxw6JKKY?start=65"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:05</span></span><span data-text="">to determine whether that pair of numbers is in the correct order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="68" href="https://video.cs50.io/-Bhxxw6JKKY?start=68"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:08</span></span><span data-text="">That is to say, if you're trying to sort from smallest to largest, making sure</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="72" href="https://video.cs50.io/-Bhxxw6JKKY?start=72"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:12</span></span><span data-text="">that for any pair of two numbers, the smaller number is</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="75" href="https://video.cs50.io/-Bhxxw6JKKY?start=75"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:15</span></span><span data-text="">to the left of the larger number.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="78" href="https://video.cs50.io/-Bhxxw6JKKY?start=78"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:18</span></span><span data-text="">And what bubbles sort does is that if it finds two numbers that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="80" href="https://video.cs50.io/-Bhxxw6JKKY?start=80"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:20</span></span><span data-text="">are out of order, then it swaps them.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="83" href="https://video.cs50.io/-Bhxxw6JKKY?start=83"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:23</span></span><span data-text="">And bubble sort will continually go through this process</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="85" href="https://video.cs50.io/-Bhxxw6JKKY?start=85"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:25</span></span><span data-text="">of considering pairs of values and swapping them if necessary, until it</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="89" href="https://video.cs50.io/-Bhxxw6JKKY?start=89"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:29</span></span><span data-text="">gets to the end of the array.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="92" href="https://video.cs50.io/-Bhxxw6JKKY?start=92"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:32</span></span><span data-text="">Finally, merge sort works fundamentally differently.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="95" href="https://video.cs50.io/-Bhxxw6JKKY?start=95"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:35</span></span><span data-text="">It works by taking an array and dividing it into a left half and a right half,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="100" href="https://video.cs50.io/-Bhxxw6JKKY?start=100"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:40</span></span><span data-text="">and sorting each of those halves first, and after we've recursively</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="103" href="https://video.cs50.io/-Bhxxw6JKKY?start=103"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:43</span></span><span data-text="">sorted each of those halves, we merge those halves back together.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="107" href="https://video.cs50.io/-Bhxxw6JKKY?start=107"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:47</span></span><span data-text="">By repeating this process recursively again and again,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="110" href="https://video.cs50.io/-Bhxxw6JKKY?start=110"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:50</span></span><span data-text="">we can build up an entire sorted array very quickly.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="114" href="https://video.cs50.io/-Bhxxw6JKKY?start=114"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:54</span></span><span data-text="">Each of these algorithms can be analyzed in terms of their running time,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="118" href="https://video.cs50.io/-Bhxxw6JKKY?start=118"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:58</span></span><span data-text="">in terms of big O--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="119" href="https://video.cs50.io/-Bhxxw6JKKY?start=119"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:59</span></span><span data-text="">the upper bound on the number of steps required to complete the sort--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="123" href="https://video.cs50.io/-Bhxxw6JKKY?start=123"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:03</span></span><span data-text="">and as well as big omega--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="125" href="https://video.cs50.io/-Bhxxw6JKKY?start=125"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:05</span></span><span data-text="">the lower bound on the number of steps required to complete the sort.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="129" href="https://video.cs50.io/-Bhxxw6JKKY?start=129"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:09</span></span><span data-text="">In this case, we can see that for a selection sort, it has both a big O</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="133" href="https://video.cs50.io/-Bhxxw6JKKY?start=133"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:13</span></span><span data-text="">and a big omega of n squared.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="136" href="https://video.cs50.io/-Bhxxw6JKKY?start=136"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:16</span></span><span data-text="">That is to say that if there are n numbers that we are trying to sort,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="139" href="https://video.cs50.io/-Bhxxw6JKKY?start=139"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:19</span></span><span data-text="">it might take about n squared steps in order to actually complete that sorting</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="143" href="https://video.cs50.io/-Bhxxw6JKKY?start=143"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:23</span></span><span data-text="">algorithm.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="144" href="https://video.cs50.io/-Bhxxw6JKKY?start=144"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:24</span></span><span data-text="">Bubble sort, meanwhile, also has a big O of n squared.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="148" href="https://video.cs50.io/-Bhxxw6JKKY?start=148"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:28</span></span><span data-text="">As an upper bound, it still might take on the order of n squared steps to sort</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="152" href="https://video.cs50.io/-Bhxxw6JKKY?start=152"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:32</span></span><span data-text="">n numbers, but it has a big omega of n.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="156" href="https://video.cs50.io/-Bhxxw6JKKY?start=156"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:36</span></span><span data-text="">That is to say, if we were to get lucky and we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="158" href="https://video.cs50.io/-Bhxxw6JKKY?start=158"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:38</span></span><span data-text="">were given an array that's already sorted, for example,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="161" href="https://video.cs50.io/-Bhxxw6JKKY?start=161"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:41</span></span><span data-text="">bubble sort could sort n items and using just n steps</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="165" href="https://video.cs50.io/-Bhxxw6JKKY?start=165"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:45</span></span><span data-text="">by making one pass through the array, concluding</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="168" href="https://video.cs50.io/-Bhxxw6JKKY?start=168"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:48</span></span><span data-text="">that no swaps are necessary, and then not continuing on with anything else,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="172" href="https://video.cs50.io/-Bhxxw6JKKY?start=172"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:52</span></span><span data-text="">because the array is already sorted.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="174" href="https://video.cs50.io/-Bhxxw6JKKY?start=174"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:54</span></span><span data-text="">Meanwhile, merge sort has a running time of big O of n log n, and big omega of n</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="179" href="https://video.cs50.io/-Bhxxw6JKKY?start=179"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:59</span></span><span data-text="">log n as well, meaning that if there are n numbers that we are trying to sort,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="184" href="https://video.cs50.io/-Bhxxw6JKKY?start=184"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:04</span></span><span data-text="">this algorithm is going to take on the order of n times log n steps</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="188" href="https://video.cs50.io/-Bhxxw6JKKY?start=188"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:08</span></span><span data-text="">in order to sort all of those numbers.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="191" href="https://video.cs50.io/-Bhxxw6JKKY?start=191"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:11</span></span><span data-text="">That's better than n squared, though not nearly as good as big omega of n,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="196" href="https://video.cs50.io/-Bhxxw6JKKY?start=196"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:16</span></span><span data-text="">for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="198" href="https://video.cs50.io/-Bhxxw6JKKY?start=198"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:18</span></span><span data-text="">Your task now, in this lab, is that we are going to give you three programs--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="202" href="https://video.cs50.io/-Bhxxw6JKKY?start=202"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:22</span></span><span data-text="">sort1, sort2, and sort3.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="205" href="https://video.cs50.io/-Bhxxw6JKKY?start=205"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:25</span></span><span data-text="">One of them uses selection sort.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="207" href="https://video.cs50.io/-Bhxxw6JKKY?start=207"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:27</span></span><span data-text="">One of them uses bubble sort.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="208" href="https://video.cs50.io/-Bhxxw6JKKY?start=208"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:28</span></span><span data-text="">And one of them uses merge sort, but we're not telling you which is which.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="212" href="https://video.cs50.io/-Bhxxw6JKKY?start=212"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:32</span></span><span data-text="">Your task is going to be to run these sorting algorithm</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="215" href="https://video.cs50.io/-Bhxxw6JKKY?start=215"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:35</span></span><span data-text="">programs on various different inputs--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="217" href="https://video.cs50.io/-Bhxxw6JKKY?start=217"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:37</span></span><span data-text="">lists of numbers of different sizes and different orders--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="221" href="https://video.cs50.io/-Bhxxw6JKKY?start=221"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:41</span></span><span data-text="">and to try to determine which algorithm corresponds to which program.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="226" href="https://video.cs50.io/-Bhxxw6JKKY?start=226"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:46</span></span><span data-text="">The files we give you are going to be these.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="229" href="https://video.cs50.io/-Bhxxw6JKKY?start=229"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:49</span></span><span data-text="">We'll give you a file called random5000.txt,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="232" href="https://video.cs50.io/-Bhxxw6JKKY?start=232"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:52</span></span><span data-text="">for example, which will be a text file that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="235" href="https://video.cs50.io/-Bhxxw6JKKY?start=235"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:55</span></span><span data-text="">contains 5,000 numbers in random order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="238" href="https://video.cs50.io/-Bhxxw6JKKY?start=238"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:58</span></span><span data-text="">Likewise, random10000.txt and random50000.txt</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="243" href="https://video.cs50.io/-Bhxxw6JKKY?start=243"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:03</span></span><span data-text="">will contain 10,000 50,000 numbers, respectively, all in random order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="248" href="https://video.cs50.io/-Bhxxw6JKKY?start=248"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:08</span></span><span data-text="">In addition to files in random order, we'll</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="250" href="https://video.cs50.io/-Bhxxw6JKKY?start=250"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:10</span></span><span data-text="">also give you files called reversed5000.txt and reverse10000.txt,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="254" href="https://video.cs50.io/-Bhxxw6JKKY?start=254"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:14</span></span><span data-text="">and so forth, each of which will also contain numbers, but this time</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="258" href="https://video.cs50.io/-Bhxxw6JKKY?start=258"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:18</span></span><span data-text="">in reverse order, from largest to smallest.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="261" href="https://video.cs50.io/-Bhxxw6JKKY?start=261"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:21</span></span><span data-text="">And finally, we also give you sorted5000 and sorted10000.txt,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="266" href="https://video.cs50.io/-Bhxxw6JKKY?start=266"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:26</span></span><span data-text="">which again will be text files that just contain numbers, one on each line,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="270" href="https://video.cs50.io/-Bhxxw6JKKY?start=270"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:30</span></span><span data-text="">but this time the numbers will already be in sorted order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="273" href="https://video.cs50.io/-Bhxxw6JKKY?start=273"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:33</span></span><span data-text="">from smallest to largest.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="276" href="https://video.cs50.io/-Bhxxw6JKKY?start=276"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:36</span></span><span data-text="">Let's take a look at what you might do with these files.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="279" href="https://video.cs50.io/-Bhxxw6JKKY?start=279"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:39</span></span><span data-text="">Here's the distribution code for the sort lab.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="282" href="https://video.cs50.io/-Bhxxw6JKKY?start=282"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:42</span></span><span data-text="">You'll notice that we have our three programs--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="284" href="https://video.cs50.io/-Bhxxw6JKKY?start=284"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:44</span></span><span data-text="">sort1, sort2, and sort3--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="287" href="https://video.cs50.io/-Bhxxw6JKKY?start=287"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:47</span></span><span data-text="">and we also have these files.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="289" href="https://video.cs50.io/-Bhxxw6JKKY?start=289"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:49</span></span><span data-text="">Random5000.txt, for example, is going to be a file with 5,000 lines,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="294" href="https://video.cs50.io/-Bhxxw6JKKY?start=294"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:54</span></span><span data-text="">each with numbers, where those numbers are not in any particular order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="298" href="https://video.cs50.io/-Bhxxw6JKKY?start=298"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:58</span></span><span data-text="">Meanwhile, reversed5000.txt is going to be a text file that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="301" href="https://video.cs50.io/-Bhxxw6JKKY?start=301"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:01</span></span><span data-text="">also has 5,000 numbers, but this time they're in reverse order,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="305" href="https://video.cs50.io/-Bhxxw6JKKY?start=305"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:05</span></span><span data-text="">from largest to smallest.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="308" href="https://video.cs50.io/-Bhxxw6JKKY?start=308"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:08</span></span><span data-text="">And finally, files like sorted5000.txt will give you</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="311" href="https://video.cs50.io/-Bhxxw6JKKY?start=311"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:11</span></span><span data-text="">5,000 lines of numbers, where they're in sorted order in ascending order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="315" href="https://video.cs50.io/-Bhxxw6JKKY?start=315"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:15</span></span><span data-text="">from smallest, all the way to largest.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="318" href="https://video.cs50.io/-Bhxxw6JKKY?start=318"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:18</span></span><span data-text="">You can then use these sorting programs-- sort1, sort2, and sort3--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="324" href="https://video.cs50.io/-Bhxxw6JKKY?start=324"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:24</span></span><span data-text="">to try to see how you would go about sorting,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="326" href="https://video.cs50.io/-Bhxxw6JKKY?start=326"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:26</span></span><span data-text="">and how long it might take to sort any of these files.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="329" href="https://video.cs50.io/-Bhxxw6JKKY?start=329"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:29</span></span><span data-text="">For example, I might run ./sort1 on, let's say, random5000.txt.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="338" href="https://video.cs50.io/-Bhxxw6JKKY?start=338"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:38</span></span><span data-text="">And what you'll see when I run that program is the program</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="341" href="https://video.cs50.io/-Bhxxw6JKKY?start=341"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:41</span></span><span data-text="">will sort those numbers using some sorting algorithm,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="344" href="https://video.cs50.io/-Bhxxw6JKKY?start=344"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:44</span></span><span data-text="">and then print those numbers in sorted order from smallest to largest.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="348" href="https://video.cs50.io/-Bhxxw6JKKY?start=348"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:48</span></span><span data-text="">Now, how long did that take?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="350" href="https://video.cs50.io/-Bhxxw6JKKY?start=350"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:50</span></span><span data-text="">It turns out there's also a program called time</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="353" href="https://video.cs50.io/-Bhxxw6JKKY?start=353"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:53</span></span><span data-text="">that can time how long it takes for some other program to run.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="357" href="https://video.cs50.io/-Bhxxw6JKKY?start=357"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:57</span></span><span data-text="">So I might say time ./sort1, and then random5000.txt, and if I run that,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="365" href="https://video.cs50.io/-Bhxxw6JKKY?start=365"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:05</span></span><span data-text="">after everything is sorted, I'll see that the amount of time that took</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="368" href="https://video.cs50.io/-Bhxxw6JKKY?start=368"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:08</span></span><span data-text="">in real time was 0.168 seconds.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="373" href="https://video.cs50.io/-Bhxxw6JKKY?start=373"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:13</span></span><span data-text="">And depending on which sorting program I use,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="376" href="https://video.cs50.io/-Bhxxw6JKKY?start=376"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:16</span></span><span data-text="">and depending on what file I run that sorting algorithm on, and the number</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="379" href="https://video.cs50.io/-Bhxxw6JKKY?start=379"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:19</span></span><span data-text="">of values that are in that file, as well as what order that file is already in,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="384" href="https://video.cs50.io/-Bhxxw6JKKY?start=384"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:24</span></span><span data-text="">I might get different values for the amount of time</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="386" href="https://video.cs50.io/-Bhxxw6JKKY?start=386"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:26</span></span><span data-text="">it takes to sort and print out all of those numbers.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="390" href="https://video.cs50.io/-Bhxxw6JKKY?start=390"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:30</span></span><span data-text="">Using that information, your challenge is</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="393" href="https://video.cs50.io/-Bhxxw6JKKY?start=393"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:33</span></span><span data-text="">to solve that puzzle, to figure out which algorithm does sort1 use,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="396" href="https://video.cs50.io/-Bhxxw6JKKY?start=396"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:36</span></span><span data-text="">and which algorithm does sort2 use, and which algorithm does sort3 use?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="402" href="https://video.cs50.io/-Bhxxw6JKKY?start=402"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:42</span></span><span data-text="">Again, you can test any of these sorting programs by running ./sort1 or ./sort2</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="408" href="https://video.cs50.io/-Bhxxw6JKKY?start=408"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:48</span></span><span data-text="">sort3 on a text file that's provided as a command line argument.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="412" href="https://video.cs50.io/-Bhxxw6JKKY?start=412"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:52</span></span><span data-text="">For example, in this case, we're running sort1 on reversed10000.txt.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="418" href="https://video.cs50.io/-Bhxxw6JKKY?start=418"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:58</span></span><span data-text="">And to time how long any of these commands take, all you need to do</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="422" href="https://video.cs50.io/-Bhxxw6JKKY?start=422"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:02</span></span><span data-text="">is prepend the time command in front of whatever command</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="425" href="https://video.cs50.io/-Bhxxw6JKKY?start=425"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:05</span></span><span data-text="">you would otherwise want to run.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="427" href="https://video.cs50.io/-Bhxxw6JKKY?start=427"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:07</span></span><span data-text="">For example, here we're timing how long it takes to use sort1 to sort</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="431" href="https://video.cs50.io/-Bhxxw6JKKY?start=431"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:11</span></span><span data-text="">and print out all of the values in reversed10000.txt.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="437" href="https://video.cs50.io/-Bhxxw6JKKY?start=437"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:17</span></span><span data-text="">Ultimately, what you'll need to do is test and time</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="440" href="https://video.cs50.io/-Bhxxw6JKKY?start=440"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:20</span></span><span data-text="">each of these programs on some of the sample files that we give you.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="444" href="https://video.cs50.io/-Bhxxw6JKKY?start=444"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:24</span></span><span data-text="">Don't have to test it on all of them, but you'll likely</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="446" href="https://video.cs50.io/-Bhxxw6JKKY?start=446"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:26</span></span><span data-text="">want to test on at least a few to get a sense for how these programs behave</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="451" href="https://video.cs50.io/-Bhxxw6JKKY?start=451"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:31</span></span><span data-text="">depending on the size of the input, and depending on how well-ordered</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="454" href="https://video.cs50.io/-Bhxxw6JKKY?start=454"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:34</span></span><span data-text="">the values inside of that text file already are.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="457" href="https://video.cs50.io/-Bhxxw6JKKY?start=457"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:37</span></span><span data-text="">And using that information, you should be</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="459" href="https://video.cs50.io/-Bhxxw6JKKY?start=459"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:39</span></span><span data-text="">able to determine which program corresponds to which sorting algorithm</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="463" href="https://video.cs50.io/-Bhxxw6JKKY?start=463"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:43</span></span><span data-text="">by taking advantage of what you know about the running</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="466" href="https://video.cs50.io/-Bhxxw6JKKY?start=466"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:46</span></span><span data-text="">times of those sorting algorithms.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="468" href="https://video.cs50.io/-Bhxxw6JKKY?start=468"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:48</span></span><span data-text="">If one sorting algorithm has a much better big omega then it does big O,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="473" href="https://video.cs50.io/-Bhxxw6JKKY?start=473"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:53</span></span><span data-text="">then you might expect that it would be much faster on a text file that's</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="477" href="https://video.cs50.io/-Bhxxw6JKKY?start=477"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:57</span></span><span data-text="">already sorted, for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="478" href="https://video.cs50.io/-Bhxxw6JKKY?start=478"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:58</span></span><span data-text="">And you might examine what happens with each of these programs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="481" href="https://video.cs50.io/-Bhxxw6JKKY?start=481"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:01</span></span><span data-text="">as you try to run them on larger and larger inputs of inputs that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="485" href="https://video.cs50.io/-Bhxxw6JKKY?start=485"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:05</span></span><span data-text="">have more and more values to see how long that takes in comparison to files</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="490" href="https://video.cs50.io/-Bhxxw6JKKY?start=490"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:10</span></span><span data-text="">that have fewer values.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="491" href="https://video.cs50.io/-Bhxxw6JKKY?start=491"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:11</span></span><span data-text="">Using all of that as your clues and information,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="494" href="https://video.cs50.io/-Bhxxw6JKKY?start=494"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:14</span></span><span data-text="">you should be able to piece together and draw conclusions</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="497" href="https://video.cs50.io/-Bhxxw6JKKY?start=497"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:17</span></span><span data-text="">about which of these sorting algorithms we're using in each of those programs.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="501" href="https://video.cs50.io/-Bhxxw6JKKY?start=501"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:21</span></span><span data-text="">My name is Brian, and this was sort.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/-Bhxxw6JKKY" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 683px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./-Bhxxw6JKKY(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.51, "BRIAN YU: In this lab, your task is going"], [2.34, "to be to determine which sorting algorithm various different programs"], [6.21, "use."], [7.38, "We\u0027ve been introduced, now, to three different sorting algorithms--"], [10.85, "selection sort, bubble sort, and merge sort."], [14.43, "Recall that in selection sort, the way the algorithm works"], [17.4, "is by taking an array of numbers and repeating some process--"], [21.06, "the process of looking through that entire array of numbers"], [23.94, "to try and find the smallest item in that entire array,"], [27.54, "and then bringing that smallest item to the beginning of the array."], [31.037, "Then we search through the remainder of the array,"], [33.12, "looking for the next smallest item, and when we find it,"], [35.91, "we bring that next smallest item back to the beginning of the array,"], [39.3, "and we repeat that process, continually looking through the remaining"], [42.99, "unsorted portion of the array, finding the smallest element,"], [46.47, "and swapping it with the element in the next position."], [49.78, "Once we repeat that process through the entire array,"], [52.38, "we\u0027ll end up with a sorted array."], [55.44, "Meanwhile, bubble sort works a little bit differently."], [58.48, "It also makes passes through the array, but it compares two values at a time."], [63.06, "It looks at every pair of values and tries"], [65.519, "to determine whether that pair of numbers is in the correct order."], [68.97, "That is to say, if you\u0027re trying to sort from smallest to largest, making sure"], [72.75, "that for any pair of two numbers, the smaller number is"], [75.9, "to the left of the larger number."], [78.165, "And what bubbles sort does is that if it finds two numbers that"], [80.79, "are out of order, then it swaps them."], [83.04, "And bubble sort will continually go through this process"], [85.44, "of considering pairs of values and swapping them if necessary, until it"], [89.58, "gets to the end of the array."], [92.11, "Finally, merge sort works fundamentally differently."], [95.51, "It works by taking an array and dividing it into a left half and a right half,"], [100.06, "and sorting each of those halves first, and after we\u0027ve recursively"], [103.63, "sorted each of those halves, we merge those halves back together."], [107.26, "By repeating this process recursively again and again,"], [110.14, "we can build up an entire sorted array very quickly."], [114.24, "Each of these algorithms can be analyzed in terms of their running time,"], [118.11, "in terms of big O--"], [119.64, "the upper bound on the number of steps required to complete the sort--"], [123.53, "and as well as big omega--"], [125.31, "the lower bound on the number of steps required to complete the sort."], [129.419, "In this case, we can see that for a selection sort, it has both a big O"], [133.41, "and a big omega of n squared."], [136.05, "That is to say that if there are n numbers that we are trying to sort,"], [139.095, "it might take about n squared steps in order to actually complete that sorting"], [143.91, "algorithm."], [144.81, "Bubble sort, meanwhile, also has a big O of n squared."], [148.41, "As an upper bound, it still might take on the order of n squared steps to sort"], [152.385, "n numbers, but it has a big omega of n."], [156.18, "That is to say, if we were to get lucky and we"], [158.52, "were given an array that\u0027s already sorted, for example,"], [161.76, "bubble sort could sort n items and using just n steps"], [165.57, "by making one pass through the array, concluding"], [168.27, "that no swaps are necessary, and then not continuing on with anything else,"], [172.08, "because the array is already sorted."], [174.39, "Meanwhile, merge sort has a running time of big O of n log n, and big omega of n"], [179.85, "log n as well, meaning that if there are n numbers that we are trying to sort,"], [184.005, "this algorithm is going to take on the order of n times log n steps"], [188.94, "in order to sort all of those numbers."], [191.67, "That\u0027s better than n squared, though not nearly as good as big omega of n,"], [196.68, "for example."], [198.38, "Your task now, in this lab, is that we are going to give you three programs--"], [202.46, "sort1, sort2, and sort3."], [205.55, "One of them uses selection sort."], [207.29, "One of them uses bubble sort."], [208.91, "And one of them uses merge sort, but we\u0027re not telling you which is which."], [212.81, "Your task is going to be to run these sorting algorithm"], [215.31, "programs on various different inputs--"], [217.76, "lists of numbers of different sizes and different orders--"], [221.02, "and to try to determine which algorithm corresponds to which program."], [226.8, "The files we give you are going to be these."], [229.32, "We\u0027ll give you a file called random5000.txt,"], [232.32, "for example, which will be a text file that"], [235.74, "contains 5,000 numbers in random order."], [238.98, "Likewise, random10000.txt and random50000.txt"], [243.03, "will contain 10,000 50,000 numbers, respectively, all in random order."], [248.07, "In addition to files in random order, we\u0027ll"], [250.14, "also give you files called reversed5000.txt and reverse10000.txt,"], [254.76, "and so forth, each of which will also contain numbers, but this time"], [258.54, "in reverse order, from largest to smallest."], [261.93, "And finally, we also give you sorted5000 and sorted10000.txt,"], [266.52, "which again will be text files that just contain numbers, one on each line,"], [270.39, "but this time the numbers will already be in sorted order"], [273.72, "from smallest to largest."], [276.0, "Let\u0027s take a look at what you might do with these files."], [279.54, "Here\u0027s the distribution code for the sort lab."], [282.592, "You\u0027ll notice that we have our three programs--"], [284.55, "sort1, sort2, and sort3--"], [287.55, "and we also have these files."], [289.07, "Random5000.txt, for example, is going to be a file with 5,000 lines,"], [294.12, "each with numbers, where those numbers are not in any particular order."], [298.17, "Meanwhile, reversed5000.txt is going to be a text file that"], [301.83, "also has 5,000 numbers, but this time they\u0027re in reverse order,"], [305.7, "from largest to smallest."], [308.07, "And finally, files like sorted5000.txt will give you"], [311.64, "5,000 lines of numbers, where they\u0027re in sorted order in ascending order"], [315.69, "from smallest, all the way to largest."], [318.61, "You can then use these sorting programs-- sort1, sort2, and sort3--"], [324.17, "to try to see how you would go about sorting,"], [326.45, "and how long it might take to sort any of these files."], [329.75, "For example, I might run ./sort1 on, let\u0027s say, random5000.txt."], [338.61, "And what you\u0027ll see when I run that program is the program"], [341.25, "will sort those numbers using some sorting algorithm,"], [344.22, "and then print those numbers in sorted order from smallest to largest."], [348.33, "Now, how long did that take?"], [350.19, "It turns out there\u0027s also a program called time"], [353.04, "that can time how long it takes for some other program to run."], [357.49, "So I might say time ./sort1, and then random5000.txt, and if I run that,"], [365.01, "after everything is sorted, I\u0027ll see that the amount of time that took"], [368.43, "in real time was 0.168 seconds."], [373.44, "And depending on which sorting program I use,"], [376.21, "and depending on what file I run that sorting algorithm on, and the number"], [379.92, "of values that are in that file, as well as what order that file is already in,"], [384.36, "I might get different values for the amount of time"], [386.91, "it takes to sort and print out all of those numbers."], [390.72, "Using that information, your challenge is"], [393.0, "to solve that puzzle, to figure out which algorithm does sort1 use,"], [396.57, "and which algorithm does sort2 use, and which algorithm does sort3 use?"], [402.24, "Again, you can test any of these sorting programs by running ./sort1 or ./sort2"], [408.42, "sort3 on a text file that\u0027s provided as a command line argument."], [412.66, "For example, in this case, we\u0027re running sort1 on reversed10000.txt."], [418.26, "And to time how long any of these commands take, all you need to do"], [422.04, "is prepend the time command in front of whatever command"], [425.7, "you would otherwise want to run."], [427.56, "For example, here we\u0027re timing how long it takes to use sort1 to sort"], [431.985, "and print out all of the values in reversed10000.txt."], [437.3, "Ultimately, what you\u0027ll need to do is test and time"], [440.12, "each of these programs on some of the sample files that we give you."], [444.26, "Don\u0027t have to test it on all of them, but you\u0027ll likely"], [446.6, "want to test on at least a few to get a sense for how these programs behave"], [451.1, "depending on the size of the input, and depending on how well-ordered"], [454.7, "the values inside of that text file already are."], [457.55, "And using that information, you should be"], [459.62, "able to determine which program corresponds to which sorting algorithm"], [463.79, "by taking advantage of what you know about the running"], [466.64, "times of those sorting algorithms."], [468.71, "If one sorting algorithm has a much better big omega then it does big O,"], [473.39, "then you might expect that it would be much faster on a text file that\u0027s"], [477.05, "already sorted, for example."], [478.89, "And you might examine what happens with each of these programs"], [481.76, "as you try to run them on larger and larger inputs of inputs that"], [485.06, "have more and more values to see how long that takes in comparison to files"], [490.16, "that have fewer values."], [491.78, "Using all of that as your clues and information,"], [494.61, "you should be able to piece together and draw conclusions"], [497.09, "about which of these sorting algorithms we\u0027re using in each of those programs."], [501.65, "My name is Brian, and this was sort."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "-Bhxxw6JKKY"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
