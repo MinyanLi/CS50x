@@ -1,0 +1,2 @@
+# CS50x
+Minyan's homework CS50x(2022)
