@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://video.cs50.io/RtjxxxlN1gc -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="Scrabble - Walkthrough - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/RtjxxxlN1gc">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            Scrabble - Walkthrough - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1080.0" data-gr-ext-installed="">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍦" src="./1f366.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍈" src="./1f348.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/RtjxxxlN1gc?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN YU: In this lab, your task is going</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="2" href="https://video.cs50.io/RtjxxxlN1gc?start=2"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:02</span></span><span data-text="">to be to write a program that calculates the score for words</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="5" href="https://video.cs50.io/RtjxxxlN1gc?start=5"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:05</span></span><span data-text="">in a game of Scrabble and compares the score for two words against each other.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="10" href="https://video.cs50.io/RtjxxxlN1gc?start=10"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:10</span></span><span data-text="">Scrabble is a game where your job is to form</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="12" href="https://video.cs50.io/RtjxxxlN1gc?start=12"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:12</span></span><span data-text="">words made out of letters where each letter is</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="15" href="https://video.cs50.io/RtjxxxlN1gc?start=15"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:15</span></span><span data-text="">assigned some number of points.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="17" href="https://video.cs50.io/RtjxxxlN1gc?start=17"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:17</span></span><span data-text="">Common letters, like A and E and I, are only worth 1 point.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="20" href="https://video.cs50.io/RtjxxxlN1gc?start=20"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:20</span></span><span data-text="">Slightly less common letters, like B or C or M, are worth 3 points.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="25" href="https://video.cs50.io/RtjxxxlN1gc?start=25"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:25</span></span><span data-text="">And rare letters, like Q and Z, are worth even more points--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="28" href="https://video.cs50.io/RtjxxxlN1gc?start=28"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:28</span></span><span data-text="">10 points, in this case.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="30" href="https://video.cs50.io/RtjxxxlN1gc?start=30"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:30</span></span><span data-text="">And there's an entire table here that shows you,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="32" href="https://video.cs50.io/RtjxxxlN1gc?start=32"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:32</span></span><span data-text="">for any letter of the alphabet, how many points that letter is worth.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="36" href="https://video.cs50.io/RtjxxxlN1gc?start=36"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:36</span></span><span data-text="">Using this assignment of points, we can take a word</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="39" href="https://video.cs50.io/RtjxxxlN1gc?start=39"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:39</span></span><span data-text="">and figure out how many points that word is worth.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="42" href="https://video.cs50.io/RtjxxxlN1gc?start=42"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:42</span></span><span data-text="">For the word "Scrabble," for example, we know that S is worth 1 point,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="46" href="https://video.cs50.io/RtjxxxlN1gc?start=46"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:46</span></span><span data-text="">C is worth 3 points, so on and so forth, and we can add up all of those numbers</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="51" href="https://video.cs50.io/RtjxxxlN1gc?start=51"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:51</span></span><span data-text="">to figure out that the word "Scrabble" is worth 14 points.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="55" href="https://video.cs50.io/RtjxxxlN1gc?start=55"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:55</span></span><span data-text="">And once we have that ability, we can then</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="57" href="https://video.cs50.io/RtjxxxlN1gc?start=57"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:57</span></span><span data-text="">compare two words to figure out, between those two</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="60" href="https://video.cs50.io/RtjxxxlN1gc?start=60"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:00</span></span><span data-text="">words, which word is worth more.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="63" href="https://video.cs50.io/RtjxxxlN1gc?start=63"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:03</span></span><span data-text="">If I were to compare the word "computer" against the word "science,"</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="66" href="https://video.cs50.io/RtjxxxlN1gc?start=66"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:06</span></span><span data-text="">for example, I would find that "computer" is worth 14 points in a game</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="70" href="https://video.cs50.io/RtjxxxlN1gc?start=70"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:10</span></span><span data-text="">of Scrabble, and "science" is worth 11 points in a game of Scrabble,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="74" href="https://video.cs50.io/RtjxxxlN1gc?start=74"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:14</span></span><span data-text="">so between those two words, "computer" would win.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="78" href="https://video.cs50.io/RtjxxxlN1gc?start=78"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:18</span></span><span data-text="">Your task now is to write a program in C that can do this comparison for you--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="83" href="https://video.cs50.io/RtjxxxlN1gc?start=83"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:23</span></span><span data-text="">taking two words and figuring out which one would win in a game of Scrabble.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="88" href="https://video.cs50.io/RtjxxxlN1gc?start=88"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:28</span></span><span data-text="">Your program will work like this.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="90" href="https://video.cs50.io/RtjxxxlN1gc?start=90"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:30</span></span><span data-text="">At the command line, you would run the program ./scrabble.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="93" href="https://video.cs50.io/RtjxxxlN1gc?start=93"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:33</span></span><span data-text="">Your program will then prompt for a word from player 1,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="97" href="https://video.cs50.io/RtjxxxlN1gc?start=97"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:37</span></span><span data-text="">and player 1 would type in a word-- for example, the word "computer."</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="100" href="https://video.cs50.io/RtjxxxlN1gc?start=100"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:40</span></span><span data-text="">And then your program would prompt player 2 to type in a word,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="104" href="https://video.cs50.io/RtjxxxlN1gc?start=104"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:44</span></span><span data-text="">and player 2 could then type in a word-- for example, "science."</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="107" href="https://video.cs50.io/RtjxxxlN1gc?start=107"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:47</span></span><span data-text="">Your program should then take both of those words, looking at each letter</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="111" href="https://video.cs50.io/RtjxxxlN1gc?start=111"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:51</span></span><span data-text="">and figuring out how much each letter is worth,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="113" href="https://video.cs50.io/RtjxxxlN1gc?start=113"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:53</span></span><span data-text="">and using that information to figure out which of the two words</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="117" href="https://video.cs50.io/RtjxxxlN1gc?start=117"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:57</span></span><span data-text="">is going to have a higher score in a game of Scrabble.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="120" href="https://video.cs50.io/RtjxxxlN1gc?start=120"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:00</span></span><span data-text="">In this case, player 1's word, "computer,"</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="122" href="https://video.cs50.io/RtjxxxlN1gc?start=122"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:02</span></span><span data-text="">has the higher score, so your program is going to print something</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="125" href="https://video.cs50.io/RtjxxxlN1gc?start=125"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:05</span></span><span data-text="">like "Player 1 wins!"</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="127" href="https://video.cs50.io/RtjxxxlN1gc?start=127"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:07</span></span><span data-text="">for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="128" href="https://video.cs50.io/RtjxxxlN1gc?start=128"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:08</span></span><span data-text="">Now, how exactly is your program going to figure out</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="131" href="https://video.cs50.io/RtjxxxlN1gc?start=131"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:11</span></span><span data-text="">how many points a particular word is worth?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="134" href="https://video.cs50.io/RtjxxxlN1gc?start=134"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:14</span></span><span data-text="">Well, in the distribution code we give you--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="136" href="https://video.cs50.io/RtjxxxlN1gc?start=136"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:16</span></span><span data-text="">which we'll take a look at in a moment--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="137" href="https://video.cs50.io/RtjxxxlN1gc?start=137"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:17</span></span><span data-text="">we give you an array of integers, called POINTS, in all capital letters,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="142" href="https://video.cs50.io/RtjxxxlN1gc?start=142"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:22</span></span><span data-text="">and this here is an array of 26 integers, each one representing</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="146" href="https://video.cs50.io/RtjxxxlN1gc?start=146"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:26</span></span><span data-text="">the Scrabble score for a particular letter--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="149" href="https://video.cs50.io/RtjxxxlN1gc?start=149"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:29</span></span><span data-text="">in alphabetical order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="151" href="https://video.cs50.io/RtjxxxlN1gc?start=151"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:31</span></span><span data-text="">And because this is an array, we can index</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="153" href="https://video.cs50.io/RtjxxxlN1gc?start=153"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:33</span></span><span data-text="">into that array using square brackets to get access</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="156" href="https://video.cs50.io/RtjxxxlN1gc?start=156"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:36</span></span><span data-text="">to one particular score for one particular letter.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="159" href="https://video.cs50.io/RtjxxxlN1gc?start=159"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:39</span></span><span data-text="">For example, if we wanted to figure out how many points the letter A is worth--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="163" href="https://video.cs50.io/RtjxxxlN1gc?start=163"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:43</span></span><span data-text="">the first letter of the alphabet--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="165" href="https://video.cs50.io/RtjxxxlN1gc?start=165"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:45</span></span><span data-text="">we would use POINTS square bracket 0 to get access</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="168" href="https://video.cs50.io/RtjxxxlN1gc?start=168"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:48</span></span><span data-text="">to the first element in the array, recalling</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="171" href="https://video.cs50.io/RtjxxxlN1gc?start=171"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:51</span></span><span data-text="">that the first element in an array is the element at index 0.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="175" href="https://video.cs50.io/RtjxxxlN1gc?start=175"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:55</span></span><span data-text="">If I wanted to figure out how many points the letter B is worth,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="179" href="https://video.cs50.io/RtjxxxlN1gc?start=179"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:59</span></span><span data-text="">I could use POINTS square bracket 1 to get access to the number 3--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="183" href="https://video.cs50.io/RtjxxxlN1gc?start=183"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:03</span></span><span data-text="">the value for the letter B. Likewise, POINTS square bracket 2</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="186" href="https://video.cs50.io/RtjxxxlN1gc?start=186"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:06</span></span><span data-text="">would give me access to the point value of the letter C,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="189" href="https://video.cs50.io/RtjxxxlN1gc?start=189"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:09</span></span><span data-text="">all the way up to POINTS square bracket 25,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="192" href="https://video.cs50.io/RtjxxxlN1gc?start=192"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:12</span></span><span data-text="">which would give me access to the last element in this array, which</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="195" href="https://video.cs50.io/RtjxxxlN1gc?start=195"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:15</span></span><span data-text="">in this case is 10, the value for letter Z.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="200" href="https://video.cs50.io/RtjxxxlN1gc?start=200"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:20</span></span><span data-text="">With that in mind, let's now take a look at the rest of the distribution code</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="203" href="https://video.cs50.io/RtjxxxlN1gc?start=203"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:23</span></span><span data-text="">that we give you for this lab.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="205" href="https://video.cs50.io/RtjxxxlN1gc?start=205"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:25</span></span><span data-text="">Here, in scrabble.c, you'll notice that after including cs50.h and stdio.h,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="210" href="https://video.cs50.io/RtjxxxlN1gc?start=210"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:30</span></span><span data-text="">we have this array of points that has all of the point values for each</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="214" href="https://video.cs50.io/RtjxxxlN1gc?start=214"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:34</span></span><span data-text="">of the letters of the alphabet in alphabetical order,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="217" href="https://video.cs50.io/RtjxxxlN1gc?start=217"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:37</span></span><span data-text="">and then inside of the main function, we've</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="219" href="https://video.cs50.io/RtjxxxlN1gc?start=219"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:39</span></span><span data-text="">already written some code for you.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="221" href="https://video.cs50.io/RtjxxxlN1gc?start=221"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:41</span></span><span data-text="">And your task is just going to be to complete this function.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="224" href="https://video.cs50.io/RtjxxxlN1gc?start=224"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:44</span></span><span data-text="">We start by using get_string to prompt the user for a word from player 1,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="229" href="https://video.cs50.io/RtjxxxlN1gc?start=229"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:49</span></span><span data-text="">storing that inside of word 1, and likewise doing</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="232" href="https://video.cs50.io/RtjxxxlN1gc?start=232"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:52</span></span><span data-text="">the same thing for player 2--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="233" href="https://video.cs50.io/RtjxxxlN1gc?start=233"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:53</span></span><span data-text="">get_string for player 2, storing whatever string the user types</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="236" href="https://video.cs50.io/RtjxxxlN1gc?start=236"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:56</span></span><span data-text="">in as word 2.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="239" href="https://video.cs50.io/RtjxxxlN1gc?start=239"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:59</span></span><span data-text="">After that, we score both words by calling this compute_score function,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="244" href="https://video.cs50.io/RtjxxxlN1gc?start=244"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:04</span></span><span data-text="">first on word 1, and then calling that same function on word 2.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="248" href="https://video.cs50.io/RtjxxxlN1gc?start=248"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:08</span></span><span data-text="">We haven't seen that function yet, but implementing</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="250" href="https://video.cs50.io/RtjxxxlN1gc?start=250"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:10</span></span><span data-text="">that function is going to be up to you.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="252" href="https://video.cs50.io/RtjxxxlN1gc?start=252"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:12</span></span><span data-text="">And we'll save the result of that function inside of the variables</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="256" href="https://video.cs50.io/RtjxxxlN1gc?start=256"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:16</span></span><span data-text="">score 1 and score 2.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="258" href="https://video.cs50.io/RtjxxxlN1gc?start=258"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:18</span></span><span data-text="">Left up to you is to print out the winner between player 1 and player 2--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="263" href="https://video.cs50.io/RtjxxxlN1gc?start=263"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:23</span></span><span data-text="">to compare those two values, score 1 and score 2,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="266" href="https://video.cs50.io/RtjxxxlN1gc?start=266"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:26</span></span><span data-text="">and to print either that player 1 wins, or player 2 wins,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="270" href="https://video.cs50.io/RtjxxxlN1gc?start=270"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:30</span></span><span data-text="">or, in the event that both words have the same score,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="272" href="https://video.cs50.io/RtjxxxlN1gc?start=272"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:32</span></span><span data-text="">to print out that it's a tie.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="275" href="https://video.cs50.io/RtjxxxlN1gc?start=275"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:35</span></span><span data-text="">The other piece of this program that you'll need to write</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="277" href="https://video.cs50.io/RtjxxxlN1gc?start=277"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:37</span></span><span data-text="">is this compute_score function.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="279" href="https://video.cs50.io/RtjxxxlN1gc?start=279"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:39</span></span><span data-text="">This function takes a word as input, which is of type string,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="283" href="https://video.cs50.io/RtjxxxlN1gc?start=283"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:43</span></span><span data-text="">and returns an int, representing the score for that particular word.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="288" href="https://video.cs50.io/RtjxxxlN1gc?start=288"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:48</span></span><span data-text="">And you'll likely want to compute that score by iterating over</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="291" href="https://video.cs50.io/RtjxxxlN1gc?start=291"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:51</span></span><span data-text="">all of the characters in the word, and for each of those characters,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="295" href="https://video.cs50.io/RtjxxxlN1gc?start=295"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:55</span></span><span data-text="">figuring out how many points that character is worth.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="299" href="https://video.cs50.io/RtjxxxlN1gc?start=299"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:59</span></span><span data-text="">So in summary, here's what you'll need to do.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="302" href="https://video.cs50.io/RtjxxxlN1gc?start=302"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:02</span></span><span data-text="">First, complete the compute_score function,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="304" href="https://video.cs50.io/RtjxxxlN1gc?start=304"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:04</span></span><span data-text="">returning the number of points that would be given to any particular word.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="309" href="https://video.cs50.io/RtjxxxlN1gc?start=309"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:09</span></span><span data-text="">In doing so, you'll want to ignore any non-letter characters.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="313" href="https://video.cs50.io/RtjxxxlN1gc?start=313"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:13</span></span><span data-text="">In Scrabble, only the letters A through Z actually count for points,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="317" href="https://video.cs50.io/RtjxxxlN1gc?start=317"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:17</span></span><span data-text="">so if the user includes punctuation or spaces inside of the text they write,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="322" href="https://video.cs50.io/RtjxxxlN1gc?start=322"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:22</span></span><span data-text="">you should ignore those other characters,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="324" href="https://video.cs50.io/RtjxxxlN1gc?start=324"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:24</span></span><span data-text="">and only consider the letters when determining the score.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="328" href="https://video.cs50.io/RtjxxxlN1gc?start=328"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:28</span></span><span data-text="">Your function should also be case-insensitive.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="331" href="https://video.cs50.io/RtjxxxlN1gc?start=331"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:31</span></span><span data-text="">That is to say, regardless of whether the character is</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="333" href="https://video.cs50.io/RtjxxxlN1gc?start=333"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:33</span></span><span data-text="">an uppercase letter or a lowercase letter,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="336" href="https://video.cs50.io/RtjxxxlN1gc?start=336"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:36</span></span><span data-text="">you should be able to assign that letter some number of points.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="339" href="https://video.cs50.io/RtjxxxlN1gc?start=339"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:39</span></span><span data-text="">Both capital A and lowercase a are each worth 1 point, for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="345" href="https://video.cs50.io/RtjxxxlN1gc?start=345"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:45</span></span><span data-text="">After you've completed the compute_score function,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="347" href="https://video.cs50.io/RtjxxxlN1gc?start=347"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:47</span></span><span data-text="">you should then complete the main function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="349" href="https://video.cs50.io/RtjxxxlN1gc?start=349"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:49</span></span><span data-text="">by comparing those two values, score 1 and score 2,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="353" href="https://video.cs50.io/RtjxxxlN1gc?start=353"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:53</span></span><span data-text="">and then printing either player 1 wins, or player 2 wins,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="357" href="https://video.cs50.io/RtjxxxlN1gc?start=357"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:57</span></span><span data-text="">or tie, depending on how those two scores compare with each other.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="361" href="https://video.cs50.io/RtjxxxlN1gc?start=361"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:01</span></span><span data-text="">After you've implemented these steps, you</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="363" href="https://video.cs50.io/RtjxxxlN1gc?start=363"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:03</span></span><span data-text="">should then be able to run your Scrabble program, provide a word for player 1,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="368" href="https://video.cs50.io/RtjxxxlN1gc?start=368"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:08</span></span><span data-text="">and provide a word for player 2, and your program</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="370" href="https://video.cs50.io/RtjxxxlN1gc?start=370"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:10</span></span><span data-text="">should be able to tell you which of those two words</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="373" href="https://video.cs50.io/RtjxxxlN1gc?start=373"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:13</span></span><span data-text="">would be worth more in a game of Scrabble.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="376" href="https://video.cs50.io/RtjxxxlN1gc?start=376"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:16</span></span><span data-text="">My name is Brian, and this was Scrabble.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/RtjxxxlN1gc" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 683px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./RtjxxxlN1gc(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.652, "BRIAN YU: In this lab, your task is going"], [2.36, "to be to write a program that calculates the score for words"], [5.72, "in a game of Scrabble and compares the score for two words against each other."], [10.16, "Scrabble is a game where your job is to form"], [12.17, "words made out of letters where each letter is"], [15.17, "assigned some number of points."], [17.27, "Common letters, like A and E and I, are only worth 1 point."], [20.99, "Slightly less common letters, like B or C or M, are worth 3 points."], [25.13, "And rare letters, like Q and Z, are worth even more points--"], [28.56, "10 points, in this case."], [30.02, "And there\u0027s an entire table here that shows you,"], [32.45, "for any letter of the alphabet, how many points that letter is worth."], [36.98, "Using this assignment of points, we can take a word"], [39.98, "and figure out how many points that word is worth."], [42.74, "For the word \"Scrabble,\" for example, we know that S is worth 1 point,"], [46.4, "C is worth 3 points, so on and so forth, and we can add up all of those numbers"], [51.2, "to figure out that the word \"Scrabble\" is worth 14 points."], [55.82, "And once we have that ability, we can then"], [57.92, "compare two words to figure out, between those two"], [60.8, "words, which word is worth more."], [63.59, "If I were to compare the word \"computer\" against the word \"science,\""], [66.68, "for example, I would find that \"computer\" is worth 14 points in a game"], [70.67, "of Scrabble, and \"science\" is worth 11 points in a game of Scrabble,"], [74.63, "so between those two words, \"computer\" would win."], [78.6, "Your task now is to write a program in C that can do this comparison for you--"], [83.37, "taking two words and figuring out which one would win in a game of Scrabble."], [88.32, "Your program will work like this."], [90.15, "At the command line, you would run the program ./scrabble."], [93.93, "Your program will then prompt for a word from player 1,"], [97.2, "and player 1 would type in a word-- for example, the word \"computer.\""], [100.96, "And then your program would prompt player 2 to type in a word,"], [104.19, "and player 2 could then type in a word-- for example, \"science.\""], [107.88, "Your program should then take both of those words, looking at each letter"], [111.51, "and figuring out how much each letter is worth,"], [113.94, "and using that information to figure out which of the two words"], [117.42, "is going to have a higher score in a game of Scrabble."], [120.48, "In this case, player 1\u0027s word, \"computer,\""], [122.58, "has the higher score, so your program is going to print something"], [125.58, "like \"Player 1 wins!\""], [127.2, "for example."], [128.87, "Now, how exactly is your program going to figure out"], [131.6, "how many points a particular word is worth?"], [134.36, "Well, in the distribution code we give you--"], [136.25, "which we\u0027ll take a look at in a moment--"], [137.917, "we give you an array of integers, called POINTS, in all capital letters,"], [142.43, "and this here is an array of 26 integers, each one representing"], [146.81, "the Scrabble score for a particular letter--"], [149.54, "in alphabetical order."], [151.29, "And because this is an array, we can index"], [153.68, "into that array using square brackets to get access"], [156.53, "to one particular score for one particular letter."], [159.98, "For example, if we wanted to figure out how many points the letter A is worth--"], [163.7, "the first letter of the alphabet--"], [165.63, "we would use POINTS square bracket 0 to get access"], [168.89, "to the first element in the array, recalling"], [171.29, "that the first element in an array is the element at index 0."], [175.93, "If I wanted to figure out how many points the letter B is worth,"], [179.14, "I could use POINTS square bracket 1 to get access to the number 3--"], [183.11, "the value for the letter B. Likewise, POINTS square bracket 2"], [186.58, "would give me access to the point value of the letter C,"], [189.67, "all the way up to POINTS square bracket 25,"], [192.68, "which would give me access to the last element in this array, which"], [195.76, "in this case is 10, the value for letter Z."], [200.162, "With that in mind, let\u0027s now take a look at the rest of the distribution code"], [203.37, "that we give you for this lab."], [205.2, "Here, in scrabble.c, you\u0027ll notice that after including cs50.h and stdio.h,"], [210.63, "we have this array of points that has all of the point values for each"], [214.35, "of the letters of the alphabet in alphabetical order,"], [217.54, "and then inside of the main function, we\u0027ve"], [219.45, "already written some code for you."], [221.46, "And your task is just going to be to complete this function."], [224.67, "We start by using get_string to prompt the user for a word from player 1,"], [229.38, "storing that inside of word 1, and likewise doing"], [232.11, "the same thing for player 2--"], [233.49, "get_string for player 2, storing whatever string the user types"], [236.79, "in as word 2."], [239.37, "After that, we score both words by calling this compute_score function,"], [244.05, "first on word 1, and then calling that same function on word 2."], [248.1, "We haven\u0027t seen that function yet, but implementing"], [250.38, "that function is going to be up to you."], [252.81, "And we\u0027ll save the result of that function inside of the variables"], [256.29, "score 1 and score 2."], [258.959, "Left up to you is to print out the winner between player 1 and player 2--"], [263.46, "to compare those two values, score 1 and score 2,"], [266.76, "and to print either that player 1 wins, or player 2 wins,"], [270.15, "or, in the event that both words have the same score,"], [272.79, "to print out that it\u0027s a tie."], [275.26, "The other piece of this program that you\u0027ll need to write"], [277.65, "is this compute_score function."], [279.93, "This function takes a word as input, which is of type string,"], [283.71, "and returns an int, representing the score for that particular word."], [288.42, "And you\u0027ll likely want to compute that score by iterating over"], [291.57, "all of the characters in the word, and for each of those characters,"], [295.23, "figuring out how many points that character is worth."], [299.85, "So in summary, here\u0027s what you\u0027ll need to do."], [302.35, "First, complete the compute_score function,"], [304.98, "returning the number of points that would be given to any particular word."], [309.36, "In doing so, you\u0027ll want to ignore any non-letter characters."], [313.35, "In Scrabble, only the letters A through Z actually count for points,"], [317.89, "so if the user includes punctuation or spaces inside of the text they write,"], [322.08, "you should ignore those other characters,"], [324.21, "and only consider the letters when determining the score."], [328.02, "Your function should also be case-insensitive."], [331.26, "That is to say, regardless of whether the character is"], [333.51, "an uppercase letter or a lowercase letter,"], [336.03, "you should be able to assign that letter some number of points."], [339.09, "Both capital A and lowercase a are each worth 1 point, for example."], [345.02, "After you\u0027ve completed the compute_score function,"], [347.48, "you should then complete the main function"], [349.82, "by comparing those two values, score 1 and score 2,"], [353.51, "and then printing either player 1 wins, or player 2 wins,"], [357.47, "or tie, depending on how those two scores compare with each other."], [361.91, "After you\u0027ve implemented these steps, you"], [363.95, "should then be able to run your Scrabble program, provide a word for player 1,"], [368.09, "and provide a word for player 2, and your program"], [370.7, "should be able to tell you which of those two words"], [373.31, "would be worth more in a game of Scrabble."], [376.04, "My name is Brian, and this was Scrabble."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "RtjxxxlN1gc"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
