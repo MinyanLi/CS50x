@@ -11,7 +11,7 @@ Within each folder, the HTML file is the description of the problem, the .py fil
 
 
 
-##Syllabus<br />
+## Syllabus<br />
 Week 0 Scratch<br />
 Week 1 C<br />
 Week 2 Arrays<br />
