@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://cs50.harvard.edu/x/2022/psets/3/runoff/ -->
+<html lang="en-us" class="wf-ptsans-n4-active wf-ptsans-n7-active wf-active"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width"><meta property="og:description" content="Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.">
+
+        <meta property="og:image" content="https://img.youtube.com/vi/NZxALvNlF-8/maxresdefault.jpg"><meta property="og:title" content="Runoff - CS50x 2022">
+
+        <link href="https://cs50.harvard.edu/x/2022/favicon.ico?1664410537" rel="icon">
+
+        <!-- https://fonts.google.com/specimen/PT+Sans?query=PT+Sans&selection.family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700 -->
+        <script src="./Runoff - CS50x 2022_files/webfont.js"></script>
+
+        <!-- https://getbootstrap.com/docs/ -->
+        <script src="./Runoff - CS50x 2022_files/jquery.min.js"></script>
+        <script src="./Runoff - CS50x 2022_files/bootstrap.bundle.min.js"></script>
+
+        <!-- https://bootstrap-table.com/docs/getting-started/introduction/ -->
+        <link href="./Runoff - CS50x 2022_files/bootstrap-table.min.css" rel="stylesheet">
+        <script src="./Runoff - CS50x 2022_files/bootstrap-table.min.js"></script>
+        <script src="./Runoff - CS50x 2022_files/bootstrap-table-mobile.min.js"></script>
+
+        <!-- https://fontawesome.com/how-to-use/on-the-web/referencing-icons/basic-use -->
+        <link href="./Runoff - CS50x 2022_files/all.min.css" rel="stylesheet">
+
+        <!-- https://moment.github.io/luxon/ -->
+        <script src="./Runoff - CS50x 2022_files/luxon.min.js"></script>
+
+        <!-- http://docs.mathjax.org/ -->
+        <!-- https://www.jsdelivr.com/package/npm/mathjax?path=es5 -->
+        <!-- http://docs.mathjax.org/en/latest/options/output/chtml.html?highlight=displayAlign#the-configuration-block -->
+        <script>
+            MathJax = {
+               chtml: {
+                    displayAlign: "left"
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha256-z47L98YXVhVIaY0uyDzt675P5Ea+w3RsPh9VD5NuoTY=" src="./Runoff - CS50x 2022_files/tex-chtml.js"></script><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style>
+
+        <!-- https://github.com/verlok/vanilla-lazyload -->
+        <!-- https://www.jsdelivr.com/package/npm/vanilla-lazyload -->
+        <!-- https://www.jsdelivr.com/package/npm/intersection-observer -->
+        <script crossorigin="anonymous" integrity="sha256-v3MXDIY3uujDKO0h37NoglNDp6uwq+4EmM0EkH99Uuo=" src="./Runoff - CS50x 2022_files/intersection-observer.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-sO6HPavoXo796Zp/bq6ts4qHOoEqfydXEXSX5NojP48=" src="./Runoff - CS50x 2022_files/lazyload.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script crossorigin="anonymous" integrity="sha256-oBWDuxBG1C5U0t3xjmZZ1UAlt9sKeSRk26KiVy4jxpY=" src="./Runoff - CS50x 2022_files/iframeResizer.min.js"></script>
+
+        <!-- https://github.com/scratchblocks/scratchblocks/releases -->
+        <script src="./Runoff - CS50x 2022_files/scratchblocks.min.js"></script><style><![CDATA[.sb-label{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:1px}.sb-obsolete{fill:#d42828}.sb-motion{fill:#4a6cd4}.sb-looks{fill:#8a55d7}.sb-sound{fill:#bb42c3}.sb-pen{fill:#0e9a6c}.sb-events{fill:#c88330}.sb-control{fill:#e1a91a}.sb-sensing{fill:#2ca5e2}.sb-operators{fill:#5cb712}.sb-variables{fill:#ee7d16}.sb-list{fill:#cc5b22}.sb-custom{fill:#632d99}.sb-custom-arg{fill:#5947b1}.sb-extension{fill:#4b4a60}.sb-grey{fill:#969696}.sb-bevel{filter:url(#bevelFilter)}.sb-input{filter:url(#inputBevelFilter)}.sb-input-number,.sb-input-number-dropdown,.sb-input-string{fill:#fff}.sb-literal-dropdown,.sb-literal-number,.sb-literal-number-dropdown,.sb-literal-string{font-weight:400;font-size:9px;word-spacing:0}.sb-literal-number,.sb-literal-number-dropdown,.sb-literal-string{fill:#000}.sb-darker{filter:url(#inputDarkFilter)}.sb-outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.sb-comment,.sb-define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}.sb-comment{fill:#ffffa5;stroke:#d0d1d2}.sb-comment-line{fill:#ffff80}.sb-comment-label{font-family:Helevetica,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#5c5d5f;word-spacing:0;font-size:12px}.sb-diff{fill:none;stroke:#000}.sb-diff-ins{stroke-width:2px}.sb-diff-del{stroke-width:3px}]]></style><style><![CDATA[.sb3-label{font:500 12pt Helevetica Neue,Helvetica,sans-serif;fill:#fff;word-spacing:1pt}.sb3-motion{fill:#4c97ff;stroke:#3373cc}.sb3-motion-alt{fill:#4280d7}.sb3-motion-dark{fill:#4c97ff}.sb3-looks{fill:#96f;stroke:#774dcb}.sb3-looks-alt{fill:#855cd6}.sb3-looks-dark{fill:#bd42bd}.sb3-sound{fill:#cf63cf;stroke:#bd42bd}.sb3-sound-alt{fill:#c94fc9}.sb3-sound-dark{fill:#bd42bd}.sb3-control{fill:#ffab19;stroke:#cf8b17}.sb3-control-alt{fill:#ec9c13}.sb3-control-dark{fill:#cf8b17}.sb3-events{fill:#ffbf00;stroke:#c90}.sb3-events-alt{fill:#e6ac00}.sb3-events-dark{fill:#c90}.sb3-sensing{fill:#5cb1d6;stroke:#2e8eb8}.sb3-sensing-alt{fill:#47a8d1}.sb3-sensing-dark{fill:#2e8eb8}.sb3-operators{fill:#59c059;stroke:#389438}.sb3-operators-alt{fill:#46b946}.sb3-operators-dark{fill:#389438}.sb3-variables{fill:#ff8c1a;stroke:#db6e00}.sb3-variables-alt{fill:#ff8000}.sb3-variables-dark{fill:#db6e00}.sb3-list{fill:#ff661a;stroke:#e64d00}.sb3-list-alt{fill:#f50}.sb3-list-dark{fill:#e64d00}.sb3-custom{fill:#ff6680;stroke:#f35}.sb3-custom-alt{fill:#ff4d6a}.sb3-custom-dark{fill:#f35}.sb3-custom-arg{fill:#ff6680;stroke:#f35}.sb3-extension{fill:#0fbd8c;stroke:#0b8e69}.sb3-extension-alt{fill:#0da57a}.sb3-extension-line{stroke:#0da57a}.sb3-extension-dark{fill:#0b8e69}.sb3-obsolete{fill:#ed4242;stroke:#ca2b2b}.sb3-obsolete-alt{fill:#db3333}.sb3-obsolete-dark{fill:#ca2b2b}.sb3-grey{fill:#bfbfbf;stroke:#909090}.sb3-grey-alt{fill:#b2b2b2}.sb3-grey-dark{fill:#909090}.sb3-input-color{stroke:#fff}.sb3-input-number,.sb3-input-string{fill:#fff}.sb3-literal-dropdown,.sb3-literal-number,.sb3-literal-number-dropdown,.sb3-literal-string{word-spacing:0}.sb3-literal-number,.sb3-literal-string{fill:#575e75}.sb3-comment{fill:#ffffa5;stroke:#d0d1d2;stroke-width:1}.sb3-comment-line{fill:#ffff80}.sb3-comment-label{font:400 12pt Helevetica Neue,Helvetica,sans-serif;fill:#000;word-spacing:0}.sb3-diff{fill:none;stroke:#000}.sb3-diff-ins{stroke-width:2px}.sb3-diff-del{stroke-width:3px}]]></style>
+
+        <!-- https://mermaid-js.github.io/ -->
+        <!-- https://www.jsdelivr.com/package/npm/mermaid -->
+        <script crossorigin="anonymous" integrity="sha256-ZfzwelSToHk5YAcr9wbXAmWgyn9Jyq08fSLrLhZE89w=" src="./Runoff - CS50x 2022_files/mermaid.min.js"></script>
+
+        
+
+        <link href="./Runoff - CS50x 2022_files/page.css" rel="stylesheet">
+        <link rel="stylesheet" href="./Runoff - CS50x 2022_files/css" media="all"><script src="./Runoff - CS50x 2022_files/jekyll-theme-cs50.js"></script>
+
+        <script>
+            window.CS50 = {
+                local: {"day":"numeric","hour":"numeric","minute":"numeric","month":"long","timeZoneName":"short","weekday":"long","year":"numeric"},
+                locale: "en",
+                tz: "America/New_York"
+            };
+        </script>
+
+        <title>Runoff - CS50x 2022</title>
+
+
+    <style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+
+@font-face /* 0 */ {
+  font-family: MJXZERO;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Zero.woff") format("woff");
+}
+
+@font-face /* 1 */ {
+  font-family: MJXTEX;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff") format("woff");
+}
+
+@font-face /* 2 */ {
+  font-family: MJXTEX-B;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff") format("woff");
+}
+
+@font-face /* 3 */ {
+  font-family: MJXTEX-I;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff") format("woff");
+}
+
+@font-face /* 4 */ {
+  font-family: MJXTEX-MI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff") format("woff");
+}
+
+@font-face /* 5 */ {
+  font-family: MJXTEX-BI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff") format("woff");
+}
+
+@font-face /* 6 */ {
+  font-family: MJXTEX-S1;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff") format("woff");
+}
+
+@font-face /* 7 */ {
+  font-family: MJXTEX-S2;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff") format("woff");
+}
+
+@font-face /* 8 */ {
+  font-family: MJXTEX-S3;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff") format("woff");
+}
+
+@font-face /* 9 */ {
+  font-family: MJXTEX-S4;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff") format("woff");
+}
+
+@font-face /* 10 */ {
+  font-family: MJXTEX-A;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff") format("woff");
+}
+
+@font-face /* 11 */ {
+  font-family: MJXTEX-C;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff") format("woff");
+}
+
+@font-face /* 12 */ {
+  font-family: MJXTEX-CB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff") format("woff");
+}
+
+@font-face /* 13 */ {
+  font-family: MJXTEX-FR;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff") format("woff");
+}
+
+@font-face /* 14 */ {
+  font-family: MJXTEX-FRB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff") format("woff");
+}
+
+@font-face /* 15 */ {
+  font-family: MJXTEX-SS;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff") format("woff");
+}
+
+@font-face /* 16 */ {
+  font-family: MJXTEX-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff") format("woff");
+}
+
+@font-face /* 17 */ {
+  font-family: MJXTEX-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff") format("woff");
+}
+
+@font-face /* 18 */ {
+  font-family: MJXTEX-SC;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff") format("woff");
+}
+
+@font-face /* 19 */ {
+  font-family: MJXTEX-T;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff") format("woff");
+}
+
+@font-face /* 20 */ {
+  font-family: MJXTEX-V;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff") format("woff");
+}
+
+@font-face /* 21 */ {
+  font-family: MJXTEX-VB;
+  src: url("https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff") format("woff");
+}
+</style></head>
+
+    <body class="vsc-initialized" data-new-gr-c-s-check-loaded="14.1080.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1080.0">
+
+        <div class="alert fixed-top mb-0 rounded-0 shadow alert-success alert-dismissible" data-alert="success dismissible" data-hash="f5fa231a8b697cc591f0d91b0b1ea768" id="alert" role="alert">
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button><p>Interested in <a href="https://cs50.harvard.edu/x/2022/#how-to-take-this-course" class="alert-link">a verified certificate, a professional certificate, or transfer credit and accreditation</a>?</p></div>
+        
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <aside class="col-md" style="height: 824px; top: 58px;">
+ 
+                    <header><h1 data-id="this-is-cs50x"><a href="https://cs50.harvard.edu/x/2022/">This is CS50x</a></h1>
+
+<h2 class="text-white" data-id="cs50s-introduction-to-computer-science">CS50’s Introduction to Computer Science</h2>
+
+<p>OpenCourseWare</p>
+
+<p><a class="pr-1 small" href="https://cs50.harvard.edu/donate">Donate<i aria-hidden="true" class="fas fa-external-link-alt ps-2"></i></a></p>
+
+<p><a href="https://cs.harvard.edu/malan/">David J. Malan</a>
+<br>
+<a href="mailto:malan@harvard.edu">malan@harvard.edu</a>
+<br>
+<a class="mr-1" href="https://www.facebook.com/dmalan"><i aria-hidden="true" class="fab fa-facebook-f" title="Facebook"></i><span class="sr-only">Facebook</span></a>
+<a class="mr-1" href="https://github.com/dmalan"><i aria-hidden="true" class="fab fa-github" title="GitHub"></i><span class="sr-only">GitHub</span></a>
+<a class="mr-1" href="https://www.instagram.com/davidjmalan/"><i aria-hidden="true" class="fab fa-instagram" title="Instagram"></i><span class="sr-only">Instagram</span></a>
+<a class="mr-1" href="https://www.linkedin.com/in/malan/"><i aria-hidden="true" class="fab fa-linkedin" title="LinkedIn"></i><span class="sr-only">LinkedIn</span></a>
+<a class="mr-1" href="https://orcid.org/0000-0001-5338-2522"><i aria-hidden="true" class="fab fa-orcid" title="ORCID"></i><span class="sr-only">ORCID</span></a>
+<a class="mr-1" href="https://www.quora.com/profile/David-J-Malan"><i aria-hidden="true" class="fab fa-quora" title="Quora"></i><span class="sr-only">Quora</span></a>
+<a class="mr-1" href="https://www.reddit.com/user/davidjmalan"><i aria-hidden="true" class="fab fa-reddit-alien" title="Reddit"></i><span class="sr-only">Reddit</span></a>
+<a class="mr-1" href="https://www.tiktok.com/@davidjmalan"><i aria-hidden="true" class="fab fa-tiktok" title="TikTok"></i><span class="sr-only">TikTok</span></a>
+<a class="mr-1" href="https://twitter.com/davidjmalan"><i aria-hidden="true" class="fab fa-twitter" title="Twitter"></i><span class="sr-only">Twitter</span></a></p></header>
+
+                    
+
+                    <button aria-controls="nav" aria-expanded="false" class="btn btn-sm collapsed d-md-none" data-bs-target="aside &gt; nav" data-bs-toggle="collapse">
+                        Menu
+                    </button>
+
+                    <nav class="collapse d-md-block" id="nav"><hr>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/prepare/"><i class="fas fa-book pe-2"></i>Tech Interviews</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.ly/zoom"><i class="fas fa-video pe-2"></i>Zoom Meetings<span class="badge bg-primary ms-2">New</span></a></li>
+</ul>
+
+<hr>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/movie/">🍿 CS50x Movie Night 2022</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/puzzles/"><i class="fas fa-puzzle-piece pe-2"></i>CS50x Puzzle Day 2022</a></li>
+</ul>
+
+<hr>
+
+<ul class="small fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/workshop/">CS50 Educator Workshop</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/gallery/">Gallery of Final Projects<span aria-hidden="true" class="ps-2 text-decoration-none">🖼️ </span></a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/new/">What’s new for 2022?</a></li>
+</ul>
+
+<hr>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/0/">Week 0</a> Scratch</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/1/">Week 1</a> C</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/2/">Week 2</a> Arrays</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/3/">Week 3</a> Algorithms</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/4/">Week 4</a> Memory</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/5/">Week 5</a> Data Structures</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/6/">Week 6</a> Python</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/7/">Week 7</a> SQL</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/8/">Week 8</a> HTML, CSS, JavaScript</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/9/">Week 9</a> Flask</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/10/">Week 10</a> Emoji</li>
+</ul>
+<ul class="fa-ul">
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/weeks/cybersecurity/">Cybersecurity</a></li>
+</ul>
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/seminars/">Seminars</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/project/">Final Project</a></li>
+</ul>
+
+<hr>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/honesty/">Academic Honesty</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/certificate/">CS50 Certificate</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/faqs/">FAQs</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.me/cs50x">Gradebook</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/staff/">Staff</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/syllabus/">Syllabus</a></li>
+</ul>
+
+<hr>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.edx.org/ed">Ed Discussion</a> for Q&amp;A</li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://us.edstem.org/quickstart/ed-discussion.pdf">Quick Start Guide</a></li>
+</ul>
+
+<hr>
+
+<ul class="small fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://apps.apple.com/us/app/cs50/id1631064453">Apple TV</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.edx.org/">edX</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://web.dce.harvard.edu/extension/csci/e/50">Harvard Extension School</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://web.dce.harvard.edu/summer/csci/s/50">Harvard Summer School</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.youtube.com/playlist?list=PLhQjrBD2T383f9scHRNYJkior2VvYjpSL">YouTube</a> HDR</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.youtube.com/playlist?list=PLhQjrBD2T380Xnv_v683p6UjiKJZe13ki">YouTube</a> SDR</li>
+</ul>
+
+<hr>
+
+<ul class="small fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://man.cs50.io/">Manual Pages</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.readthedocs.io/style/c/">Style Guide</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://code.cs50.io/">Visual Studio Code</a></li>
+</ul>
+
+<hr>
+
+<ul class="small fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.noticeable.news/">Changelog</a></li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.statuspage.io/">Status Page</a></li>
+</ul>
+
+<hr>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.harvard.edu/x/2022/communities/"><strong>Communities</strong></a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.clubhouse.com/club/cs50">Clubhouse</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://discord.gg/cs50">Discord</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.edx.org/ed">Ed</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.facebook.com/groups/cs50/">Facebook Group</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.facebook.com/cs50/">Facebook Page</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://github.com/cs50">GitHub</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://gitter.im/cs50/x">Gitter</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://instagram.com/cs50">Instagram</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.linkedin.com/groups/7437240/">LinkedIn Group</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.linkedin.com/school/CS50/">LinkedIn Page</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.medium.com/">Medium</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.quora.com/topic/CS50">Quora</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.reddit.com/r/cs50/">Reddit</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.edx.org/slack">Slack</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.snapchat.com/add/cs50">Snapchat</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://soundcloud.com/cs50">SoundCloud</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://cs50.stackexchange.com/">Stack Exchange</a> <span class="badge bg-light ms-1 py-1 rounded-pill text-dark">Q&amp;A</span></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://www.tiktok.com/@cs50">TikTok</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="https://twitter.com/cs50">Twitter</a></li>
+  <li data-marker="*" class="small"><span class="fa-li"><i class="fas fa-square"></i></span><a href="http://www.youtube.com/subscription_center?add_user=cs50tv">YouTube</a></li>
+</ul>
+
+<hr>
+
+<p><a href="https://cs50.harvardshop.com/"><img src="./Runoff - CS50x 2022_files/GGMdcKt.png" alt="Harvard Shop"></a></p>
+
+<hr>
+
+<p><a href="https://cs50.harvard.edu/x/2022/license/" class="small"><i class="fab fa-creative-commons me-1"></i>License</a></p></nav>
+
+                    <footer></footer>
+
+                </aside>
+
+                <main class="col-md" style="margin-bottom: 712px; margin-top: 58px;">
+
+                    <a data-id="" id="runoff" style="top: -58px;"></a><h1><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#runoff">Runoff</a></h1>
+
+<p>For this program, you’ll implement a program that runs a runoff election, per the below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./runoff Alice Bob Charlie
+Number of voters: 5
+Rank 1: Alice
+Rank 2: Bob
+Rank 3: Charlie
+
+Rank 1: Alice
+Rank 2: Charlie
+Rank 3: Bob
+
+Rank 1: Bob
+Rank 2: Charlie
+Rank 3: Alice
+
+Rank 1: Bob
+Rank 2: Alice
+Rank 3: Charlie
+
+Rank 1: Charlie
+Rank 2: Alice
+Rank 3: Bob
+
+Alice
+</code></pre></div></div>
+
+<a data-id="" id="background" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#background">Background</a></h2>
+
+<p>You already know about plurality elections, which follow a very simple algorithm for determining the winner of an election: every voter gets one vote, and the candidate with the most votes wins.</p>
+
+<p>But the plurality vote does have some disadvantages. What happens, for instance, in an election with three candidates, and the ballots below are cast?</p>
+
+<p><img src="./Runoff - CS50x 2022_files/fptp_ballot_1.png" alt="Five ballots, tie betweeen Alice and Bob"></p>
+
+<p>A plurality vote would here declare a tie between Alice and Bob, since each has two votes. But is that the right outcome?</p>
+
+<p>There’s another kind of voting system known as a ranked-choice voting system. In a ranked-choice system, voters can vote for more than one candidate. Instead of just voting for their top choice, they can rank the candidates in order of preference. The resulting ballots might therefore look like the below.</p>
+
+<p><img src="./Runoff - CS50x 2022_files/ranked_ballot_1.png" alt="Three ballots, with ranked preferences"></p>
+
+<p>Here, each voter, in addition to specifying their first preference candidate, has also indicated their second and third choices. And now, what was previously a tied election could now have a winner. The race was originally tied between Alice and Bob, so Charlie was out of the running. But the voter who chose Charlie preferred Alice over Bob, so Alice could here be declared the winner.</p>
+
+<p>Ranked choice voting can also solve yet another potential drawback of plurality voting. Take a look at the following ballots.</p>
+
+<p><img src="./Runoff - CS50x 2022_files/ranked_ballot_3.png" alt="Nine ballots, with ranked preferences"></p>
+
+<p>Who should win this election? In a plurality vote where each voter chooses their first preference only, Charlie wins this election with four votes compared to only three for Bob and two for Alice. But a majority of the voters (5 out of the 9) would be happier with either Alice or Bob instead of Charlie. By considering ranked preferences, a voting system may be able to choose a winner that better reflects the preferences of the voters.</p>
+
+<p>One such ranked choice voting system is the instant runoff system. In an instant runoff election, voters can rank as many candidates as they wish. If any candidate has a majority (more than 50%) of the first preference votes, that candidate is declared the winner of the election.</p>
+
+<p>If no candidate has more than 50% of the vote, then an “instant runoff” occurrs. The candidate who received the fewest number of votes is eliminated from the election, and anyone who originally chose that candidate as their first preference now has their second preference considered. Why do it this way? Effectively, this simulates what would have happened if the least popular candidate had not been in the election to begin with.</p>
+
+<p>The process repeats: if no candidate has a majority of the votes, the last place candidate is eliminated, and anyone who voted for them will instead vote for their next preference (who hasn’t themselves already been eliminated). Once a candidate has a majority, that candidate is declared the winner.</p>
+
+<p>Let’s consider the nine ballots above and examine how a runoff election would take place.</p>
+
+<p>Alice has two votes, Bob has three votes, and Charlie has four votes. To win an election with nine people, a majority (five votes) is required. Since nobody has a majority, a runoff needs to be held. Alice has the fewest number of votes (with only two), so Alice is eliminated. The voters who originally voted for Alice listed Bob as second preference, so Bob gets the extra two vote. Bob now has five votes, and Charlie still has four votes. Bob now has a majority, and Bob is declared the winner.</p>
+
+<p>What corner cases do we need to consider here?</p>
+
+<p>One possibility is that there’s a tie for who should get eliminated. We can handle that scenario by saying all candidates who are tied for last place will be eliminated. If every remaining candidate has the exact same number of votes, though, eliminating the tied last place candidates means eliminating everyone! So in that case, we’ll have to be careful not to eliminate everyone, and just declare the election a tie between all remaining candidates.</p>
+
+<p>Some instant runoff elections don’t require voters to rank all of their preferences — so there might be five candidates in an election, but a voter might only choose two. For this problem’s purposes, though, we’ll ignore that particular corner case, and assume that all voters will rank all of the candidates in their preferred order.</p>
+
+<p>Sounds a bit more complicated than a plurality vote, doesn’t it? But it arguably has the benefit of being an election system where the winner of the election more accurately represents the preferences of the voters.</p>
+
+<a data-id="" id="getting-started" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#getting-started">Getting Started</a></h2>
+
+<p>Log into <a href="https://code.cs50.io/">code.cs50.io</a>, click on your terminal window, and execute <code class="language-plaintext highlighter-rouge">cd</code> by itself. You should find that your terminal window’s prompt resembles the below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$
+</code></pre></div></div>
+
+<p>Next execute</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://cdn.cs50.net/2021/fall/psets/3/runoff.zip
+</code></pre></div></div>
+
+<p>in order to download a ZIP called <code class="language-plaintext highlighter-rouge">runoff.zip</code> into your codespace.</p>
+
+<p>Then execute</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip runoff.zip
+</code></pre></div></div>
+
+<p>to create a folder called <code class="language-plaintext highlighter-rouge">runoff</code>. You no longer need the ZIP file, so you can execute</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm runoff.zip
+</code></pre></div></div>
+
+<p>and respond with “y” followed by Enter at the prompt to remove the ZIP file you downloaded.</p>
+
+<p>Now type</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd runoff
+</code></pre></div></div>
+
+<p>followed by Enter to move yourself into (i.e., open) that directory. Your prompt should now resemble the below.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>runoff/ $
+</code></pre></div></div>
+
+<p>If all was successful, you should execute</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls
+</code></pre></div></div>
+
+<p>and see a file named <code class="language-plaintext highlighter-rouge">runoff.c</code>. Executing <code class="language-plaintext highlighter-rouge">code runoff.c</code> should open the file where you will type your code for this problem set. If not, retrace your steps and see if you can determine where you went wrong!</p>
+
+<a data-id="" id="understanding" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#understanding">Understanding</a></h2>
+
+<p>Let’s take a look at <code class="language-plaintext highlighter-rouge">runoff.c</code>. We’re defining two constants: <code class="language-plaintext highlighter-rouge">MAX_CANDIDATES</code> for the maximum number of candidates in the election, and <code class="language-plaintext highlighter-rouge">MAX_VOTERS</code> for the maximum number of voters in the election.</p>
+
+<p>Next up is a two-dimensional array <code class="language-plaintext highlighter-rouge">preferences</code>. The array <code class="language-plaintext highlighter-rouge">preferences[i]</code> will represent all of the preferences for voter number <code class="language-plaintext highlighter-rouge">i</code>, and the integer <code class="language-plaintext highlighter-rouge">preferences[i][j]</code> here will store the index of the candidate who is the <code class="language-plaintext highlighter-rouge">j</code>th preference for voter <code class="language-plaintext highlighter-rouge">i</code>.</p>
+
+<p>Next up is a <code class="language-plaintext highlighter-rouge">struct</code> called <code class="language-plaintext highlighter-rouge">candidate</code>. Every <code class="language-plaintext highlighter-rouge">candidate</code> has a <code class="language-plaintext highlighter-rouge">string</code> field for their <code class="language-plaintext highlighter-rouge">name</code>, and <code class="language-plaintext highlighter-rouge">int</code> representing the number of <code class="language-plaintext highlighter-rouge">votes</code> they currently have, and a <code class="language-plaintext highlighter-rouge">bool</code> value called <code class="language-plaintext highlighter-rouge">eliminated</code> that indicates whether the candidate has been eliminated from the election. The array <code class="language-plaintext highlighter-rouge">candidates</code> will keep track of all of the candidates in the election.</p>
+
+<p>The program also has two global variables: <code class="language-plaintext highlighter-rouge">voter_count</code> and <code class="language-plaintext highlighter-rouge">candidate_count</code>.</p>
+
+<p>Now onto <code class="language-plaintext highlighter-rouge">main</code>. Notice that after determining the number of candidates and the number of voters, the main voting loop begins, giving every voter a chance to vote. As the voter enters their preferences, the <code class="language-plaintext highlighter-rouge">vote</code> function is called to keep track of all of the preferences. If at any point, the ballot is deemed to be invalid, the program exits.</p>
+
+<p>Once all of the votes are in, another loop begins: this one’s going to keep looping through the runoff process of checking for a winner and eliminating the last place candidate until there is a winner.</p>
+
+<p>The first call here is to a function called <code class="language-plaintext highlighter-rouge">tabulate</code>, which should look at all of the voters’ preferences and compute the current vote totals, by looking at each voter’s top choice candidate who hasn’t yet been eliminated. Next, the <code class="language-plaintext highlighter-rouge">print_winner</code> function should print out the winner if there is one; if there is, the program is over. But otherwise, the program needs to determine the fewest number of votes anyone still in the election received (via a call to <code class="language-plaintext highlighter-rouge">find_min</code>). If it turns out that everyone in the election is tied with the same number of votes (as determined by the <code class="language-plaintext highlighter-rouge">is_tie</code> function), the election is declared a tie; otherwise, the last-place candidate (or candidates) is eliminated from the election via a call to the <code class="language-plaintext highlighter-rouge">eliminate</code> function.</p>
+
+<p>If you look a bit further down in the file, you’ll see that these functions — <code class="language-plaintext highlighter-rouge">vote</code>, <code class="language-plaintext highlighter-rouge">tabulate</code>, <code class="language-plaintext highlighter-rouge">print_winner</code>, <code class="language-plaintext highlighter-rouge">find_min</code>, <code class="language-plaintext highlighter-rouge">is_tie</code>, and <code class="language-plaintext highlighter-rouge">eliminate</code> — are all left to up to you to complete!</p>
+
+<a data-id="" id="specification" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#specification">Specification</a></h2>
+
+<p>Complete the implementation of <code class="language-plaintext highlighter-rouge">runoff.c</code> in such a way that it simulates a runoff election. You should complete the implementations of the <code class="language-plaintext highlighter-rouge">vote</code>, <code class="language-plaintext highlighter-rouge">tabulate</code>, <code class="language-plaintext highlighter-rouge">print_winner</code>, <code class="language-plaintext highlighter-rouge">find_min</code>, <code class="language-plaintext highlighter-rouge">is_tie</code>, and <code class="language-plaintext highlighter-rouge">eliminate</code> functions, and you should not modify anything else in <code class="language-plaintext highlighter-rouge">runoff.c</code> (and the inclusion of additional header files, if you’d like).</p>
+
+<a data-id="" id="vote" style="top: -58px;"></a><h3><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#vote"><code class="language-plaintext highlighter-rouge">vote</code></a></h3>
+
+<p>Complete the <code class="language-plaintext highlighter-rouge">vote</code> function.</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function takes arguments <code class="language-plaintext highlighter-rouge">voter</code>, <code class="language-plaintext highlighter-rouge">rank</code>, and <code class="language-plaintext highlighter-rouge">name</code>. If <code class="language-plaintext highlighter-rouge">name</code> is a match for the name of a valid candidate, then you should update the global preferences array to indicate that the voter <code class="language-plaintext highlighter-rouge">voter</code> has that candidate as their <code class="language-plaintext highlighter-rouge">rank</code> preference (where <code class="language-plaintext highlighter-rouge">0</code> is the first preference, <code class="language-plaintext highlighter-rouge">1</code> is the second preference, etc.).</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>If the preference is successfully recorded, the function should return <code class="language-plaintext highlighter-rouge">true</code>; the function should return <code class="language-plaintext highlighter-rouge">false</code> otherwise (if, for instance, <code class="language-plaintext highlighter-rouge">name</code> is not the name of one of the candidates).</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>You may assume that no two candidates will have the same name.</li>
+</ul>
+
+<details open=""><summary>Hints</summary><ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that <code class="language-plaintext highlighter-rouge">candidate_count</code> stores the number of candidates in the election.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that you can use <a href="https://man.cs50.io/3/strcmp"><code class="language-plaintext highlighter-rouge">strcmp</code></a> to compare two strings.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that <code class="language-plaintext highlighter-rouge">preferences[i][j]</code> stores the index of the candidate who is the <code class="language-plaintext highlighter-rouge">j</code>th ranked preference for the <code class="language-plaintext highlighter-rouge">i</code>th voter.</li>
+</ul></details>
+
+<a data-id="" id="tabulate" style="top: -58px;"></a><h3><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#tabulate"><code class="language-plaintext highlighter-rouge">tabulate</code></a></h3>
+
+<p>Complete the <code class="language-plaintext highlighter-rouge">tabulate</code> function.</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function should update the number of <code class="language-plaintext highlighter-rouge">votes</code> each candidate has at this stage in the runoff.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that at each stage in the runoff, every voter effectively votes for their top-preferred candidate who has not already been eliminated.</li>
+</ul>
+
+<details open=""><summary>Hints</summary><ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that <code class="language-plaintext highlighter-rouge">voter_count</code> stores the number of voters in the election and that, for each voter in our election, we want to count one ballot.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that for a voter <code class="language-plaintext highlighter-rouge">i</code>, their top choice candidate is represented by <code class="language-plaintext highlighter-rouge">preferences[i][0]</code>, their second choice candidate by <code class="language-plaintext highlighter-rouge">preferences[i][1]</code>, etc.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that the <code class="language-plaintext highlighter-rouge">candidate</code> <code class="language-plaintext highlighter-rouge">struct</code> has a field called <code class="language-plaintext highlighter-rouge">eliminated</code>, which will be <code class="language-plaintext highlighter-rouge">true</code> if the candidate has been eliminated from the election.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that the <code class="language-plaintext highlighter-rouge">candidate</code> <code class="language-plaintext highlighter-rouge">struct</code> has a field called <code class="language-plaintext highlighter-rouge">votes</code>, which you’ll likely want to update for each voter’s preferred candidate.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Once you’ve cast a vote for a voter’s first non-eliminated candidate, you’ll want to stop there, not continue down their ballot! Recall that you can break out of a loop early using <code class="language-plaintext highlighter-rouge">break</code> inside of a conditional.</li>
+</ul></details>
+
+<a data-id="" id="print_winner" style="top: -58px;"></a><h3><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#print_winner"><code class="language-plaintext highlighter-rouge">print_winner</code></a></h3>
+
+<p>Complete the <code class="language-plaintext highlighter-rouge">print_winner</code> function.</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>If any candidate has more than half of the vote, their name should be printed and the function should return <code class="language-plaintext highlighter-rouge">true</code>.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>If nobody has won the election yet, the function should return <code class="language-plaintext highlighter-rouge">false</code>.</li>
+</ul>
+
+<details open=""><summary>Hints</summary><ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that <code class="language-plaintext highlighter-rouge">voter_count</code> stores the number of voters in the election. Given that, how would you express the number of votes needed to win the election?</li>
+</ul></details>
+
+<a data-id="" id="find_min" style="top: -58px;"></a><h3><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#find_min"><code class="language-plaintext highlighter-rouge">find_min</code></a></h3>
+
+<p>Complete the <code class="language-plaintext highlighter-rouge">find_min</code> function.</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function should return the minimum vote total for any candidate who is still in the election.</li>
+</ul>
+
+<details open=""><summary>Hints</summary><ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>You’ll likely want to loop through the candidates to find the one who is both still in the election and has the fewest number of votes. What information should you keep track of as you loop through the candidates?</li>
+</ul></details>
+
+<a data-id="" id="is_tie" style="top: -58px;"></a><h3><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#is_tie"><code class="language-plaintext highlighter-rouge">is_tie</code></a></h3>
+
+<p>Complete the <code class="language-plaintext highlighter-rouge">is_tie</code> function.</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function takes an argument <code class="language-plaintext highlighter-rouge">min</code>, which will be the minimum number of votes that anyone in the election currently has.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function should return <code class="language-plaintext highlighter-rouge">true</code> if every candidate remaining in the election has the same number of votes, and should return <code class="language-plaintext highlighter-rouge">false</code> otherwise.</li>
+</ul>
+
+<details open=""><summary>Hints</summary><ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Recall that a tie happens if every candidate still in the election has the same number of votes. Note, too, that the <code class="language-plaintext highlighter-rouge">is_tie</code> function takes an argument <code class="language-plaintext highlighter-rouge">min</code>, which is the smallest number of votes any candidate currently has. How might you use that information to determine if the election is a tie (or, conversely, not a tie)?</li>
+</ul></details>
+
+<a data-id="" id="eliminate" style="top: -58px;"></a><h3><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#eliminate"><code class="language-plaintext highlighter-rouge">eliminate</code></a></h3>
+
+<p>Complete the <code class="language-plaintext highlighter-rouge">eliminate</code> function.</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function takes an argument <code class="language-plaintext highlighter-rouge">min</code>, which will be the minimum number of votes that anyone in the election currently has.</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>The function should eliminate the candidate (or candidates) who have <code class="language-plaintext highlighter-rouge">min</code> number of votes.</li>
+</ul>
+
+<a data-id="" id="walkthrough" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#walkthrough">Walkthrough</a></h2>
+
+<div class="ratio ratio-16x9" data-video=""><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="border" data-video="" src="./Runoff - CS50x 2022_files/-Vc5aGywKxo.html" scrolling="no" id="iFrameResizer0" style="overflow: hidden;"></iframe></div>
+
+<a data-id="" id="usage" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#usage">Usage</a></h2>
+
+<p>Your program should behave per the example below:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./runoff Alice Bob Charlie
+Number of voters: 5
+Rank 1: Alice
+Rank 2: Charlie
+Rank 3: Bob
+
+Rank 1: Alice
+Rank 2: Charlie
+Rank 3: Bob
+
+Rank 1: Bob
+Rank 2: Charlie
+Rank 3: Alice
+
+Rank 1: Bob
+Rank 2: Charlie
+Rank 3: Alice
+
+Rank 1: Charlie
+Rank 2: Alice
+Rank 3: Bob
+
+Alice
+</code></pre></div></div>
+
+<a data-id="" id="testing" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#testing">Testing</a></h2>
+
+<p>Be sure to test your code to make sure it handles…</p>
+
+<ul class="fa-ul">
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>An election with any number of candidate (up to the <code class="language-plaintext highlighter-rouge">MAX</code> of <code class="language-plaintext highlighter-rouge">9</code>)</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Voting for a candidate by name</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Invalid votes for candidates who are not on the ballot</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Printing the winner of the election if there is only one</li>
+  <li data-marker="*"><span class="fa-li"><i class="fas fa-square"></i></span>Not eliminating anyone in the case of a tie between all remaining candidates</li>
+</ul>
+
+<p>Execute the below to evaluate the correctness of your code using <code class="language-plaintext highlighter-rouge">check50</code>. But be sure to compile and test it yourself as well!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>check50 cs50/problems/2022/x/runoff
+</code></pre></div></div>
+
+<p>Execute the below to evaluate the style of your code using <code class="language-plaintext highlighter-rouge">style50</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>style50 runoff.c
+</code></pre></div></div>
+
+<a data-id="" id="how-to-submit" style="top: -58px;"></a><h2><a data-id="" href="https://cs50.harvard.edu/x/2022/psets/3/runoff/#how-to-submit">How to Submit</a></h2>
+
+<p>In your terminal, execute the below to submit your work.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>submit50 cs50/problems/2022/x/runoff
+</code></pre></div></div>
+
+
+                </main>
+
+            </div>
+
+        </div>
+
+        
+ 
+        <script src="./Runoff - CS50x 2022_files/page.js"></script>
+
+    
+
+
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
