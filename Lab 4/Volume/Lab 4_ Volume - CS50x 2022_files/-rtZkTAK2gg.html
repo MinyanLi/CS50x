@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://video.cs50.io/-rtZkTAK2gg -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="Volume - Solution - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/-rtZkTAK2gg">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            Volume - Solution - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1080.0" data-gr-ext-installed="">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍦" src="./1f366.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍌" src="./1f34c.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/-rtZkTAK2gg?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN: Let's take a look at how you might have solved the volume problem.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="3" href="https://video.cs50.io/-rtZkTAK2gg?start=3"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:03</span></span><span data-text="">In this problem, your task was to take an audio file</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="6" href="https://video.cs50.io/-rtZkTAK2gg?start=6"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:06</span></span><span data-text="">and modify its volume by a particular factor,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="9" href="https://video.cs50.io/-rtZkTAK2gg?start=9"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:09</span></span><span data-text="">increasing or decreasing the volume of the audio file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="13" href="https://video.cs50.io/-rtZkTAK2gg?start=13"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:13</span></span><span data-text="">So let's now take a look at the solution inside of volume.c.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="17" href="https://video.cs50.io/-rtZkTAK2gg?start=17"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:17</span></span><span data-text="">We gave you some of the initial code inside of the main function already,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="21" href="https://video.cs50.io/-rtZkTAK2gg?start=21"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:21</span></span><span data-text="">but the first thing you needed to do was to deal with the header,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="24" href="https://video.cs50.io/-rtZkTAK2gg?start=24"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:24</span></span><span data-text="">to be able to read the header from the input file,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="27" href="https://video.cs50.io/-rtZkTAK2gg?start=27"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:27</span></span><span data-text="">and to write that header to the output file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="30" href="https://video.cs50.io/-rtZkTAK2gg?start=30"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:30</span></span><span data-text="">The first thing you might have needed to do</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="32" href="https://video.cs50.io/-rtZkTAK2gg?start=32"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:32</span></span><span data-text="">was to create some place in your computer's memory</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="35" href="https://video.cs50.io/-rtZkTAK2gg?start=35"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:35</span></span><span data-text="">into which to read that header.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="37" href="https://video.cs50.io/-rtZkTAK2gg?start=37"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:37</span></span><span data-text="">And so the first thing we have here is the declaration</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="40" href="https://video.cs50.io/-rtZkTAK2gg?start=40"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:40</span></span><span data-text="">of an array called "header."</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="42" href="https://video.cs50.io/-rtZkTAK2gg?start=42"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:42</span></span><span data-text="">Its type is uint8_t, a type for unsigned 8-bit integers just representing bytes.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="49" href="https://video.cs50.io/-rtZkTAK2gg?start=49"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:49</span></span><span data-text="">And how many bytes do we want in the header?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="51" href="https://video.cs50.io/-rtZkTAK2gg?start=51"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:51</span></span><span data-text="">Well, we want header-size bytes.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="54" href="https://video.cs50.io/-rtZkTAK2gg?start=54"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:54</span></span><span data-text="">Recall that header size, is a constant integer just equal to 44.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="58" href="https://video.cs50.io/-rtZkTAK2gg?start=58"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:58</span></span><span data-text="">That's the number of bytes in the header of a WAV file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="61" href="https://video.cs50.io/-rtZkTAK2gg?start=61"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:01</span></span><span data-text="">So we could have written header 44 here, but it's slightly better</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="64" href="https://video.cs50.io/-rtZkTAK2gg?start=64"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:04</span></span><span data-text="">designed to take advantage of this constant</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="66" href="https://video.cs50.io/-rtZkTAK2gg?start=66"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:06</span></span><span data-text="">rather than reuse the number over and over by just saying header size.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="71" href="https://video.cs50.io/-rtZkTAK2gg?start=71"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:11</span></span><span data-text="">So we now have this buffer, as we might call it, to represent the header.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="76" href="https://video.cs50.io/-rtZkTAK2gg?start=76"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:16</span></span><span data-text="">And now we need to read that buffer from the input file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="81" href="https://video.cs50.io/-rtZkTAK2gg?start=81"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:21</span></span><span data-text="">And so here we're reading header size bytes from the input file,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="86" href="https://video.cs50.io/-rtZkTAK2gg?start=86"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:26</span></span><span data-text="">and we're going to go ahead and read it into the header variable</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="91" href="https://video.cs50.io/-rtZkTAK2gg?start=91"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:31</span></span><span data-text="">that we've created here.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="93" href="https://video.cs50.io/-rtZkTAK2gg?start=93"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:33</span></span><span data-text="">And after we've read it into memory, then we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="95" href="https://video.cs50.io/-rtZkTAK2gg?start=95"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:35</span></span><span data-text="">can write that same data to the output file calling the fwrite function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="100" href="https://video.cs50.io/-rtZkTAK2gg?start=100"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:40</span></span><span data-text="">and then writing the contents of that header to the output file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="104" href="https://video.cs50.io/-rtZkTAK2gg?start=104"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:44</span></span><span data-text="">And how many bytes are we going to write?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="106" href="https://video.cs50.io/-rtZkTAK2gg?start=106"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:46</span></span><span data-text="">Well, we're going to write header-size bytes.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="109" href="https://video.cs50.io/-rtZkTAK2gg?start=109"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:49</span></span><span data-text="">Those lines are going to have the effect of reading 44 bytes from the input</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="113" href="https://video.cs50.io/-rtZkTAK2gg?start=113"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:53</span></span><span data-text="">file, and then copying them into the first 44 bytes of the output file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="119" href="https://video.cs50.io/-rtZkTAK2gg?start=119"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:59</span></span><span data-text="">Next, after the header of an input file is</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="122" href="https://video.cs50.io/-rtZkTAK2gg?start=122"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:02</span></span><span data-text="">going to come all of the bytes of data, the sample</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="125" href="https://video.cs50.io/-rtZkTAK2gg?start=125"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:05</span></span><span data-text="">bytes that are contained within the audio file as well.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="128" href="https://video.cs50.io/-rtZkTAK2gg?start=128"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:08</span></span><span data-text="">And for each of those two-byte samples, we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="131" href="https://video.cs50.io/-rtZkTAK2gg?start=131"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:11</span></span><span data-text="">want to read that sample into memory, modify it to adjust its volume,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="135" href="https://video.cs50.io/-rtZkTAK2gg?start=135"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:15</span></span><span data-text="">and then write it to the updated file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="138" href="https://video.cs50.io/-rtZkTAK2gg?start=138"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:18</span></span><span data-text="">So here, we're going to start by creating another buffer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="141" href="https://video.cs50.io/-rtZkTAK2gg?start=141"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:21</span></span><span data-text="">This time the buffer doesn't need to store 44 bytes of data.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="144" href="https://video.cs50.io/-rtZkTAK2gg?start=144"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:24</span></span><span data-text="">It just needs to store enough data for a two-byte sample.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="148" href="https://video.cs50.io/-rtZkTAK2gg?start=148"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:28</span></span><span data-text="">And for that, we can use the int16_t type</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="151" href="https://video.cs50.io/-rtZkTAK2gg?start=151"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:31</span></span><span data-text="">for a type that stores an integer with 16 bits.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="155" href="https://video.cs50.io/-rtZkTAK2gg?start=155"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:35</span></span><span data-text="">And now we're going to repeat this inside of a loop.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="158" href="https://video.cs50.io/-rtZkTAK2gg?start=158"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:38</span></span><span data-text="">We're going to use the fread function to read from the input file</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="162" href="https://video.cs50.io/-rtZkTAK2gg?start=162"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:42</span></span><span data-text="">into the buffer, passing in the address of the buffer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="165" href="https://video.cs50.io/-rtZkTAK2gg?start=165"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:45</span></span><span data-text="">So that fread knows where to put the memory that it's reading.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="169" href="https://video.cs50.io/-rtZkTAK2gg?start=169"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:49</span></span><span data-text="">And we're going to read one sample of 16 bits, in other words, two bytes.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="176" href="https://video.cs50.io/-rtZkTAK2gg?start=176"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:56</span></span><span data-text="">And because this is in a loop, the effect</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="178" href="https://video.cs50.io/-rtZkTAK2gg?start=178"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:58</span></span><span data-text="">this loop is going to have is it's going to repeatedly read</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="181" href="https://video.cs50.io/-rtZkTAK2gg?start=181"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:01</span></span><span data-text="">a sample, one sample after another, until we reach the end of the file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="185" href="https://video.cs50.io/-rtZkTAK2gg?start=185"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:05</span></span><span data-text="">fread returns to us the number of blocks of data</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="188" href="https://video.cs50.io/-rtZkTAK2gg?start=188"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:08</span></span><span data-text="">it was able to read successfully.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="190" href="https://video.cs50.io/-rtZkTAK2gg?start=190"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:10</span></span><span data-text="">And so once it's no longer able to read any more data from the file,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="194" href="https://video.cs50.io/-rtZkTAK2gg?start=194"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:14</span></span><span data-text="">fread will return 0.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="196" href="https://video.cs50.io/-rtZkTAK2gg?start=196"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:16</span></span><span data-text="">And at that point, "while" is going to treat that as false,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="198" href="https://video.cs50.io/-rtZkTAK2gg?start=198"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:18</span></span><span data-text="">and we'll exit the loop.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="200" href="https://video.cs50.io/-rtZkTAK2gg?start=200"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:20</span></span><span data-text="">So now we've read the sample into memory as this variable "buffer,"</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="205" href="https://video.cs50.io/-rtZkTAK2gg?start=205"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:25</span></span><span data-text="">and now we need to update the buffer by multiplying it by "factor."</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="208" href="https://video.cs50.io/-rtZkTAK2gg?start=208"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:28</span></span><span data-text="">If factor is 2, that has the effect of doubling the volume.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="211" href="https://video.cs50.io/-rtZkTAK2gg?start=211"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:31</span></span><span data-text="">If factor is less than 1, it has the effect of decreasing the volume.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="215" href="https://video.cs50.io/-rtZkTAK2gg?start=215"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:35</span></span><span data-text="">So factor could be some other floating-point number</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="218" href="https://video.cs50.io/-rtZkTAK2gg?start=218"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:38</span></span><span data-text="">to change the value of this particular sample.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="221" href="https://video.cs50.io/-rtZkTAK2gg?start=221"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:41</span></span><span data-text="">And once we've changed the value of the sample,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="224" href="https://video.cs50.io/-rtZkTAK2gg?start=224"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:44</span></span><span data-text="">now we just need to write that updated data to the output</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="227" href="https://video.cs50.io/-rtZkTAK2gg?start=227"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:47</span></span><span data-text="">file, again, using fwrite to do so, writing data from the buffer</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="232" href="https://video.cs50.io/-rtZkTAK2gg?start=232"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:52</span></span><span data-text="">to the output file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="233" href="https://video.cs50.io/-rtZkTAK2gg?start=233"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:53</span></span><span data-text="">And how much data are we writing?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="235" href="https://video.cs50.io/-rtZkTAK2gg?start=235"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:55</span></span><span data-text="">Well, it's however big an int16_t is, which in this case,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="239" href="https://video.cs50.io/-rtZkTAK2gg?start=239"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:59</span></span><span data-text="">is going to be 2 bytes.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="241" href="https://video.cs50.io/-rtZkTAK2gg?start=241"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:01</span></span><span data-text="">After that, we wrote the code to close the files for you already.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="245" href="https://video.cs50.io/-rtZkTAK2gg?start=245"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:05</span></span><span data-text="">So now when you run this program, you should</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="247" href="https://video.cs50.io/-rtZkTAK2gg?start=247"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:07</span></span><span data-text="">be able to specify an input audio file, specify a new file</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="251" href="https://video.cs50.io/-rtZkTAK2gg?start=251"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:11</span></span><span data-text="">name for an output audio file, as well as a factor by which</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="254" href="https://video.cs50.io/-rtZkTAK2gg?start=254"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:14</span></span><span data-text="">to change that volume.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="255" href="https://video.cs50.io/-rtZkTAK2gg?start=255"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:15</span></span><span data-text="">And you should be able to generate new audio files that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="258" href="https://video.cs50.io/-rtZkTAK2gg?start=258"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:18</span></span><span data-text="">have the same audio but just with a different volume compared</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="262" href="https://video.cs50.io/-rtZkTAK2gg?start=262"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:22</span></span><span data-text="">to the original.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="263" href="https://video.cs50.io/-rtZkTAK2gg?start=263"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:23</span></span><span data-text="">My name is Brian, and this was volume.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/-rtZkTAK2gg" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 420px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./-rtZkTAK2gg(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.5, "BRIAN: Let\u0027s take a look at how you might have solved the volume problem."], [3.9699999999999998, "In this problem, your task was to take an audio file"], [6.78, "and modify its volume by a particular factor,"], [9.66, "increasing or decreasing the volume of the audio file."], [13.09, "So let\u0027s now take a look at the solution inside of volume.c."], [17.37, "We gave you some of the initial code inside of the main function already,"], [21.06, "but the first thing you needed to do was to deal with the header,"], [24.48, "to be able to read the header from the input file,"], [27.57, "and to write that header to the output file."], [30.87, "The first thing you might have needed to do"], [32.729, "was to create some place in your computer\u0027s memory"], [35.61, "into which to read that header."], [37.83, "And so the first thing we have here is the declaration"], [40.71, "of an array called \"header.\""], [42.87, "Its type is uint8_t, a type for unsigned 8-bit integers just representing bytes."], [49.26, "And how many bytes do we want in the header?"], [51.72, "Well, we want header-size bytes."], [54.45, "Recall that header size, is a constant integer just equal to 44."], [58.38, "That\u0027s the number of bytes in the header of a WAV file."], [61.38, "So we could have written header 44 here, but it\u0027s slightly better"], [64.709, "designed to take advantage of this constant"], [66.84, "rather than reuse the number over and over by just saying header size."], [71.46, "So we now have this buffer, as we might call it, to represent the header."], [76.71, "And now we need to read that buffer from the input file."], [81.45, "And so here we\u0027re reading header size bytes from the input file,"], [86.16, "and we\u0027re going to go ahead and read it into the header variable"], [91.44, "that we\u0027ve created here."], [93.29, "And after we\u0027ve read it into memory, then we"], [95.74, "can write that same data to the output file calling the fwrite function"], [100.54, "and then writing the contents of that header to the output file."], [104.95, "And how many bytes are we going to write?"], [106.78, "Well, we\u0027re going to write header-size bytes."], [109.75, "Those lines are going to have the effect of reading 44 bytes from the input"], [113.68, "file, and then copying them into the first 44 bytes of the output file."], [119.91, "Next, after the header of an input file is"], [122.88, "going to come all of the bytes of data, the sample"], [125.55, "bytes that are contained within the audio file as well."], [128.919, "And for each of those two-byte samples, we"], [131.25, "want to read that sample into memory, modify it to adjust its volume,"], [135.21, "and then write it to the updated file."], [138.1, "So here, we\u0027re going to start by creating another buffer."], [141.27, "This time the buffer doesn\u0027t need to store 44 bytes of data."], [144.33, "It just needs to store enough data for a two-byte sample."], [148.27, "And for that, we can use the int16_t type"], [151.56, "for a type that stores an integer with 16 bits."], [155.57, "And now we\u0027re going to repeat this inside of a loop."], [158.8, "We\u0027re going to use the fread function to read from the input file"], [162.73, "into the buffer, passing in the address of the buffer."], [165.74, "So that fread knows where to put the memory that it\u0027s reading."], [169.12, "And we\u0027re going to read one sample of 16 bits, in other words, two bytes."], [176.53, "And because this is in a loop, the effect"], [178.75, "this loop is going to have is it\u0027s going to repeatedly read"], [181.75, "a sample, one sample after another, until we reach the end of the file."], [185.71, "fread returns to us the number of blocks of data"], [188.95, "it was able to read successfully."], [190.79, "And so once it\u0027s no longer able to read any more data from the file,"], [194.32, "fread will return 0."], [196.03, "And at that point, \"while\" is going to treat that as false,"], [198.76, "and we\u0027ll exit the loop."], [200.99, "So now we\u0027ve read the sample into memory as this variable \"buffer,\""], [205.03, "and now we need to update the buffer by multiplying it by \"factor.\""], [208.93, "If factor is 2, that has the effect of doubling the volume."], [211.87, "If factor is less than 1, it has the effect of decreasing the volume."], [215.53, "So factor could be some other floating-point number"], [218.11, "to change the value of this particular sample."], [221.84, "And once we\u0027ve changed the value of the sample,"], [224.36, "now we just need to write that updated data to the output"], [227.59, "file, again, using fwrite to do so, writing data from the buffer"], [232.06, "to the output file."], [233.32, "And how much data are we writing?"], [235.24, "Well, it\u0027s however big an int16_t is, which in this case,"], [239.11, "is going to be 2 bytes."], [241.69, "After that, we wrote the code to close the files for you already."], [245.08, "So now when you run this program, you should"], [247.24, "be able to specify an input audio file, specify a new file"], [251.02, "name for an output audio file, as well as a factor by which"], [254.38, "to change that volume."], [255.76, "And you should be able to generate new audio files that"], [258.73, "have the same audio but just with a different volume compared"], [262.15, "to the original."], [263.115, "My name is Brian, and this was volume."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "-rtZkTAK2gg"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
