@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://video.cs50.io/Fo7Roe8hw3A -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="World Cup - Solution - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/Fo7Roe8hw3A">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            World Cup - Solution - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1081.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1081.0">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍪" src="./1f36a.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍊" src="./1f34a.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/Fo7Roe8hw3A?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN: Let's take a look at how you might</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="1" href="https://video.cs50.io/Fo7Roe8hw3A?start=1"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:01</span></span><span data-text="">have gone about solving World Cup.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="3" href="https://video.cs50.io/Fo7Roe8hw3A?start=3"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:03</span></span><span data-text="">In this problem, your task was to write a Python</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="6" href="https://video.cs50.io/Fo7Roe8hw3A?start=6"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:06</span></span><span data-text="">program to run multiple simulations of some kind of a sports tournament.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="10" href="https://video.cs50.io/Fo7Roe8hw3A?start=10"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:10</span></span><span data-text="">And let's see how you would have done that.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="12" href="https://video.cs50.io/Fo7Roe8hw3A?start=12"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:12</span></span><span data-text="">Inside of the main function, the first thing you needed to do</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="15" href="https://video.cs50.io/Fo7Roe8hw3A?start=15"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:15</span></span><span data-text="">was to read in all of the teams into memory,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="18" href="https://video.cs50.io/Fo7Roe8hw3A?start=18"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:18</span></span><span data-text="">because the teams were stored inside of a CSV file that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="21" href="https://video.cs50.io/Fo7Roe8hw3A?start=21"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:21</span></span><span data-text="">had the name of each team, well as a rating for each team representing</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="25" href="https://video.cs50.io/Fo7Roe8hw3A?start=25"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:25</span></span><span data-text="">how good that particular team is.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="28" href="https://video.cs50.io/Fo7Roe8hw3A?start=28"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:28</span></span><span data-text="">That CSV file was specified as a command line argument, which in Python, you</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="34" href="https://video.cs50.io/Fo7Roe8hw3A?start=34"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:34</span></span><span data-text="">can access using sys dot argv, where sys dot argv 1, in this case,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="38" href="https://video.cs50.io/Fo7Roe8hw3A?start=38"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:38</span></span><span data-text="">is going to be the name of the file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="41" href="https://video.cs50.io/Fo7Roe8hw3A?start=41"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:41</span></span><span data-text="">So we'll store that inside of a variable called filename.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="44" href="https://video.cs50.io/Fo7Roe8hw3A?start=44"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:44</span></span><span data-text="">Next we're going to open that filename, opening that filename</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="47" href="https://video.cs50.io/Fo7Roe8hw3A?start=47"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:47</span></span><span data-text="">and calling the file f.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="49" href="https://video.cs50.io/Fo7Roe8hw3A?start=49"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:49</span></span><span data-text="">And now we want to read that file as a CSV file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="53" href="https://video.cs50.io/Fo7Roe8hw3A?start=53"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:53</span></span><span data-text="">To do so, we can use the CSV module.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="56" href="https://video.cs50.io/Fo7Roe8hw3A?start=56"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:56</span></span><span data-text="">And in particular, using something called</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="58" href="https://video.cs50.io/Fo7Roe8hw3A?start=58"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:58</span></span><span data-text="">CSV dot DictReader, which will let us read a file, f, one row at a time,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="63" href="https://video.cs50.io/Fo7Roe8hw3A?start=63"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:03</span></span><span data-text="">treating each row of the CSV file as a dictionary,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="67" href="https://video.cs50.io/Fo7Roe8hw3A?start=67"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:07</span></span><span data-text="">with keys corresponding to the names of each of the columns,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="70" href="https://video.cs50.io/Fo7Roe8hw3A?start=70"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:10</span></span><span data-text="">and values corresponding to the values actually found inside that row of data</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="75" href="https://video.cs50.io/Fo7Roe8hw3A?start=75"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:15</span></span><span data-text="">in the CSV file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="77" href="https://video.cs50.io/Fo7Roe8hw3A?start=77"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:17</span></span><span data-text="">So once we have this DictReader, which in this case,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="80" href="https://video.cs50.io/Fo7Roe8hw3A?start=80"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:20</span></span><span data-text="">I'm just calling reader, let's loop over all of the data</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="83" href="https://video.cs50.io/Fo7Roe8hw3A?start=83"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:23</span></span><span data-text="">that that reader is going to give us.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="85" href="https://video.cs50.io/Fo7Roe8hw3A?start=85"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:25</span></span><span data-text="">For team in that reader, each time, we're</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="87" href="https://video.cs50.io/Fo7Roe8hw3A?start=87"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:27</span></span><span data-text="">going to get one dictionary representing that team that we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="90" href="https://video.cs50.io/Fo7Roe8hw3A?start=90"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:30</span></span><span data-text="">want to add to our list of teams.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="93" href="https://video.cs50.io/Fo7Roe8hw3A?start=93"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:33</span></span><span data-text="">But remember, when we read data from a CSV file, the data, by default,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="97" href="https://video.cs50.io/Fo7Roe8hw3A?start=97"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:37</span></span><span data-text="">is all going to be strings, just textual data.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="100" href="https://video.cs50.io/Fo7Roe8hw3A?start=100"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:40</span></span><span data-text="">But the rating is a number.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="102" href="https://video.cs50.io/Fo7Roe8hw3A?start=102"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:42</span></span><span data-text="">And to be able to do math with that number</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="104" href="https://video.cs50.io/Fo7Roe8hw3A?start=104"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:44</span></span><span data-text="">to calculate probabilities and the likelihood</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="106" href="https://video.cs50.io/Fo7Roe8hw3A?start=106"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:46</span></span><span data-text="">that one team wins over another team, we need</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="108" href="https://video.cs50.io/Fo7Roe8hw3A?start=108"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:48</span></span><span data-text="">to turn those ratings into integers.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="111" href="https://video.cs50.io/Fo7Roe8hw3A?start=111"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:51</span></span><span data-text="">So what we're going to do here is say team square bracket rating--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="116" href="https://video.cs50.io/Fo7Roe8hw3A?start=116"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:56</span></span><span data-text="">and recall that you can use that square bracket</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="118" href="https://video.cs50.io/Fo7Roe8hw3A?start=118"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:58</span></span><span data-text="">notation to access the value for a particular key inside of a dictionary--</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="123" href="https://video.cs50.io/Fo7Roe8hw3A?start=123"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:03</span></span><span data-text="">is going to be updated to be equal to team square bracket rating casted</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="127" href="https://video.cs50.io/Fo7Roe8hw3A?start=127"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:07</span></span><span data-text="">into an integer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="129" href="https://video.cs50.io/Fo7Roe8hw3A?start=129"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:09</span></span><span data-text="">So we're going to take that value, turn it into an integer,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="132" href="https://video.cs50.io/Fo7Roe8hw3A?start=132"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:12</span></span><span data-text="">and store that value inside of the dictionary instead.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="136" href="https://video.cs50.io/Fo7Roe8hw3A?start=136"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:16</span></span><span data-text="">Once we've done that, we can add this new team to the list of teams</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="140" href="https://video.cs50.io/Fo7Roe8hw3A?start=140"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:20</span></span><span data-text="">by using this append method, which is a function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="143" href="https://video.cs50.io/Fo7Roe8hw3A?start=143"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:23</span></span><span data-text="">we can use on an existing list, which just takes a value</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="146" href="https://video.cs50.io/Fo7Roe8hw3A?start=146"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:26</span></span><span data-text="">and adds it to the end of the list.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="149" href="https://video.cs50.io/Fo7Roe8hw3A?start=149"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:29</span></span><span data-text="">The effect of this will be that we'll have read all of these teams</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="153" href="https://video.cs50.io/Fo7Roe8hw3A?start=153"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:33</span></span><span data-text="">into memory.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="154" href="https://video.cs50.io/Fo7Roe8hw3A?start=154"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:34</span></span><span data-text="">And using those teams, we now want to be able to simulate tournaments.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="158" href="https://video.cs50.io/Fo7Roe8hw3A?start=158"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:38</span></span><span data-text="">So how might we gone about simulating tournaments.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="161" href="https://video.cs50.io/Fo7Roe8hw3A?start=161"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:41</span></span><span data-text="">Well, let's look at the simulate tournament</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="163" href="https://video.cs50.io/Fo7Roe8hw3A?start=163"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:43</span></span><span data-text="">function down near the bottom of our file.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="165" href="https://video.cs50.io/Fo7Roe8hw3A?start=165"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:45</span></span><span data-text="">To simulate a tournament, we need to take a list of teams</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="169" href="https://video.cs50.io/Fo7Roe8hw3A?start=169"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:49</span></span><span data-text="">and repeatedly run rounds on that list of teams,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="172" href="https://video.cs50.io/Fo7Roe8hw3A?start=172"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:52</span></span><span data-text="">until we're down to just a single team.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="174" href="https://video.cs50.io/Fo7Roe8hw3A?start=174"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:54</span></span><span data-text="">And to do so, we could have used the simulate round</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="177" href="https://video.cs50.io/Fo7Roe8hw3A?start=177"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:57</span></span><span data-text="">function that accepts a list of teams and gives us back</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="181" href="https://video.cs50.io/Fo7Roe8hw3A?start=181"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:01</span></span><span data-text="">a list of all of the winners in that round.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="185" href="https://video.cs50.io/Fo7Roe8hw3A?start=185"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:05</span></span><span data-text="">So we want to keep simulating rounds as long as we still haven't yet</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="189" href="https://video.cs50.io/Fo7Roe8hw3A?start=189"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:09</span></span><span data-text="">gotten down to one team.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="191" href="https://video.cs50.io/Fo7Roe8hw3A?start=191"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:11</span></span><span data-text="">So as long as len teams is greater than 1-- here we're using a while loop</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="196" href="https://video.cs50.io/Fo7Roe8hw3A?start=196"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:16</span></span><span data-text="">and taking advantage of the len function in Python,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="199" href="https://video.cs50.io/Fo7Roe8hw3A?start=199"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:19</span></span><span data-text="">which gets us the length of some sequence,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="201" href="https://video.cs50.io/Fo7Roe8hw3A?start=201"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:21</span></span><span data-text="">for example, the number of items in a list.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="204" href="https://video.cs50.io/Fo7Roe8hw3A?start=204"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:24</span></span><span data-text="">As long as there is more than one team, then</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="206" href="https://video.cs50.io/Fo7Roe8hw3A?start=206"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:26</span></span><span data-text="">there's another round that we need to simulate.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="209" href="https://video.cs50.io/Fo7Roe8hw3A?start=209"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:29</span></span><span data-text="">So we'll go ahead and simulate a round with those teams and set</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="214" href="https://video.cs50.io/Fo7Roe8hw3A?start=214"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:34</span></span><span data-text="">that to be the new value of this variable called teams.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="218" href="https://video.cs50.io/Fo7Roe8hw3A?start=218"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:38</span></span><span data-text="">This is going to repeatedly simulate rounds, and then update teams to just</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="222" href="https://video.cs50.io/Fo7Roe8hw3A?start=222"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:42</span></span><span data-text="">be the list of all of the winners.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="225" href="https://video.cs50.io/Fo7Roe8hw3A?start=225"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:45</span></span><span data-text="">So by the end of it, teams is a list that has one team in it,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="228" href="https://video.cs50.io/Fo7Roe8hw3A?start=228"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:48</span></span><span data-text="">the winning team of the tournament.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="230" href="https://video.cs50.io/Fo7Roe8hw3A?start=230"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:50</span></span><span data-text="">And if I have a list with only one thing in it,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="232" href="https://video.cs50.io/Fo7Roe8hw3A?start=232"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:52</span></span><span data-text="">I can access that first and only element as teams</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="236" href="https://video.cs50.io/Fo7Roe8hw3A?start=236"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:56</span></span><span data-text="">that square bracket 0 to get the first and, in this case,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="239" href="https://video.cs50.io/Fo7Roe8hw3A?start=239"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:59</span></span><span data-text="">only element in the list.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="241" href="https://video.cs50.io/Fo7Roe8hw3A?start=241"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:01</span></span><span data-text="">And then because each team is a dictionary</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="244" href="https://video.cs50.io/Fo7Roe8hw3A?start=244"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:04</span></span><span data-text="">and I want to access the name of the team,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="246" href="https://video.cs50.io/Fo7Roe8hw3A?start=246"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:06</span></span><span data-text="">I'm going to say square bracket team to just access</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="249" href="https://video.cs50.io/Fo7Roe8hw3A?start=249"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:09</span></span><span data-text="">the value for the team column of that CSV file</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="253" href="https://video.cs50.io/Fo7Roe8hw3A?start=253"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:13</span></span><span data-text="">or the team key inside of this dictionary.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="257" href="https://video.cs50.io/Fo7Roe8hw3A?start=257"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:17</span></span><span data-text="">I'm then going to use that simulate tournament function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="260" href="https://video.cs50.io/Fo7Roe8hw3A?start=260"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:20</span></span><span data-text="">inside of my main function to keep track of how many times</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="264" href="https://video.cs50.io/Fo7Roe8hw3A?start=264"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:24</span></span><span data-text="">each team has won a tournament.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="266" href="https://video.cs50.io/Fo7Roe8hw3A?start=266"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:26</span></span><span data-text="">I'm going to loop N times, where, by default, N is going to be 1,000.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="271" href="https://video.cs50.io/Fo7Roe8hw3A?start=271"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:31</span></span><span data-text="">And I'm going to simulate a tournament with those teams,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="274" href="https://video.cs50.io/Fo7Roe8hw3A?start=274"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:34</span></span><span data-text="">and then save the result in winner.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="277" href="https://video.cs50.io/Fo7Roe8hw3A?start=277"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:37</span></span><span data-text="">And now, I need to keep track of how many times</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="280" href="https://video.cs50.io/Fo7Roe8hw3A?start=280"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:40</span></span><span data-text="">each team has won a tournament.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="282" href="https://video.cs50.io/Fo7Roe8hw3A?start=282"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:42</span></span><span data-text="">If the winner is already in my dictionary of counts,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="285" href="https://video.cs50.io/Fo7Roe8hw3A?start=285"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:45</span></span><span data-text="">then I'm going to increase their number of wins by 1.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="288" href="https://video.cs50.io/Fo7Roe8hw3A?start=288"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:48</span></span><span data-text="">If they've already won five games, for example,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="291" href="https://video.cs50.io/Fo7Roe8hw3A?start=291"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:51</span></span><span data-text="">I'm going to increase their win count up to 6</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="294" href="https://video.cs50.io/Fo7Roe8hw3A?start=294"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:54</span></span><span data-text="">to now keep track of this additional tournament that they've won.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="298" href="https://video.cs50.io/Fo7Roe8hw3A?start=298"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:58</span></span><span data-text="">But otherwise, if they're not already in my dictionary of counts,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="301" href="https://video.cs50.io/Fo7Roe8hw3A?start=301"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:01</span></span><span data-text="">that means that this team hasn't won any tournaments before.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="305" href="https://video.cs50.io/Fo7Roe8hw3A?start=305"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:05</span></span><span data-text="">This is the first tournament they've won, according to our simulations.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="309" href="https://video.cs50.io/Fo7Roe8hw3A?start=309"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:09</span></span><span data-text="">And so we're going to set counts winner equal to 1 to mean that now they've won</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="314" href="https://video.cs50.io/Fo7Roe8hw3A?start=314"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:14</span></span><span data-text="">one tournament.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="316" href="https://video.cs50.io/Fo7Roe8hw3A?start=316"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:16</span></span><span data-text="">And so at that point, counts by the end of this loop</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="319" href="https://video.cs50.io/Fo7Roe8hw3A?start=319"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:19</span></span><span data-text="">will have counted up the number of times that every team wins</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="322" href="https://video.cs50.io/Fo7Roe8hw3A?start=322"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:22</span></span><span data-text="">different tournaments.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="323" href="https://video.cs50.io/Fo7Roe8hw3A?start=323"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:23</span></span><span data-text="">And then we can use that data to figure out</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="325" href="https://video.cs50.io/Fo7Roe8hw3A?start=325"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:25</span></span><span data-text="">the approximate probability that any team is</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="328" href="https://video.cs50.io/Fo7Roe8hw3A?start=328"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:28</span></span><span data-text="">going to win the entire tournament.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="330" href="https://video.cs50.io/Fo7Roe8hw3A?start=330"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:30</span></span><span data-text="">My name is Brian.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="331" href="https://video.cs50.io/Fo7Roe8hw3A?start=331"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:31</span></span><span data-text="">And this was World Cup.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/Fo7Roe8hw3A?start=335" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 683px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./Fo7Roe8hw3A(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.15, "BRIAN: Let\u0027s take a look at how you might"], [1.858, "have gone about solving World Cup."], [3.75, "In this problem, your task was to write a Python"], [6.06, "program to run multiple simulations of some kind of a sports tournament."], [10.29, "And let\u0027s see how you would have done that."], [12.3, "Inside of the main function, the first thing you needed to do"], [15.6, "was to read in all of the teams into memory,"], [18.54, "because the teams were stored inside of a CSV file that"], [21.93, "had the name of each team, well as a rating for each team representing"], [25.77, "how good that particular team is."], [28.97, "That CSV file was specified as a command line argument, which in Python, you"], [34.19, "can access using sys dot argv, where sys dot argv 1, in this case,"], [38.93, "is going to be the name of the file."], [41.37, "So we\u0027ll store that inside of a variable called filename."], [44.63, "Next we\u0027re going to open that filename, opening that filename"], [47.66, "and calling the file f."], [49.4, "And now we want to read that file as a CSV file."], [53.66, "To do so, we can use the CSV module."], [56.0, "And in particular, using something called"], [58.16, "CSV dot DictReader, which will let us read a file, f, one row at a time,"], [63.68, "treating each row of the CSV file as a dictionary,"], [67.19, "with keys corresponding to the names of each of the columns,"], [70.07, "and values corresponding to the values actually found inside that row of data"], [75.11, "in the CSV file."], [77.52, "So once we have this DictReader, which in this case,"], [80.13, "I\u0027m just calling reader, let\u0027s loop over all of the data"], [83.528, "that that reader is going to give us."], [85.07, "For team in that reader, each time, we\u0027re"], [87.56, "going to get one dictionary representing that team that we"], [90.71, "want to add to our list of teams."], [93.62, "But remember, when we read data from a CSV file, the data, by default,"], [97.61, "is all going to be strings, just textual data."], [100.85, "But the rating is a number."], [102.29, "And to be able to do math with that number"], [104.12, "to calculate probabilities and the likelihood"], [106.4, "that one team wins over another team, we need"], [108.8, "to turn those ratings into integers."], [111.96, "So what we\u0027re going to do here is say team square bracket rating--"], [116.322, "and recall that you can use that square bracket"], [118.28, "notation to access the value for a particular key inside of a dictionary--"], [123.32, "is going to be updated to be equal to team square bracket rating casted"], [127.76, "into an integer."], [129.3, "So we\u0027re going to take that value, turn it into an integer,"], [132.32, "and store that value inside of the dictionary instead."], [136.4, "Once we\u0027ve done that, we can add this new team to the list of teams"], [140.03, "by using this append method, which is a function"], [143.09, "we can use on an existing list, which just takes a value"], [146.3, "and adds it to the end of the list."], [149.39, "The effect of this will be that we\u0027ll have read all of these teams"], [153.05, "into memory."], [154.43, "And using those teams, we now want to be able to simulate tournaments."], [158.75, "So how might we gone about simulating tournaments."], [161.278, "Well, let\u0027s look at the simulate tournament"], [163.07, "function down near the bottom of our file."], [165.98, "To simulate a tournament, we need to take a list of teams"], [169.19, "and repeatedly run rounds on that list of teams,"], [172.25, "until we\u0027re down to just a single team."], [174.47, "And to do so, we could have used the simulate round"], [177.68, "function that accepts a list of teams and gives us back"], [181.61, "a list of all of the winners in that round."], [185.3, "So we want to keep simulating rounds as long as we still haven\u0027t yet"], [189.95, "gotten down to one team."], [191.82, "So as long as len teams is greater than 1-- here we\u0027re using a while loop"], [196.61, "and taking advantage of the len function in Python,"], [199.64, "which gets us the length of some sequence,"], [201.81, "for example, the number of items in a list."], [204.32, "As long as there is more than one team, then"], [206.93, "there\u0027s another round that we need to simulate."], [209.75, "So we\u0027ll go ahead and simulate a round with those teams and set"], [214.55, "that to be the new value of this variable called teams."], [218.36, "This is going to repeatedly simulate rounds, and then update teams to just"], [222.71, "be the list of all of the winners."], [225.11, "So by the end of it, teams is a list that has one team in it,"], [228.38, "the winning team of the tournament."], [230.33, "And if I have a list with only one thing in it,"], [232.7, "I can access that first and only element as teams"], [236.37, "that square bracket 0 to get the first and, in this case,"], [239.69, "only element in the list."], [241.91, "And then because each team is a dictionary"], [244.07, "and I want to access the name of the team,"], [246.41, "I\u0027m going to say square bracket team to just access"], [249.8, "the value for the team column of that CSV file"], [253.4, "or the team key inside of this dictionary."], [257.54, "I\u0027m then going to use that simulate tournament function"], [260.57, "inside of my main function to keep track of how many times"], [264.5, "each team has won a tournament."], [266.99, "I\u0027m going to loop N times, where, by default, N is going to be 1,000."], [271.28, "And I\u0027m going to simulate a tournament with those teams,"], [274.31, "and then save the result in winner."], [277.56, "And now, I need to keep track of how many times"], [280.17, "each team has won a tournament."], [282.06, "If the winner is already in my dictionary of counts,"], [285.69, "then I\u0027m going to increase their number of wins by 1."], [288.84, "If they\u0027ve already won five games, for example,"], [291.57, "I\u0027m going to increase their win count up to 6"], [294.27, "to now keep track of this additional tournament that they\u0027ve won."], [298.08, "But otherwise, if they\u0027re not already in my dictionary of counts,"], [301.68, "that means that this team hasn\u0027t won any tournaments before."], [305.55, "This is the first tournament they\u0027ve won, according to our simulations."], [309.39, "And so we\u0027re going to set counts winner equal to 1 to mean that now they\u0027ve won"], [314.25, "one tournament."], [316.33, "And so at that point, counts by the end of this loop"], [319.3, "will have counted up the number of times that every team wins"], [322.42, "different tournaments."], [323.5, "And then we can use that data to figure out"], [325.81, "the approximate probability that any team is"], [328.18, "going to win the entire tournament."], [330.75, "My name is Brian."], [331.74, "And this was World Cup."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "Fo7Roe8hw3A"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>

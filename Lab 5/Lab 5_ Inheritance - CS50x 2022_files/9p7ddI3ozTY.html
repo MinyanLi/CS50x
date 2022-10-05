@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://video.cs50.io/9p7ddI3ozTY -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="Inheritance - Walkthrough - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/9p7ddI3ozTY">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            Inheritance - Walkthrough - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1081.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1081.0">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍧" src="./1f367.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍈" src="./1f348.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/9p7ddI3ozTY?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN: In this lab, your task is going to be</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="2" href="https://video.cs50.io/9p7ddI3ozTY?start=2"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:02</span></span><span data-text="">to write a program in C that simulates the inheritance of blood type genes</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="7" href="https://video.cs50.io/9p7ddI3ozTY?start=7"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:07</span></span><span data-text="">within a family.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="9" href="https://video.cs50.io/9p7ddI3ozTY?start=9"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:09</span></span><span data-text="">To give a little bit of science background,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="11" href="https://video.cs50.io/9p7ddI3ozTY?start=11"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:11</span></span><span data-text="">your blood type is determined by alleles.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="14" href="https://video.cs50.io/9p7ddI3ozTY?start=14"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:14</span></span><span data-text="">Alleles are different versions of a gene.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="16" href="https://video.cs50.io/9p7ddI3ozTY?start=16"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:16</span></span><span data-text="">And there are three different alleles with regard to blood type,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="19" href="https://video.cs50.io/9p7ddI3ozTY?start=19"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:19</span></span><span data-text="">called A, B, and O.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="22" href="https://video.cs50.io/9p7ddI3ozTY?start=22"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:22</span></span><span data-text="">Each person has two of these alleles.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="25" href="https://video.cs50.io/9p7ddI3ozTY?start=25"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:25</span></span><span data-text="">Maybe you have two A's, two B's, two O's.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="27" href="https://video.cs50.io/9p7ddI3ozTY?start=27"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:27</span></span><span data-text="">Or maybe you mix and match, have an A and a B, or a B and an O,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="31" href="https://video.cs50.io/9p7ddI3ozTY?start=31"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:31</span></span><span data-text="">or an A or an O, for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="34" href="https://video.cs50.io/9p7ddI3ozTY?start=34"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:34</span></span><span data-text="">And when a parent has a child, each parent passes on one of their alleles</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="38" href="https://video.cs50.io/9p7ddI3ozTY?start=38"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:38</span></span><span data-text="">to their child.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="40" href="https://video.cs50.io/9p7ddI3ozTY?start=40"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:40</span></span><span data-text="">So for example, if we imagine two parents,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="42" href="https://video.cs50.io/9p7ddI3ozTY?start=42"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:42</span></span><span data-text="">one that has a blood type of AB and one who has a blood type of OO,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="47" href="https://video.cs50.io/9p7ddI3ozTY?start=47"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:47</span></span><span data-text="">tthen their child is going to inherit one blood type of little</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="51" href="https://video.cs50.io/9p7ddI3ozTY?start=51"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:51</span></span><span data-text="">from each of their parents.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="53" href="https://video.cs50.io/9p7ddI3ozTY?start=53"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:53</span></span><span data-text="">For example, we might randomly choose A from one parent,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="56" href="https://video.cs50.io/9p7ddI3ozTY?start=56"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:56</span></span><span data-text="">and between the other parent O, and ultimately get a blood type of AO.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="61" href="https://video.cs50.io/9p7ddI3ozTY?start=61"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:01</span></span><span data-text="">But we also could have gotten a blood type of BO, for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="65" href="https://video.cs50.io/9p7ddI3ozTY?start=65"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:05</span></span><span data-text="">Which of the two alleles is passed on is just chosen at random.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="69" href="https://video.cs50.io/9p7ddI3ozTY?start=69"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:09</span></span><span data-text="">In order to simulate this type of inheritance inside of our program,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="74" href="https://video.cs50.io/9p7ddI3ozTY?start=74"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:14</span></span><span data-text="">we're going to need some sort of data structure</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="76" href="https://video.cs50.io/9p7ddI3ozTY?start=76"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:16</span></span><span data-text="">that lets us represent the connection between people and their parents,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="80" href="https://video.cs50.io/9p7ddI3ozTY?start=80"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:20</span></span><span data-text="">as well as what alleles they have for their blood type.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="84" href="https://video.cs50.io/9p7ddI3ozTY?start=84"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:24</span></span><span data-text="">And because there is no type built into C to do just that,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="87" href="https://video.cs50.io/9p7ddI3ozTY?start=87"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:27</span></span><span data-text="">we can create a type of our own using a typedef.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="91" href="https://video.cs50.io/9p7ddI3ozTY?start=91"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:31</span></span><span data-text="">So here, we have typedef struct person, where every person is going</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="95" href="https://video.cs50.io/9p7ddI3ozTY?start=95"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:35</span></span><span data-text="">to be represented by these two fields.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="98" href="https://video.cs50.io/9p7ddI3ozTY?start=98"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:38</span></span><span data-text="">Struct person star *parents[2] means that every person is going to have</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="104" href="https://video.cs50.io/9p7ddI3ozTY?start=104"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:44</span></span><span data-text="">an array of 2 parents, where each of those parents is going to be a pointer</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="108" href="https://video.cs50.io/9p7ddI3ozTY?start=108"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:48</span></span><span data-text="">to another person.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="110" href="https://video.cs50.io/9p7ddI3ozTY?start=110"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:50</span></span><span data-text="">Meanwhile, every person is also going to have an array of two characters called</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="115" href="https://video.cs50.io/9p7ddI3ozTY?start=115"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:55</span></span><span data-text="">alleles, representing which two alleles, A, B, or O, this particular person has.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="121" href="https://video.cs50.io/9p7ddI3ozTY?start=121"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:01</span></span><span data-text="">And because each person has two alleles, this is going to be an array of size 2</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="126" href="https://video.cs50.io/9p7ddI3ozTY?start=126"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:06</span></span><span data-text="">to represent both of those alleles.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="129" href="https://video.cs50.io/9p7ddI3ozTY?start=129"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:09</span></span><span data-text="">So in the example we saw before, we might, for this particular child,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="133" href="https://video.cs50.io/9p7ddI3ozTY?start=133"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:13</span></span><span data-text="">have the letter A stored at this child's alleles 0 and 0 stored at alleles 1.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="140" href="https://video.cs50.io/9p7ddI3ozTY?start=140"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:20</span></span><span data-text="">And meanwhile, parents[0] would point to one of the parents and parents[1] would</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="145" href="https://video.cs50.io/9p7ddI3ozTY?start=145"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:25</span></span><span data-text="">point to the other parent.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="147" href="https://video.cs50.io/9p7ddI3ozTY?start=147"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:27</span></span><span data-text="">Let's see how these pieces now would come together inside</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="150" href="https://video.cs50.io/9p7ddI3ozTY?start=150"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:30</span></span><span data-text="">of the distribution code that we give to you for the lab.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="154" href="https://video.cs50.io/9p7ddI3ozTY?start=154"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:34</span></span><span data-text="">There is a fair amount of distribution code</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="156" href="https://video.cs50.io/9p7ddI3ozTY?start=156"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:36</span></span><span data-text="">that we already give to you inside of inheritance.c</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="159" href="https://video.cs50.io/9p7ddI3ozTY?start=159"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:39</span></span><span data-text="">But let's try and distill it to just what's most important.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="162" href="https://video.cs50.io/9p7ddI3ozTY?start=162"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:42</span></span><span data-text="">Here we'll notice that same typedef, that we define a person</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="166" href="https://video.cs50.io/9p7ddI3ozTY?start=166"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:46</span></span><span data-text="">as having pointers to two parents in this array of 2 pointers</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="170" href="https://video.cs50.io/9p7ddI3ozTY?start=170"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:50</span></span><span data-text="">and also having an array of two characters,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="173" href="https://video.cs50.io/9p7ddI3ozTY?start=173"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:53</span></span><span data-text="">representing the two alleles that this person has for their blood type.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="178" href="https://video.cs50.io/9p7ddI3ozTY?start=178"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:58</span></span><span data-text="">Next up is this relevant variable called const int GENERATIONS,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="182" href="https://video.cs50.io/9p7ddI3ozTY?start=182"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:02</span></span><span data-text="">a constant integer, which is set equal to the number of 3.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="186" href="https://video.cs50.io/9p7ddI3ozTY?start=186"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:06</span></span><span data-text="">And this is going to represent the number of generations of data</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="190" href="https://video.cs50.io/9p7ddI3ozTY?start=190"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:10</span></span><span data-text="">that we're going to simulate generating.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="192" href="https://video.cs50.io/9p7ddI3ozTY?start=192"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:12</span></span><span data-text="">In this case, we're simply waiting three generations</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="194" href="https://video.cs50.io/9p7ddI3ozTY?start=194"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:14</span></span><span data-text="">worth of data for blood types, which means we're not just</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="197" href="https://video.cs50.io/9p7ddI3ozTY?start=197"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:17</span></span><span data-text="">going to simulate the single child, but also generation</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="200" href="https://video.cs50.io/9p7ddI3ozTY?start=200"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:20</span></span><span data-text="">2, their parents, and also generation 3, that child's grandparents as well.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="207" href="https://video.cs50.io/9p7ddI3ozTY?start=207"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:27</span></span><span data-text="">We then have some prototypes for functions,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="209" href="https://video.cs50.io/9p7ddI3ozTY?start=209"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:29</span></span><span data-text="">but let's skip down to the main function to really see</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="212" href="https://video.cs50.io/9p7ddI3ozTY?start=212"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:32</span></span><span data-text="">what it is that this program is doing.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="214" href="https://video.cs50.io/9p7ddI3ozTY?start=214"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:34</span></span><span data-text="">The main function is already written for you.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="216" href="https://video.cs50.io/9p7ddI3ozTY?start=216"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:36</span></span><span data-text="">Nothing you need to do here.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="218" href="https://video.cs50.io/9p7ddI3ozTY?start=218"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:38</span></span><span data-text="">But we start by seeding the random number generator,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="221" href="https://video.cs50.io/9p7ddI3ozTY?start=221"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:41</span></span><span data-text="">just so that we're able to generate pseudo random numbers, which</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="224" href="https://video.cs50.io/9p7ddI3ozTY?start=224"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:44</span></span><span data-text="">is going to be useful.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="225" href="https://video.cs50.io/9p7ddI3ozTY?start=225"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:45</span></span><span data-text="">Because when we decide how genes are inherited,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="228" href="https://video.cs50.io/9p7ddI3ozTY?start=228"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:48</span></span><span data-text="">we want to be able to randomly choose which gene is going</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="231" href="https://video.cs50.io/9p7ddI3ozTY?start=231"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:51</span></span><span data-text="">to be passed on from parent to child.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="234" href="https://video.cs50.io/9p7ddI3ozTY?start=234"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:54</span></span><span data-text="">Next we call the create_family function to create a family with a specified</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="240" href="https://video.cs50.io/9p7ddI3ozTY?start=240"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:00</span></span><span data-text="">number of generations, returning a pointer to the most recent generation</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="245" href="https://video.cs50.io/9p7ddI3ozTY?start=245"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:05</span></span><span data-text="">of person in that family.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="247" href="https://video.cs50.io/9p7ddI3ozTY?start=247"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:07</span></span><span data-text="">So if we create a family with three generations,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="249" href="https://video.cs50.io/9p7ddI3ozTY?start=249"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:09</span></span><span data-text="">we'll end up with a pointer to one person.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="252" href="https://video.cs50.io/9p7ddI3ozTY?start=252"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:12</span></span><span data-text="">But using their parent pointers, we could</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="254" href="https://video.cs50.io/9p7ddI3ozTY?start=254"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:14</span></span><span data-text="">access that child's parents as well as that child's grandparents,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="258" href="https://video.cs50.io/9p7ddI3ozTY?start=258"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:18</span></span><span data-text="">but no further if we're only looking at a family with three generations.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="263" href="https://video.cs50.io/9p7ddI3ozTY?start=263"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:23</span></span><span data-text="">The create_family function will be up to you to write.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="266" href="https://video.cs50.io/9p7ddI3ozTY?start=266"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:26</span></span><span data-text="">But the print family function we will write.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="268" href="https://video.cs50.io/9p7ddI3ozTY?start=268"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:28</span></span><span data-text="">After you've already created a family, we've</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="270" href="https://video.cs50.io/9p7ddI3ozTY?start=270"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:30</span></span><span data-text="">already written for you a function that will take that family</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="274" href="https://video.cs50.io/9p7ddI3ozTY?start=274"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:34</span></span><span data-text="">and print them out as a hierarchical family tree,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="276" href="https://video.cs50.io/9p7ddI3ozTY?start=276"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:36</span></span><span data-text="">printing out what blood type each of the people in that family has.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="281" href="https://video.cs50.io/9p7ddI3ozTY?start=281"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:41</span></span><span data-text="">Finally, you'll write the free_family function,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="284" href="https://video.cs50.io/9p7ddI3ozTY?start=284"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:44</span></span><span data-text="">which will free all of the memory that you may have allocated</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="287" href="https://video.cs50.io/9p7ddI3ozTY?start=287"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:47</span></span><span data-text="">in the process of creating this family.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="289" href="https://video.cs50.io/9p7ddI3ozTY?start=289"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:49</span></span><span data-text="">Because recall that for each of the people</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="292" href="https://video.cs50.io/9p7ddI3ozTY?start=292"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:52</span></span><span data-text="">that you want to represent inside of your computer's memory,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="295" href="https://video.cs50.io/9p7ddI3ozTY?start=295"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:55</span></span><span data-text="">you'll likely need to allocate memory for them</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="297" href="https://video.cs50.io/9p7ddI3ozTY?start=297"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:57</span></span><span data-text="">by using the malloc function to allocate some memory dynamically.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="301" href="https://video.cs50.io/9p7ddI3ozTY?start=301"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:01</span></span><span data-text="">But any time you allocate memory with malloc,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="303" href="https://video.cs50.io/9p7ddI3ozTY?start=303"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:03</span></span><span data-text="">you'll also want to free that memory, giving it back to the computer</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="307" href="https://video.cs50.io/9p7ddI3ozTY?start=307"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:07</span></span><span data-text="">so that it can be used for other purposes.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="311" href="https://video.cs50.io/9p7ddI3ozTY?start=311"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:11</span></span><span data-text="">Here then, in the create_family function,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="313" href="https://video.cs50.io/9p7ddI3ozTY?start=313"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:13</span></span><span data-text="">is going to be what you'll implement, allocating memory for a new person</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="317" href="https://video.cs50.io/9p7ddI3ozTY?start=317"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:17</span></span><span data-text="">and then dealing with two possible cases.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="319" href="https://video.cs50.io/9p7ddI3ozTY?start=319"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:19</span></span><span data-text="">One, if there are potential parents that this child has</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="322" href="https://video.cs50.io/9p7ddI3ozTY?start=322"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:22</span></span><span data-text="">that we need to recursively generate, or else,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="325" href="https://video.cs50.io/9p7ddI3ozTY?start=325"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:25</span></span><span data-text="">if we're just generating a single generation,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="327" href="https://video.cs50.io/9p7ddI3ozTY?start=327"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:27</span></span><span data-text="">generating just a single person without any parent data.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="331" href="https://video.cs50.io/9p7ddI3ozTY?start=331"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:31</span></span><span data-text="">You'll also, then, write the free_family function, which</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="335" href="https://video.cs50.io/9p7ddI3ozTY?start=335"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:35</span></span><span data-text="">takes as input a pointer to a person p.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="337" href="https://video.cs50.io/9p7ddI3ozTY?start=337"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:37</span></span><span data-text="">And the task for this function is to free p as well as any ancestors of p.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="343" href="https://video.cs50.io/9p7ddI3ozTY?start=343"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:43</span></span><span data-text="">So if person p has parents or grandparents or other ancestors</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="347" href="https://video.cs50.io/9p7ddI3ozTY?start=347"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:47</span></span><span data-text="">as well, you'll want to make sure to free them, too.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="350" href="https://video.cs50.io/9p7ddI3ozTY?start=350"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:50</span></span><span data-text="">The print family function we've written for you.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="352" href="https://video.cs50.io/9p7ddI3ozTY?start=352"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:52</span></span><span data-text="">No need to do anything here.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="353" href="https://video.cs50.io/9p7ddI3ozTY?start=353"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:53</span></span><span data-text="">It takes a person and goes ahead and prints out their entire family</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="356" href="https://video.cs50.io/9p7ddI3ozTY?start=356"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:56</span></span><span data-text="">tree, along with their blood types.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="358" href="https://video.cs50.io/9p7ddI3ozTY?start=358"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:58</span></span><span data-text="">And this random allele function that we wrote might be helpful for you, too.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="362" href="https://video.cs50.io/9p7ddI3ozTY?start=362"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:02</span></span><span data-text="">It randomly chooses an allele, A, B, or O,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="366" href="https://video.cs50.io/9p7ddI3ozTY?start=366"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:06</span></span><span data-text="">which can be useful if you get to a point</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="368" href="https://video.cs50.io/9p7ddI3ozTY?start=368"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:08</span></span><span data-text="">where you need to randomly generate an allele</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="370" href="https://video.cs50.io/9p7ddI3ozTY?start=370"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:10</span></span><span data-text="">to store inside of that allele's array.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="374" href="https://video.cs50.io/9p7ddI3ozTY?start=374"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:14</span></span><span data-text="">So with that distribution code in mind, let's then</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="377" href="https://video.cs50.io/9p7ddI3ozTY?start=377"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:17</span></span><span data-text="">walk through what it is that your program is going to do.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="380" href="https://video.cs50.io/9p7ddI3ozTY?start=380"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:20</span></span><span data-text="">The first thing you should do is complete the create_family function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="384" href="https://video.cs50.io/9p7ddI3ozTY?start=384"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:24</span></span><span data-text="">to create a family with a specified number of generations.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="388" href="https://video.cs50.io/9p7ddI3ozTY?start=388"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:28</span></span><span data-text="">In order to do so, the first thing you should do</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="391" href="https://video.cs50.io/9p7ddI3ozTY?start=391"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:31</span></span><span data-text="">is allocate memory for a new person, calling malloc,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="394" href="https://video.cs50.io/9p7ddI3ozTY?start=394"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:34</span></span><span data-text="">passing in size of person to make sure you</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="396" href="https://video.cs50.io/9p7ddI3ozTY?start=396"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:36</span></span><span data-text="">have enough memory for a new person.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="398" href="https://video.cs50.io/9p7ddI3ozTY?start=398"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:38</span></span><span data-text="">And then you'll use that person to potentially generate ancestors</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="402" href="https://video.cs50.io/9p7ddI3ozTY?start=402"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:42</span></span><span data-text="">if there are more generations that you need to work with.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="405" href="https://video.cs50.io/9p7ddI3ozTY?start=405"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:45</span></span><span data-text="">So if generations is greater than 1, meaning there are more generations</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="410" href="https://video.cs50.io/9p7ddI3ozTY?start=410"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:50</span></span><span data-text="">that you need to generate, then you'll recursively</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="413" href="https://video.cs50.io/9p7ddI3ozTY?start=413"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:53</span></span><span data-text="">create those previous generations.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="415" href="https://video.cs50.io/9p7ddI3ozTY?start=415"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:55</span></span><span data-text="">What does it mean to recursively create previous generations?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="419" href="https://video.cs50.io/9p7ddI3ozTY?start=419"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:59</span></span><span data-text="">Well, if you're trying to create a child that has two generations of parents</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="423" href="https://video.cs50.io/9p7ddI3ozTY?start=423"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:03</span></span><span data-text="">then you'll recursively call the create_family function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="426" href="https://video.cs50.io/9p7ddI3ozTY?start=426"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:06</span></span><span data-text="">for each of those parents where each one of those parents</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="429" href="https://video.cs50.io/9p7ddI3ozTY?start=429"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:09</span></span><span data-text="">will have one generation of parents, and so on and so forth.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="434" href="https://video.cs50.io/9p7ddI3ozTY?start=434"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:14</span></span><span data-text="">So if generations is greater than 1, you'll</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="436" href="https://video.cs50.io/9p7ddI3ozTY?start=436"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:16</span></span><span data-text="">want to recursively create those previous generations.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="439" href="https://video.cs50.io/9p7ddI3ozTY?start=439"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:19</span></span><span data-text="">And using the return value you get from those create_family functions,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="444" href="https://video.cs50.io/9p7ddI3ozTY?start=444"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:24</span></span><span data-text="">you'll update this new person's parents, setting parents[0] equal to the result</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="449" href="https://video.cs50.io/9p7ddI3ozTY?start=449"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:29</span></span><span data-text="">of one recursive call and setting parents[1] equal to the result of some</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="454" href="https://video.cs50.io/9p7ddI3ozTY?start=454"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:34</span></span><span data-text="">other recursive call.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="456" href="https://video.cs50.io/9p7ddI3ozTY?start=456"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:36</span></span><span data-text="">After you set that person's parents, recall</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="459" href="https://video.cs50.io/9p7ddI3ozTY?start=459"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:39</span></span><span data-text="">that every person not only has two pointers to parents,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="462" href="https://video.cs50.io/9p7ddI3ozTY?start=462"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:42</span></span><span data-text="">but also has two alleles.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="464" href="https://video.cs50.io/9p7ddI3ozTY?start=464"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:44</span></span><span data-text="">So now you'll need to do the actual inheritance step, inheriting</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="468" href="https://video.cs50.io/9p7ddI3ozTY?start=468"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:48</span></span><span data-text="">one allele from each parent at random.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="471" href="https://video.cs50.io/9p7ddI3ozTY?start=471"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:51</span></span><span data-text="">So you want to inherit the alleles from the parents by looking at one parents</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="475" href="https://video.cs50.io/9p7ddI3ozTY?start=475"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:55</span></span><span data-text="">two alleles, randomly choosing one, and setting that as the child's allele 0.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="481" href="https://video.cs50.io/9p7ddI3ozTY?start=481"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:01</span></span><span data-text="">And then doing the same with the other parent, looking at their two alleles,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="484" href="https://video.cs50.io/9p7ddI3ozTY?start=484"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:04</span></span><span data-text="">randomly choosing one, and using one of those as alleles[1] so that the child</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="490" href="https://video.cs50.io/9p7ddI3ozTY?start=490"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:10</span></span><span data-text="">ends up with two alleles, one inherited from either parent.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="496" href="https://video.cs50.io/9p7ddI3ozTY?start=496"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:16</span></span><span data-text="">Otherwise, if generations is equal to 1, that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="499" href="https://video.cs50.io/9p7ddI3ozTY?start=499"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:19</span></span><span data-text="">means you're only generating one generation worth of family, that is,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="503" href="https://video.cs50.io/9p7ddI3ozTY?start=503"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:23</span></span><span data-text="">an individual person with no parents.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="506" href="https://video.cs50.io/9p7ddI3ozTY?start=506"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:26</span></span><span data-text="">And if that's the case, then both of the parent pointers should be set to null.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="510" href="https://video.cs50.io/9p7ddI3ozTY?start=510"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:30</span></span><span data-text="">And because there is nothing to inherit, because we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="512" href="https://video.cs50.io/9p7ddI3ozTY?start=512"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:32</span></span><span data-text="">don't have any data about the parents, you'll</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="514" href="https://video.cs50.io/9p7ddI3ozTY?start=514"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:34</span></span><span data-text="">go ahead and randomly generate alleles for each of the two</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="517" href="https://video.cs50.io/9p7ddI3ozTY?start=517"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:37</span></span><span data-text="">alleles for this particular person.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="519" href="https://video.cs50.io/9p7ddI3ozTY?start=519"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:39</span></span><span data-text="">And recall that, in the distribution code,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="522" href="https://video.cs50.io/9p7ddI3ozTY?start=522"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:42</span></span><span data-text="">we give to you a function that will randomly generate those alleles.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="526" href="https://video.cs50.io/9p7ddI3ozTY?start=526"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:46</span></span><span data-text="">The final step for this lab is going to be to write the free_family function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="530" href="https://video.cs50.io/9p7ddI3ozTY?start=530"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:50</span></span><span data-text="">to free all of that allocated memory.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="533" href="https://video.cs50.io/9p7ddI3ozTY?start=533"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:53</span></span><span data-text="">Recall that every time you called the create_family function,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="536" href="https://video.cs50.io/9p7ddI3ozTY?start=536"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:56</span></span><span data-text="">you were calling malloc at least once in order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="538" href="https://video.cs50.io/9p7ddI3ozTY?start=538"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:08:58</span></span><span data-text="">to generate data for a new person, to allocate memory</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="542" href="https://video.cs50.io/9p7ddI3ozTY?start=542"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:02</span></span><span data-text="">for that person dynamically inside of the computer's heap.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="546" href="https://video.cs50.io/9p7ddI3ozTY?start=546"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:06</span></span><span data-text="">Now, after you've malloced that memory, it's</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="547" href="https://video.cs50.io/9p7ddI3ozTY?start=547"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:07</span></span><span data-text="">your task at the end of the program to free all of that memory</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="550" href="https://video.cs50.io/9p7ddI3ozTY?start=550"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:10</span></span><span data-text="">up and give it back to the computer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="553" href="https://video.cs50.io/9p7ddI3ozTY?start=553"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:13</span></span><span data-text="">In order to do so, you'll want to first handle the base case.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="556" href="https://video.cs50.io/9p7ddI3ozTY?start=556"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:16</span></span><span data-text="">If the input to free_family is null, there is no action you should take.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="560" href="https://video.cs50.io/9p7ddI3ozTY?start=560"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:20</span></span><span data-text="">You should never be freeing the null pointer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="563" href="https://video.cs50.io/9p7ddI3ozTY?start=563"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:23</span></span><span data-text="">But after that, you'll want to deal with the recursive case,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="566" href="https://video.cs50.io/9p7ddI3ozTY?start=566"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:26</span></span><span data-text="">recursively freeing the parents, and then after that, freeing the child.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="571" href="https://video.cs50.io/9p7ddI3ozTY?start=571"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:31</span></span><span data-text="">How do you recursively free the parents?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="573" href="https://video.cs50.io/9p7ddI3ozTY?start=573"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:33</span></span><span data-text="">Well, you'll want to call the free_family function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="576" href="https://video.cs50.io/9p7ddI3ozTY?start=576"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:36</span></span><span data-text="">on each of the child's two parents.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="578" href="https://video.cs50.io/9p7ddI3ozTY?start=578"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:38</span></span><span data-text="">Recursively then, that will also call for a family</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="581" href="https://video.cs50.io/9p7ddI3ozTY?start=581"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:41</span></span><span data-text="">on the child's grandparents and higher generations,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="584" href="https://video.cs50.io/9p7ddI3ozTY?start=584"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:44</span></span><span data-text="">if there are other generations, as well.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="586" href="https://video.cs50.io/9p7ddI3ozTY?start=586"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:46</span></span><span data-text="">And after those parents have been freed then you can use free in order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="590" href="https://video.cs50.io/9p7ddI3ozTY?start=590"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:50</span></span><span data-text="">to free the child as well, ultimately freeing all of the memory</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="594" href="https://video.cs50.io/9p7ddI3ozTY?start=594"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:54</span></span><span data-text="">that you've allocated throughout the program.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="597" href="https://video.cs50.io/9p7ddI3ozTY?start=597"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:57</span></span><span data-text="">After you've written these two functions,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="599" href="https://video.cs50.io/9p7ddI3ozTY?start=599"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:09:59</span></span><span data-text="">you should then be able to run your inheritance program in order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="602" href="https://video.cs50.io/9p7ddI3ozTY?start=602"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:10:02</span></span><span data-text="">to simulate the inheritance of blood types across multiple generations,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="606" href="https://video.cs50.io/9p7ddI3ozTY?start=606"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:10:06</span></span><span data-text="">seeing what blood types the grandparents had,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="608" href="https://video.cs50.io/9p7ddI3ozTY?start=608"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:10:08</span></span><span data-text="">seeing how those blood types translated into the blood types of a child's</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="612" href="https://video.cs50.io/9p7ddI3ozTY?start=612"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:10:12</span></span><span data-text="">parent, and ultimately, what blood type that child inherited as well.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="617" href="https://video.cs50.io/9p7ddI3ozTY?start=617"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:10:17</span></span><span data-text="">My name is Brian.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="618" href="https://video.cs50.io/9p7ddI3ozTY?start=618"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:10:18</span></span><span data-text="">And this was inheritance.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/9p7ddI3ozTY?start=622" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 683px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./9p7ddI3ozTY(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.5, "BRIAN: In this lab, your task is going to be"], [2.43, "to write a program in C that simulates the inheritance of blood type genes"], [7.53, "within a family."], [9.21, "To give a little bit of science background,"], [11.13, "your blood type is determined by alleles."], [14.22, "Alleles are different versions of a gene."], [16.49, "And there are three different alleles with regard to blood type,"], [19.62, "called A, B, and O."], [22.44, "Each person has two of these alleles."], [25.17, "Maybe you have two A\u0027s, two B\u0027s, two O\u0027s."], [27.84, "Or maybe you mix and match, have an A and a B, or a B and an O,"], [31.17, "or an A or an O, for example."], [34.15, "And when a parent has a child, each parent passes on one of their alleles"], [38.67, "to their child."], [40.18, "So for example, if we imagine two parents,"], [42.84, "one that has a blood type of AB and one who has a blood type of OO,"], [47.74, "tthen their child is going to inherit one blood type of little"], [51.42, "from each of their parents."], [53.23, "For example, we might randomly choose A from one parent,"], [56.82, "and between the other parent O, and ultimately get a blood type of AO."], [61.38, "But we also could have gotten a blood type of BO, for example."], [65.11, "Which of the two alleles is passed on is just chosen at random."], [69.99, "In order to simulate this type of inheritance inside of our program,"], [74.38, "we\u0027re going to need some sort of data structure"], [76.56, "that lets us represent the connection between people and their parents,"], [80.4, "as well as what alleles they have for their blood type."], [84.2, "And because there is no type built into C to do just that,"], [87.55, "we can create a type of our own using a typedef."], [91.29, "So here, we have typedef struct person, where every person is going"], [95.85, "to be represented by these two fields."], [98.25, "Struct person star *parents[2] means that every person is going to have"], [104.16, "an array of 2 parents, where each of those parents is going to be a pointer"], [108.48, "to another person."], [110.77, "Meanwhile, every person is also going to have an array of two characters called"], [115.02, "alleles, representing which two alleles, A, B, or O, this particular person has."], [121.71, "And because each person has two alleles, this is going to be an array of size 2"], [126.37, "to represent both of those alleles."], [129.759, "So in the example we saw before, we might, for this particular child,"], [133.72, "have the letter A stored at this child\u0027s alleles 0 and 0 stored at alleles 1."], [140.23, "And meanwhile, parents[0] would point to one of the parents and parents[1] would"], [145.18, "point to the other parent."], [147.66, "Let\u0027s see how these pieces now would come together inside"], [150.54, "of the distribution code that we give to you for the lab."], [154.02, "There is a fair amount of distribution code"], [156.09, "that we already give to you inside of inheritance.c"], [159.57, "But let\u0027s try and distill it to just what\u0027s most important."], [162.51, "Here we\u0027ll notice that same typedef, that we define a person"], [166.41, "as having pointers to two parents in this array of 2 pointers"], [170.67, "and also having an array of two characters,"], [173.34, "representing the two alleles that this person has for their blood type."], [178.55, "Next up is this relevant variable called const int GENERATIONS,"], [182.69, "a constant integer, which is set equal to the number of 3."], [186.41, "And this is going to represent the number of generations of data"], [190.19, "that we\u0027re going to simulate generating."], [192.17, "In this case, we\u0027re simply waiting three generations"], [194.9, "worth of data for blood types, which means we\u0027re not just"], [197.66, "going to simulate the single child, but also generation"], [200.6, "2, their parents, and also generation 3, that child\u0027s grandparents as well."], [207.578, "We then have some prototypes for functions,"], [209.37, "but let\u0027s skip down to the main function to really see"], [212.16, "what it is that this program is doing."], [214.44, "The main function is already written for you."], [216.39, "Nothing you need to do here."], [218.11, "But we start by seeding the random number generator,"], [221.16, "just so that we\u0027re able to generate pseudo random numbers, which"], [224.22, "is going to be useful."], [225.42, "Because when we decide how genes are inherited,"], [228.21, "we want to be able to randomly choose which gene is going"], [231.42, "to be passed on from parent to child."], [234.91, "Next we call the create_family function to create a family with a specified"], [240.43, "number of generations, returning a pointer to the most recent generation"], [245.26, "of person in that family."], [247.34, "So if we create a family with three generations,"], [249.85, "we\u0027ll end up with a pointer to one person."], [252.19, "But using their parent pointers, we could"], [254.23, "access that child\u0027s parents as well as that child\u0027s grandparents,"], [258.01, "but no further if we\u0027re only looking at a family with three generations."], [263.58, "The create_family function will be up to you to write."], [266.16, "But the print family function we will write."], [268.65, "After you\u0027ve already created a family, we\u0027ve"], [270.9, "already written for you a function that will take that family"], [274.08, "and print them out as a hierarchical family tree,"], [276.99, "printing out what blood type each of the people in that family has."], [281.76, "Finally, you\u0027ll write the free_family function,"], [284.64, "which will free all of the memory that you may have allocated"], [287.64, "in the process of creating this family."], [289.86, "Because recall that for each of the people"], [292.05, "that you want to represent inside of your computer\u0027s memory,"], [295.35, "you\u0027ll likely need to allocate memory for them"], [297.57, "by using the malloc function to allocate some memory dynamically."], [301.37, "But any time you allocate memory with malloc,"], [303.99, "you\u0027ll also want to free that memory, giving it back to the computer"], [307.53, "so that it can be used for other purposes."], [311.01, "Here then, in the create_family function,"], [313.5, "is going to be what you\u0027ll implement, allocating memory for a new person"], [317.28, "and then dealing with two possible cases."], [319.83, "One, if there are potential parents that this child has"], [322.77, "that we need to recursively generate, or else,"], [325.38, "if we\u0027re just generating a single generation,"], [327.93, "generating just a single person without any parent data."], [331.7, "You\u0027ll also, then, write the free_family function, which"], [335.06, "takes as input a pointer to a person p."], [337.99, "And the task for this function is to free p as well as any ancestors of p."], [343.13, "So if person p has parents or grandparents or other ancestors"], [347.0, "as well, you\u0027ll want to make sure to free them, too."], [350.2, "The print family function we\u0027ve written for you."], [352.2, "No need to do anything here."], [353.76, "It takes a person and goes ahead and prints out their entire family"], [356.76, "tree, along with their blood types."], [358.62, "And this random allele function that we wrote might be helpful for you, too."], [362.64, "It randomly chooses an allele, A, B, or O,"], [366.36, "which can be useful if you get to a point"], [368.43, "where you need to randomly generate an allele"], [370.9, "to store inside of that allele\u0027s array."], [374.74, "So with that distribution code in mind, let\u0027s then"], [377.14, "walk through what it is that your program is going to do."], [380.53, "The first thing you should do is complete the create_family function"], [384.31, "to create a family with a specified number of generations."], [388.27, "In order to do so, the first thing you should do"], [391.12, "is allocate memory for a new person, calling malloc,"], [394.75, "passing in size of person to make sure you"], [396.85, "have enough memory for a new person."], [398.98, "And then you\u0027ll use that person to potentially generate ancestors"], [402.58, "if there are more generations that you need to work with."], [405.86, "So if generations is greater than 1, meaning there are more generations"], [410.56, "that you need to generate, then you\u0027ll recursively"], [413.17, "create those previous generations."], [415.96, "What does it mean to recursively create previous generations?"], [419.41, "Well, if you\u0027re trying to create a child that has two generations of parents"], [423.82, "then you\u0027ll recursively call the create_family function"], [426.82, "for each of those parents where each one of those parents"], [429.52, "will have one generation of parents, and so on and so forth."], [434.06, "So if generations is greater than 1, you\u0027ll"], [436.39, "want to recursively create those previous generations."], [439.81, "And using the return value you get from those create_family functions,"], [444.4, "you\u0027ll update this new person\u0027s parents, setting parents[0] equal to the result"], [449.47, "of one recursive call and setting parents[1] equal to the result of some"], [454.24, "other recursive call."], [456.85, "After you set that person\u0027s parents, recall"], [459.4, "that every person not only has two pointers to parents,"], [462.56, "but also has two alleles."], [464.59, "So now you\u0027ll need to do the actual inheritance step, inheriting"], [468.31, "one allele from each parent at random."], [471.58, "So you want to inherit the alleles from the parents by looking at one parents"], [475.29, "two alleles, randomly choosing one, and setting that as the child\u0027s allele 0."], [481.05, "And then doing the same with the other parent, looking at their two alleles,"], [484.44, "randomly choosing one, and using one of those as alleles[1] so that the child"], [490.77, "ends up with two alleles, one inherited from either parent."], [496.78, "Otherwise, if generations is equal to 1, that"], [499.84, "means you\u0027re only generating one generation worth of family, that is,"], [503.23, "an individual person with no parents."], [506.05, "And if that\u0027s the case, then both of the parent pointers should be set to null."], [510.375, "And because there is nothing to inherit, because we"], [512.5, "don\u0027t have any data about the parents, you\u0027ll"], [514.6, "go ahead and randomly generate alleles for each of the two"], [517.78, "alleles for this particular person."], [519.97, "And recall that, in the distribution code,"], [522.13, "we give to you a function that will randomly generate those alleles."], [526.78, "The final step for this lab is going to be to write the free_family function"], [530.95, "to free all of that allocated memory."], [533.23, "Recall that every time you called the create_family function,"], [536.41, "you were calling malloc at least once in order"], [538.93, "to generate data for a new person, to allocate memory"], [542.17, "for that person dynamically inside of the computer\u0027s heap."], [546.08, "Now, after you\u0027ve malloced that memory, it\u0027s"], [547.96, "your task at the end of the program to free all of that memory"], [550.96, "up and give it back to the computer."], [553.24, "In order to do so, you\u0027ll want to first handle the base case."], [556.75, "If the input to free_family is null, there is no action you should take."], [560.86, "You should never be freeing the null pointer."], [563.8, "But after that, you\u0027ll want to deal with the recursive case,"], [566.71, "recursively freeing the parents, and then after that, freeing the child."], [571.39, "How do you recursively free the parents?"], [573.61, "Well, you\u0027ll want to call the free_family function"], [576.7, "on each of the child\u0027s two parents."], [578.86, "Recursively then, that will also call for a family"], [581.68, "on the child\u0027s grandparents and higher generations,"], [584.29, "if there are other generations, as well."], [586.52, "And after those parents have been freed then you can use free in order"], [590.68, "to free the child as well, ultimately freeing all of the memory"], [594.52, "that you\u0027ve allocated throughout the program."], [597.0, "After you\u0027ve written these two functions,"], [599.05, "you should then be able to run your inheritance program in order"], [602.16, "to simulate the inheritance of blood types across multiple generations,"], [606.39, "seeing what blood types the grandparents had,"], [608.88, "seeing how those blood types translated into the blood types of a child\u0027s"], [612.63, "parent, and ultimately, what blood type that child inherited as well."], [617.61, "My name is Brian."], [618.69, "And this was inheritance."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "9p7ddI3ozTY"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
