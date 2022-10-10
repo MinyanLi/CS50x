@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://video.cs50.io/7hydPL9ZswE -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="Songs - Solution - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/7hydPL9ZswE">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            Songs - Solution - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1082.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1082.0">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍦" src="./1f366.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍊" src="./1f34a.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/7hydPL9ZswE?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN: Let's take a look at how you might have solved "songs."</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="3" href="https://video.cs50.io/7hydPL9ZswE?start=3"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:03</span></span><span data-text="">In this lab, we gave you eight questions to answer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="6" href="https://video.cs50.io/7hydPL9ZswE?start=6"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:06</span></span><span data-text="">And your task was to answer each of those questions</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="9" href="https://video.cs50.io/7hydPL9ZswE?start=9"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:09</span></span><span data-text="">by writing a SQL query that you could have run on a database</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="12" href="https://video.cs50.io/7hydPL9ZswE?start=12"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:12</span></span><span data-text="">to get access to that answer.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="15" href="https://video.cs50.io/7hydPL9ZswE?start=15"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:15</span></span><span data-text="">So the first query we asked you to write was</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="17" href="https://video.cs50.io/7hydPL9ZswE?start=17"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:17</span></span><span data-text="">to write a SQL query to list the names of all of the songs in the database.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="22" href="https://video.cs50.io/7hydPL9ZswE?start=22"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:22</span></span><span data-text="">And this was just a "select" query.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="24" href="https://video.cs50.io/7hydPL9ZswE?start=24"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:24</span></span><span data-text="">You're going to select, and then select takes as its first argument</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="28" href="https://video.cs50.io/7hydPL9ZswE?start=28"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:28</span></span><span data-text="">what columns you care about selecting.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="30" href="https://video.cs50.io/7hydPL9ZswE?start=30"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:30</span></span><span data-text="">And so here I want to select the column called "name" from the song's table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="35" href="https://video.cs50.io/7hydPL9ZswE?start=35"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:35</span></span><span data-text="">So select a name from songs would have given us</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="37" href="https://video.cs50.io/7hydPL9ZswE?start=37"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:37</span></span><span data-text="">all of the names of all of the songs that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="40" href="https://video.cs50.io/7hydPL9ZswE?start=40"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:40</span></span><span data-text="">were stored inside of the songs table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="43" href="https://video.cs50.io/7hydPL9ZswE?start=43"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:43</span></span><span data-text="">Meanwhile, in 2.sql, you were asked to write</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="47" href="https://video.cs50.io/7hydPL9ZswE?start=47"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:47</span></span><span data-text="">a SQL query to list the names of all of the songs in increasing order of tempo.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="52" href="https://video.cs50.io/7hydPL9ZswE?start=52"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:52</span></span><span data-text="">So the start of the query would have been the same thing.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="54" href="https://video.cs50.io/7hydPL9ZswE?start=54"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:54</span></span><span data-text="">We're still selecting "name" from songs, but we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="57" href="https://video.cs50.io/7hydPL9ZswE?start=57"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:57</span></span><span data-text="">want to put those songs in a particular order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="60" href="https://video.cs50.io/7hydPL9ZswE?start=60"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:00</span></span><span data-text="">And for that, SQL has an ORDER BY clause that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="63" href="https://video.cs50.io/7hydPL9ZswE?start=63"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:03</span></span><span data-text="">lets us put rows in a particular order according to the value of a column.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="68" href="https://video.cs50.io/7hydPL9ZswE?start=68"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:08</span></span><span data-text="">So here we could say, select name from songs, and then order by tempo.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="74" href="https://video.cs50.io/7hydPL9ZswE?start=74"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:14</span></span><span data-text="">Where tempo here is the column on which we want to order those songs.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="78" href="https://video.cs50.io/7hydPL9ZswE?start=78"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:18</span></span><span data-text="">You could have explicitly said ASC for ascending</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="81" href="https://video.cs50.io/7hydPL9ZswE?start=81"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:21</span></span><span data-text="">order, which is the default by SQL, so you didn't need to include it.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="84" href="https://video.cs50.io/7hydPL9ZswE?start=84"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:24</span></span><span data-text="">But if you had wanted to do descending order, for example,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="87" href="https://video.cs50.io/7hydPL9ZswE?start=87"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:27</span></span><span data-text="">that would have been DESC.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="89" href="https://video.cs50.io/7hydPL9ZswE?start=89"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:29</span></span><span data-text="">But in this case, we just asked for increasing order,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="91" href="https://video.cs50.io/7hydPL9ZswE?start=91"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:31</span></span><span data-text="">which was the default by SQL.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="93" href="https://video.cs50.io/7hydPL9ZswE?start=93"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:33</span></span><span data-text="">So just SELECT name FROM songs, ORDER BY tempo</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="97" href="https://video.cs50.io/7hydPL9ZswE?start=97"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:37</span></span><span data-text="">would have allowed us to query for all of the songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="100" href="https://video.cs50.io/7hydPL9ZswE?start=100"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:40</span></span><span data-text="">and then put them in order by their tempo.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="103" href="https://video.cs50.io/7hydPL9ZswE?start=103"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:43</span></span><span data-text="">In 3.sql, meanwhile, your task was to write</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="106" href="https://video.cs50.io/7hydPL9ZswE?start=106"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:46</span></span><span data-text="">a SQL query that listed the names of the top five longest</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="110" href="https://video.cs50.io/7hydPL9ZswE?start=110"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:50</span></span><span data-text="">songs in descending order of length.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="114" href="https://video.cs50.io/7hydPL9ZswE?start=114"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:54</span></span><span data-text="">So there are really two pieces to this query.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="116" href="https://video.cs50.io/7hydPL9ZswE?start=116"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:56</span></span><span data-text="">The first thing is we need to make sure they're in descending order of length.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="120" href="https://video.cs50.io/7hydPL9ZswE?start=120"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:00</span></span><span data-text="">And the next thing we need to do is to make sure</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="122" href="https://video.cs50.io/7hydPL9ZswE?start=122"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:02</span></span><span data-text="">that we only get back five results instead of getting back all of the data</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="126" href="https://video.cs50.io/7hydPL9ZswE?start=126"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:06</span></span><span data-text="">from the table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="128" href="https://video.cs50.io/7hydPL9ZswE?start=128"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:08</span></span><span data-text="">So let's start with the descending order of length.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="131" href="https://video.cs50.io/7hydPL9ZswE?start=131"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:11</span></span><span data-text="">There's a column duration_ms, which is going</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="134" href="https://video.cs50.io/7hydPL9ZswE?start=134"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:14</span></span><span data-text="">to represent the duration of any song.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="136" href="https://video.cs50.io/7hydPL9ZswE?start=136"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:16</span></span><span data-text="">And so to organize the songs in descending order of length,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="141" href="https://video.cs50.io/7hydPL9ZswE?start=141"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:21</span></span><span data-text="">I could say, select name from song, order by duration_ms,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="145" href="https://video.cs50.io/7hydPL9ZswE?start=145"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:25</span></span><span data-text="">DESC for descending order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="148" href="https://video.cs50.io/7hydPL9ZswE?start=148"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:28</span></span><span data-text="">That's going to put all of the rows in descending order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="151" href="https://video.cs50.io/7hydPL9ZswE?start=151"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:31</span></span><span data-text="">But I only want the top five longest songs, not all of the songs,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="155" href="https://video.cs50.io/7hydPL9ZswE?start=155"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:35</span></span><span data-text="">in descending order.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="157" href="https://video.cs50.io/7hydPL9ZswE?start=157"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:37</span></span><span data-text="">And so here I can add another clause called</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="159" href="https://video.cs50.io/7hydPL9ZswE?start=159"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:39</span></span><span data-text="">LIMIT that limits the number of rows that are</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="163" href="https://video.cs50.io/7hydPL9ZswE?start=163"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:43</span></span><span data-text="">going to be returned by the SQL query.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="165" href="https://video.cs50.io/7hydPL9ZswE?start=165"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:45</span></span><span data-text="">By saying LIMIT 5, I'm limiting myself to just the five longest songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="170" href="https://video.cs50.io/7hydPL9ZswE?start=170"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:50</span></span><span data-text="">that happen to be inside of this database.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="174" href="https://video.cs50.io/7hydPL9ZswE?start=174"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:54</span></span><span data-text="">Now in 4.sql, your task was to write a SQL query that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="179" href="https://video.cs50.io/7hydPL9ZswE?start=179"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:59</span></span><span data-text="">lists the names of any songs that have danceability, energy,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="183" href="https://video.cs50.io/7hydPL9ZswE?start=183"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:03</span></span><span data-text="">and valence greater than 0.75.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="187" href="https://video.cs50.io/7hydPL9ZswE?start=187"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:07</span></span><span data-text="">And so here I'm adding a condition, some sort of way</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="190" href="https://video.cs50.io/7hydPL9ZswE?start=190"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:10</span></span><span data-text="">to filter down the results of my select query.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="193" href="https://video.cs50.io/7hydPL9ZswE?start=193"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:13</span></span><span data-text="">I don't want all of the songs, and I don't just</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="195" href="https://video.cs50.io/7hydPL9ZswE?start=195"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:15</span></span><span data-text="">want the first some number of songs, but I want songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="198" href="https://video.cs50.io/7hydPL9ZswE?start=198"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:18</span></span><span data-text="">that match a particular condition.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="201" href="https://video.cs50.io/7hydPL9ZswE?start=201"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:21</span></span><span data-text="">And here's where I can use a WHERE clause to specify a condition</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="204" href="https://video.cs50.io/7hydPL9ZswE?start=204"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:24</span></span><span data-text="">and even join together multiple of those clauses</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="207" href="https://video.cs50.io/7hydPL9ZswE?start=207"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:27</span></span><span data-text="">with Boolean expressions like AND.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="210" href="https://video.cs50.io/7hydPL9ZswE?start=210"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:30</span></span><span data-text="">So here I'm selecting name from songs where</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="213" href="https://video.cs50.io/7hydPL9ZswE?start=213"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:33</span></span><span data-text="">--and this is where I introduce this condition-- where danceability</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="217" href="https://video.cs50.io/7hydPL9ZswE?start=217"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:37</span></span><span data-text="">is greater than 75 AND energy is greater than 75</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="222" href="https://video.cs50.io/7hydPL9ZswE?start=222"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:42</span></span><span data-text="">AND valence is greater than 0.75 in order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="225" href="https://video.cs50.io/7hydPL9ZswE?start=225"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:45</span></span><span data-text="">to make sure that all three of these things are going to be true.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="228" href="https://video.cs50.io/7hydPL9ZswE?start=228"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:48</span></span><span data-text="">And I will only be able to see names of songs that match that condition.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="233" href="https://video.cs50.io/7hydPL9ZswE?start=233"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:53</span></span><span data-text="">In 5.sql, you were asked to write a SQL query that returns</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="237" href="https://video.cs50.io/7hydPL9ZswE?start=237"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:57</span></span><span data-text="">the average energy of all of the songs.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="240" href="https://video.cs50.io/7hydPL9ZswE?start=240"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:00</span></span><span data-text="">Well, the songs table has an energy column</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="243" href="https://video.cs50.io/7hydPL9ZswE?start=243"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:03</span></span><span data-text="">for the energy of any individual song.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="245" href="https://video.cs50.io/7hydPL9ZswE?start=245"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:05</span></span><span data-text="">And so, to get the average energy, you needed to use a SQL function.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="249" href="https://video.cs50.io/7hydPL9ZswE?start=249"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:09</span></span><span data-text="">SQL has some built-in functions like count, and like average, and like sum</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="254" href="https://video.cs50.io/7hydPL9ZswE?start=254"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:14</span></span><span data-text="">for performing various different operations.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="256" href="https://video.cs50.io/7hydPL9ZswE?start=256"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:16</span></span><span data-text="">And so, in this case, I needed to call the average function, which</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="260" href="https://video.cs50.io/7hydPL9ZswE?start=260"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:20</span></span><span data-text="">in SQL is just AVG, to select the average value for the energy column</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="265" href="https://video.cs50.io/7hydPL9ZswE?start=265"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:25</span></span><span data-text="">from my songs table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="268" href="https://video.cs50.io/7hydPL9ZswE?start=268"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:28</span></span><span data-text="">In 6.sql, we ask you something a little bit more complicated.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="272" href="https://video.cs50.io/7hydPL9ZswE?start=272"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:32</span></span><span data-text="">We asked you to write a SQL query that lists the names of songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="277" href="https://video.cs50.io/7hydPL9ZswE?start=277"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:37</span></span><span data-text="">that are by Post Malone.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="279" href="https://video.cs50.io/7hydPL9ZswE?start=279"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:39</span></span><span data-text="">Now ideally, we wanted to just select from the songs table</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="283" href="https://video.cs50.io/7hydPL9ZswE?start=283"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:43</span></span><span data-text="">to get only the songs where the artist is Post Malone.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="287" href="https://video.cs50.io/7hydPL9ZswE?start=287"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:47</span></span><span data-text="">But there is no artist column in the songs table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="290" href="https://video.cs50.io/7hydPL9ZswE?start=290"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:50</span></span><span data-text="">There is, however, an artist ID column in the songs table that corresponds</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="294" href="https://video.cs50.io/7hydPL9ZswE?start=294"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:54</span></span><span data-text="">to some ID from the artists table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="298" href="https://video.cs50.io/7hydPL9ZswE?start=298"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:58</span></span><span data-text="">So the first thing I might want to do is figure</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="300" href="https://video.cs50.io/7hydPL9ZswE?start=300"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:00</span></span><span data-text="">out what Post Malone's artist ID is.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="303" href="https://video.cs50.io/7hydPL9ZswE?start=303"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:03</span></span><span data-text="">And to do that, I could have done something like SELECT ID</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="306" href="https://video.cs50.io/7hydPL9ZswE?start=306"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:06</span></span><span data-text="">from artists where name equals Post Malone.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="311" href="https://video.cs50.io/7hydPL9ZswE?start=311"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:11</span></span><span data-text="">And that would have been a query that would tell me Post Malone's artist ID.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="314" href="https://video.cs50.io/7hydPL9ZswE?start=314"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:14</span></span><span data-text="">And then I could have used that ID in another query</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="317" href="https://video.cs50.io/7hydPL9ZswE?start=317"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:17</span></span><span data-text="">to figure out all of the songs that are by Post Malone.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="321" href="https://video.cs50.io/7hydPL9ZswE?start=321"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:21</span></span><span data-text="">But in SQL, you can nest queries within each other.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="324" href="https://video.cs50.io/7hydPL9ZswE?start=324"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:24</span></span><span data-text="">Rather than separate this out into two distinct queries,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="328" href="https://video.cs50.io/7hydPL9ZswE?start=328"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:28</span></span><span data-text="">I could nest one within the other and say, select a name from songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="332" href="https://video.cs50.io/7hydPL9ZswE?start=332"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:32</span></span><span data-text="">where artist ID is equal to whatever the result of this query is.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="338" href="https://video.cs50.io/7hydPL9ZswE?start=338"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:38</span></span><span data-text="">This query here will select Post Malone's artist ID.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="342" href="https://video.cs50.io/7hydPL9ZswE?start=342"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:42</span></span><span data-text="">And now I'm selecting all of the names of the songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="345" href="https://video.cs50.io/7hydPL9ZswE?start=345"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:45</span></span><span data-text="">where artist ID is equal to Post Malone's artist ID.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="349" href="https://video.cs50.io/7hydPL9ZswE?start=349"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:49</span></span><span data-text="">The effect of that will be to list the names of songs that are by Post Malone.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="354" href="https://video.cs50.io/7hydPL9ZswE?start=354"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:54</span></span><span data-text="">Next, in 7.sql, we ask you to combine some of the ideas</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="359" href="https://video.cs50.io/7hydPL9ZswE?start=359"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:59</span></span><span data-text="">from these past two queries.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="360" href="https://video.cs50.io/7hydPL9ZswE?start=360"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:00</span></span><span data-text="">Here we asked you to write a SQL query that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="363" href="https://video.cs50.io/7hydPL9ZswE?start=363"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:03</span></span><span data-text="">returns the average energy of songs, not all songs,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="367" href="https://video.cs50.io/7hydPL9ZswE?start=367"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:07</span></span><span data-text="">but only songs that are by Drake.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="369" href="https://video.cs50.io/7hydPL9ZswE?start=369"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:09</span></span><span data-text="">So here again, we wanted to use the average function</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="372" href="https://video.cs50.io/7hydPL9ZswE?start=372"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:12</span></span><span data-text="">to get the average energy and select from the songs table.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="375" href="https://video.cs50.io/7hydPL9ZswE?start=375"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:15</span></span><span data-text="">But I needed to add a WHERE clause here to say</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="378" href="https://video.cs50.io/7hydPL9ZswE?start=378"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:18</span></span><span data-text="">that I don't want the average energy of all songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="381" href="https://video.cs50.io/7hydPL9ZswE?start=381"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:21</span></span><span data-text="">but only songs where the artist ID is equal to Drake's artist ID.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="386" href="https://video.cs50.io/7hydPL9ZswE?start=386"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:26</span></span><span data-text="">And here we could do another nested query</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="388" href="https://video.cs50.io/7hydPL9ZswE?start=388"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:28</span></span><span data-text="">to get access to that information.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="390" href="https://video.cs50.io/7hydPL9ZswE?start=390"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:30</span></span><span data-text="">Selecting the ID from the artist table where</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="394" href="https://video.cs50.io/7hydPL9ZswE?start=394"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:34</span></span><span data-text="">name is equal to Drake, which gives us Drake's artist ID, which we can then</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="398" href="https://video.cs50.io/7hydPL9ZswE?start=398"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:38</span></span><span data-text="">use in this larger query to get the average energy of only those songs.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="404" href="https://video.cs50.io/7hydPL9ZswE?start=404"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:44</span></span><span data-text="">And finally, in 8.sql, we asked you to write</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="407" href="https://video.cs50.io/7hydPL9ZswE?start=407"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:47</span></span><span data-text="">a SQL query that lists the names of songs that feature other artists.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="413" href="https://video.cs50.io/7hydPL9ZswE?start=413"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:53</span></span><span data-text="">And this was a little bit tricky, but the thing to realize is that songs that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="417" href="https://video.cs50.io/7hydPL9ZswE?start=417"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:57</span></span><span data-text="">feature other artists generally have in the name of the song the word feat,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="421" href="https://video.cs50.io/7hydPL9ZswE?start=421"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:01</span></span><span data-text="">F-E-A-T, and then a dot, meaning featuring some other artist.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="426" href="https://video.cs50.io/7hydPL9ZswE?start=426"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:06</span></span><span data-text="">And so how might you gone about querying this, well, here, rather than checking</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="430" href="https://video.cs50.io/7hydPL9ZswE?start=430"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:10</span></span><span data-text="">if something is equal to something else, we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="432" href="https://video.cs50.io/7hydPL9ZswE?start=432"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:12</span></span><span data-text="">can use LIKE here to check, again, something</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="434" href="https://video.cs50.io/7hydPL9ZswE?start=434"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:14</span></span><span data-text="">that potentially has wild cards.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="437" href="https://video.cs50.io/7hydPL9ZswE?start=437"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:17</span></span><span data-text="">Here I'm selecting the names of all songs</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="439" href="https://video.cs50.io/7hydPL9ZswE?start=439"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:19</span></span><span data-text="">where the name is like this pattern, some wild card meaning</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="443" href="https://video.cs50.io/7hydPL9ZswE?start=443"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:23</span></span><span data-text="">some potential characters, then feat dot, and then</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="447" href="https://video.cs50.io/7hydPL9ZswE?start=447"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:27</span></span><span data-text="">another wild card meaning other characters could potentially follow it.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="452" href="https://video.cs50.io/7hydPL9ZswE?start=452"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:32</span></span><span data-text="">And this query will get us any song that has</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="455" href="https://video.cs50.io/7hydPL9ZswE?start=455"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:35</span></span><span data-text="">feat dot somewhere inside of the name of that song, which</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="459" href="https://video.cs50.io/7hydPL9ZswE?start=459"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:39</span></span><span data-text="">will then give us the names of all of the songs that feature other artists.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="463" href="https://video.cs50.io/7hydPL9ZswE?start=463"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:43</span></span><span data-text="">And so by writing these SQL queries, you could run them on the songs.DB database</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="468" href="https://video.cs50.io/7hydPL9ZswE?start=468"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:48</span></span><span data-text="">to get answers to all of these questions and more.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="471" href="https://video.cs50.io/7hydPL9ZswE?start=471"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:51</span></span><span data-text="">My name is Brian, and this with songs.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/7hydPL9ZswE?start=476" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 683px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./7hydPL9ZswE(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.5, "BRIAN: Let\u0027s take a look at how you might have solved \"songs.\""], [3.12, "In this lab, we gave you eight questions to answer."], [6.51, "And your task was to answer each of those questions"], [9.24, "by writing a SQL query that you could have run on a database"], [12.6, "to get access to that answer."], [15.08, "So the first query we asked you to write was"], [17.32, "to write a SQL query to list the names of all of the songs in the database."], [22.45, "And this was just a \"select\" query."], [24.55, "You\u0027re going to select, and then select takes as its first argument"], [28.12, "what columns you care about selecting."], [30.31, "And so here I want to select the column called \"name\" from the song\u0027s table."], [35.2, "So select a name from songs would have given us"], [37.87, "all of the names of all of the songs that"], [40.33, "were stored inside of the songs table."], [43.99, "Meanwhile, in 2.sql, you were asked to write"], [47.02, "a SQL query to list the names of all of the songs in increasing order of tempo."], [52.265, "So the start of the query would have been the same thing."], [54.64, "We\u0027re still selecting \"name\" from songs, but we"], [57.49, "want to put those songs in a particular order."], [60.38, "And for that, SQL has an ORDER BY clause that"], [63.55, "lets us put rows in a particular order according to the value of a column."], [68.66, "So here we could say, select name from songs, and then order by tempo."], [74.05, "Where tempo here is the column on which we want to order those songs."], [78.01, "You could have explicitly said ASC for ascending"], [81.1, "order, which is the default by SQL, so you didn\u0027t need to include it."], [84.53, "But if you had wanted to do descending order, for example,"], [87.35, "that would have been DESC."], [89.38, "But in this case, we just asked for increasing order,"], [91.88, "which was the default by SQL."], [93.55, "So just SELECT name FROM songs, ORDER BY tempo"], [97.15, "would have allowed us to query for all of the songs"], [100.0, "and then put them in order by their tempo."], [103.62, "In 3.sql, meanwhile, your task was to write"], [106.77, "a SQL query that listed the names of the top five longest"], [110.64, "songs in descending order of length."], [114.13, "So there are really two pieces to this query."], [116.7, "The first thing is we need to make sure they\u0027re in descending order of length."], [120.57, "And the next thing we need to do is to make sure"], [122.88, "that we only get back five results instead of getting back all of the data"], [126.81, "from the table."], [128.259, "So let\u0027s start with the descending order of length."], [131.03, "There\u0027s a column duration_ms, which is going"], [134.31, "to represent the duration of any song."], [136.65, "And so to organize the songs in descending order of length,"], [141.1, "I could say, select name from song, order by duration_ms,"], [145.38, "DESC for descending order."], [148.53, "That\u0027s going to put all of the rows in descending order."], [151.41, "But I only want the top five longest songs, not all of the songs,"], [155.67, "in descending order."], [157.11, "And so here I can add another clause called"], [159.64, "LIMIT that limits the number of rows that are"], [163.08, "going to be returned by the SQL query."], [165.24, "By saying LIMIT 5, I\u0027m limiting myself to just the five longest songs"], [170.19, "that happen to be inside of this database."], [174.58, "Now in 4.sql, your task was to write a SQL query that"], [179.01, "lists the names of any songs that have danceability, energy,"], [183.18, "and valence greater than 0.75."], [187.38, "And so here I\u0027m adding a condition, some sort of way"], [190.44, "to filter down the results of my select query."], [193.732, "I don\u0027t want all of the songs, and I don\u0027t just"], [195.69, "want the first some number of songs, but I want songs"], [198.48, "that match a particular condition."], [201.0, "And here\u0027s where I can use a WHERE clause to specify a condition"], [204.33, "and even join together multiple of those clauses"], [207.09, "with Boolean expressions like AND."], [210.07, "So here I\u0027m selecting name from songs where"], [213.69, "--and this is where I introduce this condition-- where danceability"], [217.65, "is greater than 75 AND energy is greater than 75"], [222.12, "AND valence is greater than 0.75 in order"], [225.12, "to make sure that all three of these things are going to be true."], [228.36, "And I will only be able to see names of songs that match that condition."], [233.52, "In 5.sql, you were asked to write a SQL query that returns"], [237.69, "the average energy of all of the songs."], [240.93, "Well, the songs table has an energy column"], [243.15, "for the energy of any individual song."], [245.56, "And so, to get the average energy, you needed to use a SQL function."], [249.57, "SQL has some built-in functions like count, and like average, and like sum"], [254.07, "for performing various different operations."], [256.57, "And so, in this case, I needed to call the average function, which"], [260.07, "in SQL is just AVG, to select the average value for the energy column"], [265.53, "from my songs table."], [268.74, "In 6.sql, we ask you something a little bit more complicated."], [272.8, "We asked you to write a SQL query that lists the names of songs"], [277.02, "that are by Post Malone."], [279.44, "Now ideally, we wanted to just select from the songs table"], [283.07, "to get only the songs where the artist is Post Malone."], [287.03, "But there is no artist column in the songs table."], [290.39, "There is, however, an artist ID column in the songs table that corresponds"], [294.86, "to some ID from the artists table."], [298.07, "So the first thing I might want to do is figure"], [300.47, "out what Post Malone\u0027s artist ID is."], [303.27, "And to do that, I could have done something like SELECT ID"], [306.29, "from artists where name equals Post Malone."], [311.27, "And that would have been a query that would tell me Post Malone\u0027s artist ID."], [314.84, "And then I could have used that ID in another query"], [317.84, "to figure out all of the songs that are by Post Malone."], [321.74, "But in SQL, you can nest queries within each other."], [324.86, "Rather than separate this out into two distinct queries,"], [328.25, "I could nest one within the other and say, select a name from songs"], [332.99, "where artist ID is equal to whatever the result of this query is."], [338.12, "This query here will select Post Malone\u0027s artist ID."], [342.05, "And now I\u0027m selecting all of the names of the songs"], [345.05, "where artist ID is equal to Post Malone\u0027s artist ID."], [349.1, "The effect of that will be to list the names of songs that are by Post Malone."], [354.53, "Next, in 7.sql, we ask you to combine some of the ideas"], [359.06, "from these past two queries."], [360.83, "Here we asked you to write a SQL query that"], [363.38, "returns the average energy of songs, not all songs,"], [367.04, "but only songs that are by Drake."], [369.5, "So here again, we wanted to use the average function"], [372.44, "to get the average energy and select from the songs table."], [375.98, "But I needed to add a WHERE clause here to say"], [378.89, "that I don\u0027t want the average energy of all songs"], [381.32, "but only songs where the artist ID is equal to Drake\u0027s artist ID."], [386.66, "And here we could do another nested query"], [388.88, "to get access to that information."], [390.68, "Selecting the ID from the artist table where"], [394.43, "name is equal to Drake, which gives us Drake\u0027s artist ID, which we can then"], [398.21, "use in this larger query to get the average energy of only those songs."], [404.49, "And finally, in 8.sql, we asked you to write"], [407.7, "a SQL query that lists the names of songs that feature other artists."], [413.1, "And this was a little bit tricky, but the thing to realize is that songs that"], [417.24, "feature other artists generally have in the name of the song the word feat,"], [421.815, "F-E-A-T, and then a dot, meaning featuring some other artist."], [426.45, "And so how might you gone about querying this, well, here, rather than checking"], [430.29, "if something is equal to something else, we"], [432.6, "can use LIKE here to check, again, something"], [434.94, "that potentially has wild cards."], [437.16, "Here I\u0027m selecting the names of all songs"], [439.68, "where the name is like this pattern, some wild card meaning"], [443.97, "some potential characters, then feat dot, and then"], [447.72, "another wild card meaning other characters could potentially follow it."], [452.22, "And this query will get us any song that has"], [455.61, "feat dot somewhere inside of the name of that song, which"], [459.57, "will then give us the names of all of the songs that feature other artists."], [463.505, "And so by writing these SQL queries, you could run them on the songs.DB database"], [468.39, "to get answers to all of these questions and more."], [471.73, "My name is Brian, and this with songs."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "7hydPL9ZswE"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
