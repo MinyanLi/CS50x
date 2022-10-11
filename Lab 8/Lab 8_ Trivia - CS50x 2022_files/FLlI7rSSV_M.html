@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://video.cs50.io/FLlI7rSSV_M?start=129 -->
+<html class="h-100" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <meta property="og:description" content="***  This is CS50, Harvard University&#39;s introduction to the intellectual enterprises of computer science and the art of programming.  ***  HOW TO SUBSCRIBE  http://www.youtube.com/subscription_center?add_user=cs50tv  HOW TO TAKE CS50  edX: https://cs50.ed">
+        <meta property="og:image" content="https://img.youtube.com/vi//maxresdefault.jpg">
+        <meta property="og:title" content="Trivia - Solution - CS50 Labs 2020">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://video.cs50.io/FLlI7rSSV_M">
+
+        <!-- https://www.youtube.com/ -->
+        <link href="https://s.ytimg.com/yts/img/favicon_32-vflOogEID.png" rel="shortcut icon">
+
+        <!-- https://fontawesome.com/ -->
+<link crossorigin="anonymous" href="./all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" rel="stylesheet">
+
+<!-- https://getbootstrap.com/ -->
+<link crossorigin="anonymous" href="./bootstrap.min.css" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" rel="stylesheet">
+<script type="text/javascript" id="www-widgetapi-script" src="./www-widgetapi.js" async=""></script><script src="./iframe_api"></script><script crossorigin="anonymous" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" src="./bootstrap.bundle.min(1).js"></script>
+
+<!-- https://jquery.com/ -->
+<!-- https://www.jsdelivr.com/package/npm/jquery -->
+<script crossorigin="anonymous" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" src="./jquery.min(1).js"></script>
+
+        <!-- http://numeraljs.com/ -->
+        <script crossorigin="anonymous" integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" src="./numeral.min.js"></script>
+
+        <!-- https://github.com/twitter/twemoji -->
+        <!-- https://www.jsdelivr.com/package/npm/twemoji?path=dist -->
+        <script crossorigin="anonymous" integrity="sha256-cGIk2NxUQEYPjtkcGmqtJdcyr24O5vsxFRsVerSFurs" src="./twemoji.min.js"></script>
+
+        <!-- https://github.com/davidjbradshaw/iframe-resizer -->
+        <!-- https://www.jsdelivr.com/package/npm/iframe-resizer?path=js -->
+        <script>
+            window.iFrameResizer = {
+
+                // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/iframed_page/options.md#heightcalculationmethod--widthcalculationmethod
+                heightCalculationMethod: function() {
+
+                    // Player's width
+                    const width = $('#main').outerWidth();
+
+                    // Player's ideal height, assuming 16x9
+                    let height = width / 16 * 9;
+
+                    // Player's actual height with nav
+                    return Math.round(height + $('nav').outerHeight());
+                }
+            };
+        </script>
+        <script crossorigin="anonymous" integrity="sha512-14SY6teTzhrLWeL55Q4uCyxr6GQOxF3pEoMxo2mBxXwPRikdMtzKMYWy2B5Lqjr6PHHoGOxZgPaxUYKQrSmu0A==" src="./iframeResizer.contentWindow.min.js"></script>
+
+        <style>
+
+            body {
+                background-color: #000;
+            }
+
+            .navbar-brand {
+                font-size: 1.125rem;
+            }
+
+            .fab.fa-youtube {
+                color: #ff0000;
+                font-size: 1.5em;
+            }
+
+            .custom-control-sm {
+                font-size: .875rem;
+                padding-bottom: .5rem; /* A la .nav-link */
+                padding-top: .5rem; /* A la .nav-link */
+            }
+            .custom-control-sm .custom-control-label::before {
+                top: .2rem;
+            }
+            .custom-control-sm .custom-control-label::after {
+                top: calc(.2rem + 2px);
+            }
+
+            #captions, #chapters {
+                max-height: 80vh;
+                max-width: 50vw;
+            }
+
+            #snacks {
+                max-height: 80vh;
+                min-width: 0;
+            }
+
+            /* https://github.com/twitter/twemoji#inline-styles */
+            #snacks img.emoji {
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -0.1em;
+                width: 1em;
+            }
+
+            #snacks .dropdown-item {
+                cursor: pointer;
+                font-size: 2rem;
+            }
+
+            .mark, mark {
+                padding: 0;
+            }
+
+        </style>
+
+        <title>
+            Trivia - Solution - CS50 Labs 2020
+        </title>
+
+    </head>
+
+    <body class="h-100 overflow-hidden vsc-initialized" data-new-gr-c-s-check-loaded="14.1083.0" data-gr-ext-installed="" data-new-gr-c-s-loaded="14.1083.0">
+
+        <nav class="bg-light navbar navbar-expand-md navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="btn btn-link navbar-brand px-0 text-secondary" href="https://video.cs50.io/" role="button" target="_top">
+                    <i class="align-bottom fab fa-youtube pe-1"></i>
+                    CS50
+                    <span class="d-none d-lg-inline">Video Player</span>
+                </a>
+
+                
+
+                <div class="collapse navbar-collapse" id="navbar">
+
+                    <ul class="ms-auto navbar-nav">
+                        <li class="nav-item">
+                            <button class="btn btn-link nav-link text-muted" data-bs-target="#shortcuts" data-bs-toggle="modal" type="button">
+                                <i class="far fa-keyboard pe-1"></i>
+                                Shortcuts
+                            </button>
+                        </li>
+                    </ul>
+
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button aria-expanded="false" class="btn btn-link dropdown-toggle ms-auto nav-link text-muted" data-bs-toggle="dropdown" id="snacks-button" role="button">
+                                    Snacks
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="snacks"><a class="dropdown-item"><img draggable="false" class="emoji" alt="🧁" src="./1f9c1.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍦" src="./1f366.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍌" src="./1f34c.png"></a><li><hr class="dropdown-divider"></li><a class="dropdown-item"><img draggable="false" class="emoji" alt="🍿" src="./1f37f.png"></a></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                    
+
+                    <!-- https://stackoverflow.com/a/45696757 -->
+                    <ul class="ms-2 navbar-nav">
+                        <li class="nav-item">
+                            <div class="input-group">
+                                <input autocomplete="off" class="form-control" id="q" placeholder="Captions" type="search">
+                                <button aria-expanded="false" class="btn btn-secondary dropdown-toggle" data-bs-auto-close="false" data-bs-toggle="dropdown" id="captions-button" type="button"></button>
+                                <ul class="dropdown-menu dropdown-menu-end overflow-auto" id="captions"><li><a class="dropdown-item overflow-hidden text-truncate" data-start="0" href="https://video.cs50.io/FLlI7rSSV_M?start=0"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:00</span></span><span data-text="">BRIAN YU: Let's take a look at how you might have</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="2" href="https://video.cs50.io/FLlI7rSSV_M?start=2"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:02</span></span><span data-text="">gone about solving the trivia problem.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="4" href="https://video.cs50.io/FLlI7rSSV_M?start=4"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:04</span></span><span data-text="">In this problem, your task was to build a website that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="7" href="https://video.cs50.io/FLlI7rSSV_M?start=7"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:07</span></span><span data-text="">asks the users trivia questions.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="9" href="https://video.cs50.io/FLlI7rSSV_M?start=9"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:09</span></span><span data-text="">And then, using JavaScript, gave the user feedback</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="13" href="https://video.cs50.io/FLlI7rSSV_M?start=13"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:13</span></span><span data-text="">based on whether their response was correct or incorrect.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="16" href="https://video.cs50.io/FLlI7rSSV_M?start=16"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:16</span></span><span data-text="">Let's take a look at how you might have done that.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="18" href="https://video.cs50.io/FLlI7rSSV_M?start=18"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:18</span></span><span data-text="">The first step, we'll take a look at the HTML first,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="21" href="https://video.cs50.io/FLlI7rSSV_M?start=21"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:21</span></span><span data-text="">was to write a multiple choice question.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="23" href="https://video.cs50.io/FLlI7rSSV_M?start=23"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:23</span></span><span data-text="">You could have picked any question.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="25" href="https://video.cs50.io/FLlI7rSSV_M?start=25"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:25</span></span><span data-text="">But here we asked the question using an h3 tag.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="28" href="https://video.cs50.io/FLlI7rSSV_M?start=28"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:28</span></span><span data-text="">And then we added buttons for each of the possible answers.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="32" href="https://video.cs50.io/FLlI7rSSV_M?start=32"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:32</span></span><span data-text="">And ultimately, and you'll see why in just a moment,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="34" href="https://video.cs50.io/FLlI7rSSV_M?start=34"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:34</span></span><span data-text="">we added classes to these buttons in order</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="37" href="https://video.cs50.io/FLlI7rSSV_M?start=37"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:37</span></span><span data-text="">to allow us to identify which response is correct</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="40" href="https://video.cs50.io/FLlI7rSSV_M?start=40"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:40</span></span><span data-text="">and which response is incorrect.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="43" href="https://video.cs50.io/FLlI7rSSV_M?start=43"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:43</span></span><span data-text="">Here we put the incorrect class on all of the incorrect options</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="46" href="https://video.cs50.io/FLlI7rSSV_M?start=46"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:46</span></span><span data-text="">and the correct class on the correct option.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="49" href="https://video.cs50.io/FLlI7rSSV_M?start=49"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:49</span></span><span data-text="">There were multiple ways to do this, but this is one possible approach</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="53" href="https://video.cs50.io/FLlI7rSSV_M?start=53"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:53</span></span><span data-text="">you could have taken.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="54" href="https://video.cs50.io/FLlI7rSSV_M?start=54"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:54</span></span><span data-text="">Right now, these won't change anything about how the user sees these buttons.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="57" href="https://video.cs50.io/FLlI7rSSV_M?start=57"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:00:57</span></span><span data-text="">But we will use these classes as part of our JavaScript in just a moment.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="62" href="https://video.cs50.io/FLlI7rSSV_M?start=62"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:02</span></span><span data-text="">Then down below, we have a paragraph whose</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="65" href="https://video.cs50.io/FLlI7rSSV_M?start=65"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:05</span></span><span data-text="">ID is just some unique way of identifying</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="67" href="https://video.cs50.io/FLlI7rSSV_M?start=67"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:07</span></span><span data-text="">that paragraph, is feedback one.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="70" href="https://video.cs50.io/FLlI7rSSV_M?start=70"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:10</span></span><span data-text="">The paragraph is empty right now.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="71" href="https://video.cs50.io/FLlI7rSSV_M?start=71"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:11</span></span><span data-text="">There's no text the user is going to see inside of that paragraph.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="75" href="https://video.cs50.io/FLlI7rSSV_M?start=75"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:15</span></span><span data-text="">But it's going to have the effect of being a place where we could add text</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="79" href="https://video.cs50.io/FLlI7rSSV_M?start=79"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:19</span></span><span data-text="">later to give feedback to the user, letting</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="82" href="https://video.cs50.io/FLlI7rSSV_M?start=82"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:22</span></span><span data-text="">them know whether their response was correct or incorrect.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="87" href="https://video.cs50.io/FLlI7rSSV_M?start=87"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:27</span></span><span data-text="">Then, in part two, we added a free response question.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="89" href="https://video.cs50.io/FLlI7rSSV_M?start=89"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:29</span></span><span data-text="">You could have picked a different free response question.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="91" href="https://video.cs50.io/FLlI7rSSV_M?start=91"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:31</span></span><span data-text="">But we have a free response question in an h3.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="95" href="https://video.cs50.io/FLlI7rSSV_M?start=95"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:35</span></span><span data-text="">Then an input whose type is text, where the user could</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="97" href="https://video.cs50.io/FLlI7rSSV_M?start=97"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:37</span></span><span data-text="">type in some text, and then a button to check their answer,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="101" href="https://video.cs50.io/FLlI7rSSV_M?start=101"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:41</span></span><span data-text="">as well as another paragraph that's also empty at first, called feedback2,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="105" href="https://video.cs50.io/FLlI7rSSV_M?start=105"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:45</span></span><span data-text="">where we could let the user know whether they answered the question</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="107" href="https://video.cs50.io/FLlI7rSSV_M?start=107"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:47</span></span><span data-text="">correctly or incorrectly.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="111" href="https://video.cs50.io/FLlI7rSSV_M?start=111"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:51</span></span><span data-text="">So that describes the structure of the page.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="113" href="https://video.cs50.io/FLlI7rSSV_M?start=113"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:53</span></span><span data-text="">But now we then need to get into the actual logic in JavaScript of handling</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="117" href="https://video.cs50.io/FLlI7rSSV_M?start=117"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:01:57</span></span><span data-text="">these correct and incorrect responses.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="120" href="https://video.cs50.io/FLlI7rSSV_M?start=120"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:00</span></span><span data-text="">So for that, we'll scroll up to the top of our page, where</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="123" href="https://video.cs50.io/FLlI7rSSV_M?start=123"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:03</span></span><span data-text="">we start by adding an addEventListener on the document,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="126" href="https://video.cs50.io/FLlI7rSSV_M?start=126"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:06</span></span><span data-text="">waiting for DOMContentLoaded.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="129" href="https://video.cs50.io/FLlI7rSSV_M?start=129"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:09</span></span><span data-text="">In order to make sure that we're running JavaScript and adding</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="131" href="https://video.cs50.io/FLlI7rSSV_M?start=131"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:11</span></span><span data-text="">Event Handlers to elements that already exist on the page,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="135" href="https://video.cs50.io/FLlI7rSSV_M?start=135"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:15</span></span><span data-text="">we want to wait to start running this code until the DOM,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="138" href="https://video.cs50.io/FLlI7rSSV_M?start=138"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:18</span></span><span data-text="">the entire Document Object Model representing our page is done loading.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="143" href="https://video.cs50.io/FLlI7rSSV_M?start=143"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:23</span></span><span data-text="">So we'll wait until the DOM content is loaded.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="145" href="https://video.cs50.io/FLlI7rSSV_M?start=145"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:25</span></span><span data-text="">And then we're going to run all of the code that you're about to see.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="150" href="https://video.cs50.io/FLlI7rSSV_M?start=150"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:30</span></span><span data-text="">The first thing we need to do is make it for our multiple choice question</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="154" href="https://video.cs50.io/FLlI7rSSV_M?start=154"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:34</span></span><span data-text="">that when we click on the correct answer, the button that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="156" href="https://video.cs50.io/FLlI7rSSV_M?start=156"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:36</span></span><span data-text="">corresponds to the correct answer, that we do two things.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="159" href="https://video.cs50.io/FLlI7rSSV_M?start=159"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:39</span></span><span data-text="">We change the button to be green, and then we</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="162" href="https://video.cs50.io/FLlI7rSSV_M?start=162"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:42</span></span><span data-text="">add some text to say that the user answered the question correctly.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="166" href="https://video.cs50.io/FLlI7rSSV_M?start=166"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:46</span></span><span data-text="">So let's first try and select that button.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="168" href="https://video.cs50.io/FLlI7rSSV_M?start=168"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:48</span></span><span data-text="">And we can do so via document.querySelector correct.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="174" href="https://video.cs50.io/FLlI7rSSV_M?start=174"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:54</span></span><span data-text="">That is going to select the one, in this case, only element that</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="177" href="https://video.cs50.io/FLlI7rSSV_M?start=177"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:02:57</span></span><span data-text="">has a class name of correct, storing that inside of this variable</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="181" href="https://video.cs50.io/FLlI7rSSV_M?start=181"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:01</span></span><span data-text="">called correct.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="183" href="https://video.cs50.io/FLlI7rSSV_M?start=183"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:03</span></span><span data-text="">On that button, we're going to say correct.addEventListener,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="186" href="https://video.cs50.io/FLlI7rSSV_M?start=186"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:06</span></span><span data-text="">adding an event listener for the click event.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="189" href="https://video.cs50.io/FLlI7rSSV_M?start=189"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:09</span></span><span data-text="">Meaning when the button is clicked on, we're</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="191" href="https://video.cs50.io/FLlI7rSSV_M?start=191"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:11</span></span><span data-text="">going to go ahead and run this code.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="194" href="https://video.cs50.io/FLlI7rSSV_M?start=194"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:14</span></span><span data-text="">What code should run when the correct option is clicked on?</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="197" href="https://video.cs50.io/FLlI7rSSV_M?start=197"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:17</span></span><span data-text="">Well, two things should happen.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="199" href="https://video.cs50.io/FLlI7rSSV_M?start=199"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:19</span></span><span data-text="">One, we want to change the background color of the button to correct.style.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="203" href="https://video.cs50.io/FLlI7rSSV_M?start=203"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:23</span></span><span data-text="">It lets us modify the style of that button.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="206" href="https://video.cs50.io/FLlI7rSSV_M?start=206"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:26</span></span><span data-text="">We want to change the background color property and set it equal to green.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="210" href="https://video.cs50.io/FLlI7rSSV_M?start=210"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:30</span></span><span data-text="">And in addition to changing the color of the button,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="214" href="https://video.cs50.io/FLlI7rSSV_M?start=214"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:34</span></span><span data-text="">we also wanted to provide feedback.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="216" href="https://video.cs50.io/FLlI7rSSV_M?start=216"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:36</span></span><span data-text="">So I can use document.querySelector #feedback1 to mean find me the element</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="222" href="https://video.cs50.io/FLlI7rSSV_M?start=222"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:42</span></span><span data-text="">whose ID is feedback1.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="225" href="https://video.cs50.io/FLlI7rSSV_M?start=225"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:45</span></span><span data-text="">Once I have that element, I can update the inner HTML of that element.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="229" href="https://video.cs50.io/FLlI7rSSV_M?start=229"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:49</span></span><span data-text="">And right now, the paragraph is empty.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="232" href="https://video.cs50.io/FLlI7rSSV_M?start=232"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:52</span></span><span data-text="">But we're going to update that paragraph to instead display the word 'correct.'</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="237" href="https://video.cs50.io/FLlI7rSSV_M?start=237"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:03:57</span></span><span data-text="">Meanwhile, I need to do something similar for incorrect options.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="241" href="https://video.cs50.io/FLlI7rSSV_M?start=241"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:01</span></span><span data-text="">But for incorrect options, there are multiple incorrect options.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="245" href="https://video.cs50.io/FLlI7rSSV_M?start=245"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:05</span></span><span data-text="">So rather than use a document.querySelector,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="248" href="https://video.cs50.io/FLlI7rSSV_M?start=248"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:08</span></span><span data-text="">I can instead use document.querySelectorAll,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="251" href="https://video.cs50.io/FLlI7rSSV_M?start=251"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:11</span></span><span data-text="">which will return to me not just one match but an array of all</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="255" href="https://video.cs50.io/FLlI7rSSV_M?start=255"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:15</span></span><span data-text="">of the matches for any element that has a class of incorrect.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="259" href="https://video.cs50.io/FLlI7rSSV_M?start=259"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:19</span></span><span data-text="">And we're going to store that inside of correct.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="263" href="https://video.cs50.io/FLlI7rSSV_M?start=263"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:23</span></span><span data-text="">Next, we have a loop that's going to loop over</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="265" href="https://video.cs50.io/FLlI7rSSV_M?start=265"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:25</span></span><span data-text="">each of those incorrect responses.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="267" href="https://video.cs50.io/FLlI7rSSV_M?start=267"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:27</span></span><span data-text="">There are a couple of ways you could do this.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="269" href="https://video.cs50.io/FLlI7rSSV_M?start=269"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:29</span></span><span data-text="">And you could even simplify this a little bit.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="271" href="https://video.cs50.io/FLlI7rSSV_M?start=271"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:31</span></span><span data-text="">But this is closest to what you might be familiar with, with,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="273" href="https://video.cs50.io/FLlI7rSSV_M?start=273"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:33</span></span><span data-text="">like, for loops over an array in C, for example.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="276" href="https://video.cs50.io/FLlI7rSSV_M?start=276"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:36</span></span><span data-text="">But for each of these incorrect options, we're</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="279" href="https://video.cs50.io/FLlI7rSSV_M?start=279"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:39</span></span><span data-text="">going to do something very similar.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="280" href="https://video.cs50.io/FLlI7rSSV_M?start=280"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:40</span></span><span data-text="">We're going to add an EventListener.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="282" href="https://video.cs50.io/FLlI7rSSV_M?start=282"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:42</span></span><span data-text="">When that incorrect button is clicked on, we are going to run this function.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="286" href="https://video.cs50.io/FLlI7rSSV_M?start=286"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:46</span></span><span data-text="">The function does two things.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="288" href="https://video.cs50.io/FLlI7rSSV_M?start=288"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:48</span></span><span data-text="">It takes the incorrect button, changes its style.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="292" href="https://video.cs50.io/FLlI7rSSV_M?start=292"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:52</span></span><span data-text="">The background color property is the one we want to change.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="295" href="https://video.cs50.io/FLlI7rSSV_M?start=295"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:55</span></span><span data-text="">And we change the background color to be red.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="298" href="https://video.cs50.io/FLlI7rSSV_M?start=298"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:04:58</span></span><span data-text="">And then we get access to feedback1, that's that paragraph.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="303" href="https://video.cs50.io/FLlI7rSSV_M?start=303"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:03</span></span><span data-text="">And we change the inner HTML inside of that paragraph</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="306" href="https://video.cs50.io/FLlI7rSSV_M?start=306"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:06</span></span><span data-text="">to say that the user answered the question incorrectly.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="310" href="https://video.cs50.io/FLlI7rSSV_M?start=310"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:10</span></span><span data-text="">That, then, will handle our multiple choice question,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="313" href="https://video.cs50.io/FLlI7rSSV_M?start=313"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:13</span></span><span data-text="">dealing with both the correct answer button and also</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="315" href="https://video.cs50.io/FLlI7rSSV_M?start=315"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:15</span></span><span data-text="">all of the incorrect answer buttons.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="318" href="https://video.cs50.io/FLlI7rSSV_M?start=318"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:18</span></span><span data-text="">But now, let's take a look at the free response question.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="322" href="https://video.cs50.io/FLlI7rSSV_M?start=322"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:22</span></span><span data-text="">When the Check button is clicked, the button that has an ID of check,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="326" href="https://video.cs50.io/FLlI7rSSV_M?start=326"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:26</span></span><span data-text="">I want to first add an EventListener here to say when the button is clicked,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="329" href="https://video.cs50.io/FLlI7rSSV_M?start=329"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:29</span></span><span data-text="">I want to run this function.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="331" href="https://video.cs50.io/FLlI7rSSV_M?start=331"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:31</span></span><span data-text="">I need to verify and see whether what the user typed into the input field</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="335" href="https://video.cs50.io/FLlI7rSSV_M?start=335"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:35</span></span><span data-text="">is actually correct or not.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="337" href="https://video.cs50.io/FLlI7rSSV_M?start=337"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:37</span></span><span data-text="">So I might start by saying document.querySelectorInput to give</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="341" href="https://video.cs50.io/FLlI7rSSV_M?start=341"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:41</span></span><span data-text="">my JavaScript code access to that input field, where</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="344" href="https://video.cs50.io/FLlI7rSSV_M?start=344"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:44</span></span><span data-text="">the user was typing in their response.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="346" href="https://video.cs50.io/FLlI7rSSV_M?start=346"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:46</span></span><span data-text="">And if I have an input field in JavaScript,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="349" href="https://video.cs50.io/FLlI7rSSV_M?start=349"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:49</span></span><span data-text="">I can access its .value property to get the value of the input field.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="354" href="https://video.cs50.io/FLlI7rSSV_M?start=354"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:54</span></span><span data-text="">In other words, what the user typed into that input field.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="357" href="https://video.cs50.io/FLlI7rSSV_M?start=357"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:05:57</span></span><span data-text="">And if the input value is equal to the correct answer,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="361" href="https://video.cs50.io/FLlI7rSSV_M?start=361"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:01</span></span><span data-text="">well, then what I want to do is change the input field,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="365" href="https://video.cs50.io/FLlI7rSSV_M?start=365"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:05</span></span><span data-text="">change its background color to green, much as we changed the background</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="368" href="https://video.cs50.io/FLlI7rSSV_M?start=368"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:08</span></span><span data-text="">color of the button to green before.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="371" href="https://video.cs50.io/FLlI7rSSV_M?start=371"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:11</span></span><span data-text="">And then now update feedback2 instead of feedback1,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="375" href="https://video.cs50.io/FLlI7rSSV_M?start=375"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:15</span></span><span data-text="">changing this paragraph to let the user know that they</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="378" href="https://video.cs50.io/FLlI7rSSV_M?start=378"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:18</span></span><span data-text="">answered the question correctly.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="381" href="https://video.cs50.io/FLlI7rSSV_M?start=381"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:21</span></span><span data-text="">Else, if the input value is not the correct answer,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="384" href="https://video.cs50.io/FLlI7rSSV_M?start=384"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:24</span></span><span data-text="">change the background color to red.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="386" href="https://video.cs50.io/FLlI7rSSV_M?start=386"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:26</span></span><span data-text="">And then update feedback2 let the user know the answer incorrectly.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="391" href="https://video.cs50.io/FLlI7rSSV_M?start=391"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:31</span></span><span data-text="">So now I can try and actually try this website by cd-ing into trivia.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="396" href="https://video.cs50.io/FLlI7rSSV_M?start=396"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:36</span></span><span data-text="">And then running http-server to start up an HTTP server.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="402" href="https://video.cs50.io/FLlI7rSSV_M?start=402"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:42</span></span><span data-text="">And if I visit that URL, and then choose index.html,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="406" href="https://video.cs50.io/FLlI7rSSV_M?start=406"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:46</span></span><span data-text="">I now have my trivia page, where if I click on an incorrect answer,</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="410" href="https://video.cs50.io/FLlI7rSSV_M?start=410"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:50</span></span><span data-text="">the button turns red and I see the word incorrect.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="413" href="https://video.cs50.io/FLlI7rSSV_M?start=413"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:53</span></span><span data-text="">But if I click on a correct answer, the button turns green, and I see correct.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="417" href="https://video.cs50.io/FLlI7rSSV_M?start=417"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:06:57</span></span><span data-text="">And likewise, for a free response, if I type in an incorrect answer and press</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="421" href="https://video.cs50.io/FLlI7rSSV_M?start=421"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:01</span></span><span data-text="">check answer, the textfield turns red, and it says incorrect.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="425" href="https://video.cs50.io/FLlI7rSSV_M?start=425"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:05</span></span><span data-text="">But if I type in the correct answer and press check, the textfield turns green.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="431" href="https://video.cs50.io/FLlI7rSSV_M?start=431"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:11</span></span><span data-text="">And it displays the word correct for my questions.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="434" href="https://video.cs50.io/FLlI7rSSV_M?start=434"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:14</span></span><span data-text="">And if you do the same, it'll do that for your questions as well.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="437" href="https://video.cs50.io/FLlI7rSSV_M?start=437"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:17</span></span><span data-text="">My name is Brian.</span></a></li><li><a class="dropdown-item overflow-hidden text-truncate" data-start="438" href="https://video.cs50.io/FLlI7rSSV_M?start=438"><span class="d-inline-block me-3 text-end"><span class="badge bg-dark">0:07:18</span></span><span data-text="">And this was trivia.</span></a></li></ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                    
+
+                </div>
+
+                <ul class="ms-3 navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-link nav-link px-0 text-muted" href="https://video.cs50.io/FLlI7rSSV_M?start=129" role="button" target="_top">
+                            <i aria-hidden="true" class="fas fa-external-link-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <iframe class="border-0 w-100" id="main" style="height: 683px;" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="./FLlI7rSSV_M(1).html"></iframe>
+
+        
+
+        <div aria-hidden="true" aria-labelledby="shortcuts" class="modal" data-bs-backdrop="static" id="shortcuts" role="dialog" tabindex="-1">
+            <div class="min-vh-100 modal-dialog modal-dialog-centered my-0">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="far fa-keyboard pe-2"></i>Shortcuts</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert" role="alert">
+                            Before using a shortcut, click at least once on the video itself (to give it "focus") after closing this window.
+                        </div>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>Play/Pause</td>
+                                    <td><kbd>spacebar</kbd> or <kbd>k</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Rewind 10 seconds</td>
+                                    <td><kbd>left arrow</kbd> or <kbd>j</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Fast forward 10 seconds</td>
+                                    <td><kbd>right arrow</kbd> or <kbd>l</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Previous frame (while paused)</td>
+                                    <td><kbd>,</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Next frame (while paused)</td>
+                                    <td><kbd>.</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Decrease playback rate</td>
+                                    <td><kbd>&lt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Increase playback rate</td>
+                                    <td><kbd>&gt;</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle captions on/off</td>
+                                    <td><kbd>c</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle mute</td>
+                                    <td><kbd>m</kbd></td>
+                                </tr>
+                                <tr>
+                                    <td>Toggle full screen</td>
+                                    <td><kbd>f</kbd> or double-click video</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            // Offset for screen
+            const offset = 0 / 1000;
+
+            // Overrides for playerVars
+            const playerVars = {
+                modestbranding: '0'
+            };
+
+            // If embedded
+            if (window.self !== window.top) {
+                $('nav .navbar-nav').last().removeClass('d-none');
+                playerVars.modestbranding = '1';
+            }
+
+            // If resuming
+            const url = new URL(window.location.href);
+            if (url.searchParams.get('start') === null) {
+                try {
+                    playerVars.start = (localStorage.getItem(url.pathname.slice(1)) || 0).toString();
+                }
+                catch(err) {}
+            }
+
+            // On resize
+            function resize() {
+
+                // If < extra small and iframed, hide navbar
+                // https://getbootstrap.com/docs/4.5/layout/grid/
+                if ($(window).width() < 576 && window.self !== window.top) {
+                    $('nav').addClass('d-none');
+                }
+
+                // If < large, shrink navbar
+                // https://getbootstrap.com/docs/5.2/layout/grid/#grid-options
+                else if ($(window).width() < 992) {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').addClass('custom-control-sm');
+                    $('nav .btn').addClass('btn-sm');
+                    $('nav .form-control').addClass('form-control-sm');
+                    $('nav .dropdown-item').addClass('small');
+                }
+                else {
+                    $('nav').removeClass('d-none');
+                    $('nav .custom-control').removeClass('custom-control-sm');
+                    $('nav .btn').removeClass('btn-sm');
+                    $('nav .form-control').removeClass('form-control-sm');
+                    $('nav .dropdown-item').removeClass('small');
+                }
+
+                // Fill rest of viewport
+                $('#main, #screen').height(($(window).height() - $('nav').outerHeight()) + 'px');
+            }
+
+            
+
+            
+
+            // Captions
+            const captions = [[0.018, "BRIAN YU: Let\u0027s take a look at how you might have"], [2.06, "gone about solving the trivia problem."], [4.89, "In this problem, your task was to build a website that"], [7.55, "asks the users trivia questions."], [9.81, "And then, using JavaScript, gave the user feedback"], [13.19, "based on whether their response was correct or incorrect."], [16.59, "Let\u0027s take a look at how you might have done that."], [18.92, "The first step, we\u0027ll take a look at the HTML first,"], [21.53, "was to write a multiple choice question."], [23.582, "You could have picked any question."], [25.04, "But here we asked the question using an h3 tag."], [28.58, "And then we added buttons for each of the possible answers."], [32.39, "And ultimately, and you\u0027ll see why in just a moment,"], [34.76, "we added classes to these buttons in order"], [37.55, "to allow us to identify which response is correct"], [40.85, "and which response is incorrect."], [43.34, "Here we put the incorrect class on all of the incorrect options"], [46.97, "and the correct class on the correct option."], [49.61, "There were multiple ways to do this, but this is one possible approach"], [53.21, "you could have taken."], [54.23, "Right now, these won\u0027t change anything about how the user sees these buttons."], [57.77, "But we will use these classes as part of our JavaScript in just a moment."], [62.59, "Then down below, we have a paragraph whose"], [65.61, "ID is just some unique way of identifying"], [67.8, "that paragraph, is feedback one."], [70.37, "The paragraph is empty right now."], [71.97, "There\u0027s no text the user is going to see inside of that paragraph."], [75.72, "But it\u0027s going to have the effect of being a place where we could add text"], [79.71, "later to give feedback to the user, letting"], [82.26, "them know whether their response was correct or incorrect."], [87.1, "Then, in part two, we added a free response question."], [89.495, "You could have picked a different free response question."], [91.87, "But we have a free response question in an h3."], [95.2, "Then an input whose type is text, where the user could"], [97.96, "type in some text, and then a button to check their answer,"], [101.05, "as well as another paragraph that\u0027s also empty at first, called feedback2,"], [105.188, "where we could let the user know whether they answered the question"], [107.98, "correctly or incorrectly."], [111.17, "So that describes the structure of the page."], [113.44, "But now we then need to get into the actual logic in JavaScript of handling"], [117.76, "these correct and incorrect responses."], [120.59, "So for that, we\u0027ll scroll up to the top of our page, where"], [123.7, "we start by adding an addEventListener on the document,"], [126.91, "waiting for DOMContentLoaded."], [129.28, "In order to make sure that we\u0027re running JavaScript and adding"], [131.92, "Event Handlers to elements that already exist on the page,"], [135.22, "we want to wait to start running this code until the DOM,"], [138.7, "the entire Document Object Model representing our page is done loading."], [143.38, "So we\u0027ll wait until the DOM content is loaded."], [145.79, "And then we\u0027re going to run all of the code that you\u0027re about to see."], [150.55, "The first thing we need to do is make it for our multiple choice question"], [154.45, "that when we click on the correct answer, the button that"], [156.88, "corresponds to the correct answer, that we do two things."], [159.95, "We change the button to be green, and then we"], [162.43, "add some text to say that the user answered the question correctly."], [166.73, "So let\u0027s first try and select that button."], [168.91, "And we can do so via document.querySelector correct."], [174.37, "That is going to select the one, in this case, only element that"], [177.67, "has a class name of correct, storing that inside of this variable"], [181.33, "called correct."], [183.37, "On that button, we\u0027re going to say correct.addEventListener,"], [186.67, "adding an event listener for the click event."], [189.71, "Meaning when the button is clicked on, we\u0027re"], [191.98, "going to go ahead and run this code."], [194.23, "What code should run when the correct option is clicked on?"], [197.29, "Well, two things should happen."], [199.04, "One, we want to change the background color of the button to correct.style."], [203.8, "It lets us modify the style of that button."], [206.62, "We want to change the background color property and set it equal to green."], [210.85, "And in addition to changing the color of the button,"], [214.06, "we also wanted to provide feedback."], [216.16, "So I can use document.querySelector #feedback1 to mean find me the element"], [222.01, "whose ID is feedback1."], [225.1, "Once I have that element, I can update the inner HTML of that element."], [229.93, "And right now, the paragraph is empty."], [232.21, "But we\u0027re going to update that paragraph to instead display the word \u0027correct.\u0027"], [237.74, "Meanwhile, I need to do something similar for incorrect options."], [241.85, "But for incorrect options, there are multiple incorrect options."], [245.14, "So rather than use a document.querySelector,"], [248.36, "I can instead use document.querySelectorAll,"], [251.6, "which will return to me not just one match but an array of all"], [255.53, "of the matches for any element that has a class of incorrect."], [259.79, "And we\u0027re going to store that inside of correct."], [263.65, "Next, we have a loop that\u0027s going to loop over"], [265.66, "each of those incorrect responses."], [267.325, "There are a couple of ways you could do this."], [269.2, "And you could even simplify this a little bit."], [271.12, "But this is closest to what you might be familiar with, with,"], [273.662, "like, for loops over an array in C, for example."], [276.62, "But for each of these incorrect options, we\u0027re"], [279.1, "going to do something very similar."], [280.76, "We\u0027re going to add an EventListener."], [282.52, "When that incorrect button is clicked on, we are going to run this function."], [286.72, "The function does two things."], [288.62, "It takes the incorrect button, changes its style."], [292.33, "The background color property is the one we want to change."], [295.24, "And we change the background color to be red."], [298.27, "And then we get access to feedback1, that\u0027s that paragraph."], [303.04, "And we change the inner HTML inside of that paragraph"], [306.79, "to say that the user answered the question incorrectly."], [310.42, "That, then, will handle our multiple choice question,"], [313.03, "dealing with both the correct answer button and also"], [315.76, "all of the incorrect answer buttons."], [318.54, "But now, let\u0027s take a look at the free response question."], [322.02, "When the Check button is clicked, the button that has an ID of check,"], [326.19, "I want to first add an EventListener here to say when the button is clicked,"], [329.77, "I want to run this function."], [331.39, "I need to verify and see whether what the user typed into the input field"], [335.28, "is actually correct or not."], [337.48, "So I might start by saying document.querySelectorInput to give"], [341.25, "my JavaScript code access to that input field, where"], [344.04, "the user was typing in their response."], [346.51, "And if I have an input field in JavaScript,"], [349.2, "I can access its .value property to get the value of the input field."], [354.25, "In other words, what the user typed into that input field."], [357.72, "And if the input value is equal to the correct answer,"], [361.71, "well, then what I want to do is change the input field,"], [365.37, "change its background color to green, much as we changed the background"], [368.64, "color of the button to green before."], [371.4, "And then now update feedback2 instead of feedback1,"], [375.48, "changing this paragraph to let the user know that they"], [378.81, "answered the question correctly."], [381.14, "Else, if the input value is not the correct answer,"], [384.34, "change the background color to red."], [386.29, "And then update feedback2 let the user know the answer incorrectly."], [391.28, "So now I can try and actually try this website by cd-ing into trivia."], [396.22, "And then running http-server to start up an HTTP server."], [402.1, "And if I visit that URL, and then choose index.html,"], [406.42, "I now have my trivia page, where if I click on an incorrect answer,"], [410.35, "the button turns red and I see the word incorrect."], [413.14, "But if I click on a correct answer, the button turns green, and I see correct."], [417.49, "And likewise, for a free response, if I type in an incorrect answer and press"], [421.96, "check answer, the textfield turns red, and it says incorrect."], [425.56, "But if I type in the correct answer and press check, the textfield turns green."], [431.29, "And it displays the word correct for my questions."], [434.05, "And if you do the same, it\u0027ll do that for your questions as well."], [437.56, "My name is Brian."], [438.58, "And this was trivia."]];
+            
+            // Add captions to dropdown
+            for (let caption of captions) {
+
+                // Floor start (to match YouTube timeline)
+                const start = Math.floor(caption[0]);
+
+                // Add caption to dropdown
+                const url = new URL(window.location.href);
+                url.searchParams.set('start', start)
+                url.searchParams.delete('end');
+                const $a = $('<a class="dropdown-item overflow-hidden text-truncate" data-start="' + start + '" href="' + url.href + '">');
+                let $span = $('<span class="d-inline-block me-3 text-end">');
+                $span.append($('<span class="badge bg-dark">').text(numeral(start).format('00:00:00')));
+                $a.append($span);
+                $span = $('<span data-text>').text(caption[1]);
+                $a.append($span);
+                $('#captions').append($('<li>').append($a));
+
+                // Listen for clicks
+                $a.on('click', function(event) {
+                    if ($('#switch').is(':checked')) {
+                        YT.get('screen').seekTo(start - offset);
+                        YT.get('screen').playVideo();
+                    }
+                    else {
+                        YT.get('main').seekTo(start);
+                        YT.get('main').playVideo();
+                    }
+                    event.preventDefault();
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                });
+            }
+
+            // Scroll to closest caption by default
+            const shown = function() {
+                $('#captions [data-start]').removeAttr('data-top');
+                $('#captions').scrollTop(0);
+                const t = Math.round(($('#switch').is(':checked')) ? YT.get('screen').getCurrentTime() : YT.get('main').getCurrentTime());
+                const captions = $('#captions [data-start]').get();
+                for (let i = 0; i < captions.length; i++) {
+                    let $caption = $(captions[i]);
+                    if ($caption.attr('data-start') >= t) {
+                        if (i >= 2) {
+                            $caption = $(captions[i - 2]);
+                        }
+                        else if (i === 1) {
+                            $caption = $(captions[i - 1]);
+                        }
+                        $('#captions').scrollTop($caption.position().top); // https://stackoverflow.com/a/23116056
+                        $caption.attr('data-top', '');
+                        break;
+                    }
+                }
+                $('#q').focus();
+            };
+            $('#captions').parent().on('shown.bs.dropdown', shown);
+
+            // Hide captions if they were opened via focus and then navbar is clicked
+            // https://stackoverflow.com/questions/152975/how-do-i-detect-a-click-outside-an-element/3028037#3028037
+            $(document).click(function(event) { 
+                if (!$(event.target).closest($('#captions').closest('.input-group')).length) {
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                }
+            });
+
+            
+
+            // Show captions on focus
+            $('#q').on('click focus', function() {
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+            });
+
+            // Listen for searches
+            $('#q').closest('form').on('submit', function(e) {
+                e.preventDefault();
+            });
+            const $spans = $('#captions .dropdown-item span[data-text]');
+            $('#q').on('keyup search', function(e) {
+                const value = $(this).val().trim().toLowerCase();
+                if (value.length >= 2) {
+                    const regexp = new RegExp(value, 'i');
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        if ($span.text().toLowerCase().includes(value)) {
+                            $span.html($span.text().replace(regexp, function(match) {
+                                return '<mark>' + match + '</mark>';
+                            }));
+                            $span.parent().removeClass('d-none');
+                        }
+                        else {
+                            $span.parent().addClass('d-none');
+                        }
+                    });
+                    if ($('#captions .dropdown-item:not(.d-none)').length === 0) {
+                        $('#captions').addClass('d-none');
+                    }
+                    else {
+                        $('#captions').removeClass('d-none');
+                    }
+                }
+                else {
+                    $spans.each(function(index, element) {
+                        const $span = $(element);
+                        $span.html($span.text());
+                        $(element).parent().removeClass('d-none');
+                    });
+                    $('#captions').removeClass('d-none');
+                }
+                stretch({target: $('#captions').get(0)});
+            });
+
+            // Enable captions
+            $('#captions').prev('[data-bs-toggle="dropdown"]').removeAttr('disabled');
+            $('#q').removeAttr('disabled');
+
+            
+
+            // Listen for clicks on iframe
+            window.addEventListener('blur', function() {
+
+                
+
+                // Hide snacks
+                bootstrap.Dropdown.getOrCreateInstance($('#snacks-button').get(0)).hide();
+
+                
+                // Hide captions
+                bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                
+            });
+
+            // Stretch badges' parents so all same size
+            const stretch = function(e) {
+                const $parents = $(e.target).find('.bg-dark').parent();
+                const width = Math.max.apply(null, $parents.map(function(index, domElement) { return $(domElement).outerWidth(); }));
+                $parents.css('width', width + 'px');
+            };
+            
+            $('#captions').parent().on('shown.bs.dropdown', stretch);
+            
+            
+
+            // Load YouTube Player API
+            // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            
+
+            // Player for main
+            let main;
+
+            // https://developers.google.com/youtube/iframe_api_reference#Requirements
+            function onYouTubeIframeAPIReady() {
+                new YT.Player('main', {
+                    events: {
+                        onReady: function(event) {
+
+                            // Remember player for main
+                            main = event.target;
+
+                            // Remove API-added attributes
+                            $('#main').removeAttr('height').removeAttr('title').removeAttr('width');
+
+                            // Reveal main
+                            $('#main').removeClass('invisible');
+
+                            // If not iframed
+                            if (window.self === window.top) {
+
+                                // If resuming
+                                const url = new URL(window.location.href);
+                                if (url.searchParams.get('start') === null) {
+                                    try {
+                                        const start = localStorage.getItem(url.pathname.slice(1));
+                                        if (start) {
+                                            main.seekTo(start);
+                                        }
+                                    }
+                                    catch(err) {}
+                                }
+
+                                // Play video
+                                main.playVideo();
+                            }
+                        }
+                    },
+                    playerVars: $.extend({"autoplay": "0", "enablejsapi": "1", "iv_load_policy": "3", "mute": "0", "origin": "https://video.cs50.io", "playsinline": "1", "rel": "0", "showinfo": "0"}, playerVars),
+                    videoId: "FLlI7rSSV_M"
+                });
+            }
+
+            
+
+            // Serve snacks
+            // https://unicode.org/emoji/charts/full-emoji-list.html
+            const snacks = {
+                'food-sweet': ['🍦', '🍧', '🍨', '🍩', '🍪', '🥧', '🍫', '🍬', '🍭', '🍮'],
+                'food-fruit': ['🍇', '🍈', '🍉', '🍊', '🍌', '🍍', '🥭', '🍎', '🍏', '🍐', '🍒', '🍓', '🥝', '🥥']
+            };
+            const $divider = $('<li><hr class="dropdown-divider"></hr></li>');
+            const $item = $('<li><a class="dropdown-item"></li>');
+            $('#snacks').append($item.clone().children().text(['🧁', '🍰'][Math.floor(Math.random(2))]));
+            for (key in snacks) {
+                $('#snacks').append($divider.clone());
+                $('#snacks').append($item.clone().children().text(snacks[key].splice(Math.floor(Math.random() * snacks[key].length), 1)));
+            }
+            $('#snacks').append($divider.clone());
+            $('#snacks').append($item.clone().children().text('🍿'));
+
+            // Ensure snacks are cross-platform
+            twemoji.parse($('#snacks').get(0));
+
+            // Listen for snacks
+            $('#snacks .dropdown-item').click(function(event) {
+                $(this).html(twemoji.parse('😋')).addClass('disabled').attr('aria-disabled', 'true');
+                return false;
+            });
+
+            // Before shortcuts are shown
+            $('#shortcuts').on('show.bs.modal', function(event) {
+                if ($('#shortcuts').data('danger')) {
+                    $('#shortcuts .alert').removeClass('alert-warning').addClass('alert-danger');
+                    $('#shortcuts').removeData('danger');
+                }
+                else {
+                    $('#shortcuts .alert').removeClass('alert-danger').addClass('alert-warning');
+                }
+            });
+
+            // Listen for keydown
+            $(document).keydown(function(e) {
+
+                // If keydown was in search box and was down arrow
+                if ($(e.target).attr('id') === 'q' && e.which === 40) {
+                    $('#captions [data-top]').focus();
+                    e.preventDefault();
+                }
+            });
+
+            // Listen for keyup
+            $(document).keyup(function(e) {
+
+                // If Escape
+                if (e.key === 'Escape') {
+
+                    // Close modal (if open)
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).hide();
+
+                    // Close captions (if open)
+                    bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).hide();
+                    $('#q').blur();
+                }
+
+                // If keyup was in search box
+                if ($(e.target).attr('id') === 'q') {
+
+                    // In case user hid captions with Escape, re-show since user is now typing
+                    if (e.key !== 'Escape') {
+                        bootstrap.Dropdown.getOrCreateInstance($('#captions-button').get(0)).show();
+                    }
+
+                    // Ignore event otherwise so that it propagates to search box
+                    return;
+                }
+
+                // If question mark
+                if (e.key === '?') {
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+
+                // Listen for keyups intended for iframe
+                const keys = [
+                    ' ',
+                    ',',
+                    '.',
+                    '<',
+                    '>',
+                    'c',
+                    'f',
+                    'j',
+                    'k',
+                    'l',
+                    'm'
+                ];
+                if (keys.includes(e.key)) {
+                    $('#shortcuts').data('danger', true);
+                    bootstrap.Modal.getOrCreateInstance($('#shortcuts').get(0)).show();
+                }
+            });
+
+            // Every 500ms
+            let end;
+            window.setInterval(function() {
+
+                // If a player is foregrounded (and ready)
+                let player;
+                if (screen && $('#switch').is(':checked')) {
+                    player = screen;
+                }
+                else if (main) {
+                    player = main;
+                }
+                if (player) {
+
+                    // Current timecode
+                    const t = Math.round(player.getCurrentTime());
+
+                    // Current URL
+                    const url = new URL(window.location.href);
+            
+                    // Get start from URL
+                    let start;
+                    try {
+                        start = parseInt(url.searchParams.get('start'));
+                    }
+                    catch (err) {}
+
+                    // Remove end from URL from URL
+                    if (url.searchParams.get('end')) {
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                            try {
+                                end = parseInt(url.searchParams.get('end'));
+                                url.searchParams.delete('end');
+                                history.replaceState(null, '', url);
+                            }
+                            catch (err) {}
+                        }
+                    }
+
+                    // If end is set
+                    if (typeof end !== 'undefined') {
+
+                        // And player has reached it, pause video
+                        if (player.getPlayerState() === YT.PlayerState.PLAYING && t === end) {
+                            player.pauseVideo();
+                        }
+
+                        // If player has reached or passed it, forget end
+                        if (t >= end) {
+                            end = undefined;
+                        }
+                    }
+
+                    // If paused, add timecode (if not 0) to URL
+                    if (player.getPlayerState() === YT.PlayerState.PAUSED && t !== 0) {
+                        if (start !== t) {
+                            url.searchParams.set('start', t);
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // If playing, remove timecode from URL
+                    else if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                        if (start) {
+                            url.searchParams.delete('start');
+                            history.replaceState(null, '', url);
+                        }
+                    }
+
+                    // Update external link in navbar
+                    const $a = $('nav .fa-external-link-alt').parent();
+                    if ($a.attr('href') !== url && t != 0) {
+                        url.searchParams.set('start', t);
+                        $a.attr('href', url);
+                    }
+
+                    // Remember timecode in localStorage if more than a minute from start or end
+                    try {
+                        if (t > 60 && Math.round(player.getDuration()) - t > 60) {
+                            localStorage.setItem(url.pathname.slice(1), t);
+                        }
+                        else {
+                            localStorage.removeItem(url.pathname.slice(1));
+                        }
+                    }
+                    catch(err) {}
+                }
+            }, 500);
+ 
+            // Resize UI
+            $(window).resize(resize).trigger('resize');
+
+            // Reveal UI
+            $('body').removeClass('invisible');
+
+        </script>
+
+    
+
+<div style="clear: both; display: block; height: 0px;"></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
